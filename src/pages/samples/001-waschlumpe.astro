@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import KnitSurface from '../../components/KnitSurface';
+import KnitSurface from '../../samples/001-waschlumpe/KnitSurface';
 ---
 <BaseLayout title="001 Waschlumpe — Lumpesammlig">
   <main>
-    <KnitSurface client:load />
+    <KnitSurface collectionHref="/#library" client:load />
     <article class="sample-notes">
       <a href="/">← Collection</a>
       <p class="tag">SAMPLE 001 / WASCHLUMPE</p>

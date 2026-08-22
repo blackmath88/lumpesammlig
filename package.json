@@ -10,17 +10,15 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.0",
-    "@react-three/fiber": "^9.3.0",
-    "astro": "^5.13.0",
+    "@astrojs/react": "^6.0.4",
+    "astro": "^7.2.4",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "three": "^0.179.1"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "@types/three": "^0.179.0",
     "typescript": "^5.9.2"
   }
 }

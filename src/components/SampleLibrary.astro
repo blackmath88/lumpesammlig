@@ -3,54 +3,58 @@ import { samples } from '../data/samples';
 ---
 <section class="library" id="library">
   <header class="library-head">
-    <div>
-      <p class="eyebrow">THE COLLECTION</p>
-      <h2>Real things.<br />Front-end translations.</h2>
-    </div>
-    <p class="intro">Each sample starts with a physical object, surface, mechanism or accidental interface. We keep its behaviour, material logic or visual tension—and rebuild it as something native to the web.</p>
+    <p class="eyebrow">THE COLLECTION / {String(samples.length).padStart(3, '0')} OBJECT</p>
+    <h2>Real things,<br />still behaving strangely.</h2>
+    <p class="intro">Each entry keeps one material, visual or behavioural truth from a physical object, then lets that truth choose its own native web form.</p>
   </header>
 
-  <div class="grid">
+  <div class="promenade">
     {samples.map((sample) => (
-      <a class:list={['card', sample.status !== 'live' && 'card--planned']} href={sample.route} aria-disabled={sample.status !== 'live' ? 'true' : undefined}>
-        <div class="card-top"><span>{sample.number}</span><span>{sample.status}</span></div>
-        <div class="preview" aria-hidden="true">
-          {sample.id === 'waschlumpe' ? (
-            <div class="mini-knit"><span></span><span></span><span></span><span></span></div>
-          ) : <div class="empty-mark">+</div>}
+      <a class="sample" href={sample.route} data-sample={sample.id}>
+        <div class="sample-index">
+          <span>{sample.number}</span>
+          <span>{sample.status}</span>
         </div>
-        <h3>{sample.title}</h3>
-        <p>{sample.object}</p>
-        <dl>
-          <div><dt>Material</dt><dd>{sample.material}</dd></div>
-          <div><dt>Web translation</dt><dd>{sample.translation}</dd></div>
-        </dl>
+        <div class="preview" aria-hidden="true">
+          <div class="mini-knit"></div>
+          <span class="enter">enter study ↗</span>
+        </div>
+        <div class="sample-copy">
+          <h3>{sample.title}</h3>
+          <p class="object">{sample.object}</p>
+          <dl>
+            <div><dt>Observed</dt><dd>{sample.material}</dd></div>
+            <div><dt>Translated as</dt><dd>{sample.translation}</dd></div>
+            <div><dt>Boundary</dt><dd>{sample.technology.join(' / ')}</dd></div>
+          </dl>
+        </div>
       </a>
     ))}
   </div>
+
+  <p class="open-end"><span>Next</span> The collection waits for another real object. No empty specimen is invented in advance.</p>
 </section>
 
 <style>
-  .library{background:#eeeae3;color:#161816;padding:clamp(72px,10vw,140px) clamp(20px,5vw,72px)}
-  .library-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(260px,.75fr);gap:48px;align-items:end;margin:0 auto 64px;max-width:1400px}
-  .eyebrow{font-size:11px;letter-spacing:.22em;font-weight:750;margin:0 0 18px;opacity:.55}
-  h2{font-size:clamp(44px,7vw,96px);line-height:.92;letter-spacing:-.055em;margin:0;font-weight:650}
-  .intro{font-size:clamp(16px,1.8vw,21px);line-height:1.48;margin:0;color:#4b504a}
-  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1400px;margin:auto}
-  .card{min-width:0;text-decoration:none;color:inherit;border-top:1px solid rgba(22,24,22,.28);padding-top:14px;transition:transform .3s ease,opacity .3s ease}
-  .card:hover{transform:translateY(-4px)}
-  .card--planned{opacity:.42;pointer-events:none}
-  .card-top{display:flex;justify-content:space-between;text-transform:uppercase;font-size:10px;letter-spacing:.18em;margin-bottom:16px}
-  .preview{height:330px;background:#191c18;overflow:hidden;display:grid;place-items:center;margin-bottom:22px}
-  .mini-knit{position:relative;width:120%;height:120%;background:repeating-linear-gradient(90deg,transparent 0 17px,rgba(188,183,200,.85) 18px 21px,transparent 22px 37px),repeating-linear-gradient(0deg,transparent 0 17px,rgba(164,199,177,.8) 18px 21px,transparent 22px 37px);filter:blur(.2px);transform:rotate(-6deg) scale(1.12);opacity:.92}
-  .mini-knit:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(184,177,196,.35),rgba(175,191,158,.15) 48%,rgba(149,205,185,.32));mix-blend-mode:screen}
-  .empty-mark{font-size:64px;font-weight:200;color:#767b75}
-  h3{font-size:28px;letter-spacing:-.025em;margin:0 0 10px}
-  .card>p{color:#575d56;line-height:1.48;margin:0 0 28px;min-height:68px}
-  dl{margin:0;border-top:1px solid rgba(22,24,22,.16)}
-  dl div{padding:12px 0;border-bottom:1px solid rgba(22,24,22,.12)}
-  dt{text-transform:uppercase;font-size:9px;letter-spacing:.16em;margin-bottom:4px;color:#777d76}
-  dd{margin:0;font-size:13px;line-height:1.4}
-  @media(max-width:900px){.library-head{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.preview{height:270px}}
-  @media(max-width:620px){.grid{grid-template-columns:1fr}.preview{height:300px}.library-head{gap:28px}}
+  .library{background:#eeeae3;color:#161816;padding:clamp(76px,11vw,156px) clamp(20px,5vw,72px) clamp(90px,14vw,190px)}
+  .library-head{display:grid;grid-template-columns:.42fr 1.2fr .72fr;gap:clamp(24px,4vw,72px);align-items:start;margin:0 auto clamp(80px,11vw,150px);max-width:1400px}
+  .eyebrow{font-size:10px;letter-spacing:.22em;font-weight:750;margin:8px 0 0;opacity:.55}
+  h2{font-size:clamp(46px,6.7vw,94px);line-height:.91;letter-spacing:-.058em;margin:0;font-weight:650}
+  .intro{font-size:clamp(16px,1.65vw,20px);line-height:1.5;margin:8px 0 0;color:#4b504a}
+  .promenade{max-width:1400px;margin:auto}
+  .sample{display:grid;grid-template-columns:minmax(54px,.18fr) minmax(300px,1.35fr) minmax(260px,.72fr);gap:clamp(20px,4vw,68px);color:inherit;text-decoration:none;border-top:1px solid rgba(22,24,22,.3);padding-top:15px;align-items:start}
+  .sample-index{display:flex;flex-direction:column;gap:7px;text-transform:uppercase;font-size:10px;letter-spacing:.18em}.sample-index span:last-child{opacity:.5}
+  .preview{height:clamp(390px,52vw,700px);position:relative;background:#171a17;overflow:hidden;transform:rotate(-1.15deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .sample:hover .preview{transform:rotate(.15deg) scale(.995)}
+  .mini-knit{position:absolute;inset:-12%;background:repeating-linear-gradient(92deg,transparent 0 24px,rgba(190,183,200,.9) 25px 31px,transparent 32px 55px),repeating-linear-gradient(-2deg,transparent 0 23px,rgba(164,199,177,.82) 24px 30px,transparent 31px 54px);filter:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence baseFrequency='.012 .035' numOctaves='2' seed='7' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='18'/%3E%3C/filter%3E%3C/svg%3E%23w");opacity:.9}
+  .mini-knit:after{content:"";position:absolute;inset:0;background:linear-gradient(125deg,rgba(184,177,196,.45),transparent 46%,rgba(149,205,185,.38));mix-blend-mode:screen}
+  .enter{position:absolute;right:18px;bottom:17px;background:#eeeae3;color:#171917;padding:10px 13px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .sample-copy{padding-top:clamp(20px,5vw,70px)}
+  h3{font-size:clamp(42px,5vw,74px);line-height:.95;letter-spacing:-.05em;margin:0 0 24px}
+  .object{color:#4d534c;font-size:18px;line-height:1.5;margin:0 0 54px;max-width:460px}
+  dl{margin:0;border-top:1px solid rgba(22,24,22,.18)}dl div{padding:13px 0;border-bottom:1px solid rgba(22,24,22,.13)}
+  dt{text-transform:uppercase;font-size:9px;letter-spacing:.16em;margin-bottom:5px;color:#777d76}dd{margin:0;font-size:13px;line-height:1.4}
+  .open-end{max-width:1400px;margin:clamp(100px,14vw,190px) auto 0;border-top:1px solid rgba(22,24,22,.2);padding-top:16px;color:#757a74;font-size:13px;letter-spacing:.04em}.open-end span{text-transform:uppercase;font-size:9px;letter-spacing:.18em;margin-right:28px;color:#171917}
+  @media(max-width:900px){.library-head{grid-template-columns:1fr}.sample{grid-template-columns:64px 1fr}.sample-copy{grid-column:2}.preview{height:min(72vw,620px)}}
+  @media(max-width:620px){.sample{grid-template-columns:1fr}.sample-index{flex-direction:row;justify-content:space-between}.sample-copy{grid-column:auto}.preview{height:92vw}.library-head{margin-bottom:72px}}
 </style>

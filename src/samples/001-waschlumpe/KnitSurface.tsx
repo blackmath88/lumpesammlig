@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import './knit-surface.css';
 
 type Point = [number, number, number, number];
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 
-export default function KnitSurface() {
+type KnitSurfaceProps = {
+  collectionHref?: string;
+};
+
+export default function KnitSurface({ collectionHref = '#library' }: KnitSurfaceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [running, setRunning] = useState(true);
 
@@ -15,7 +20,8 @@ export default function KnitSurface() {
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    let reduced = motionQuery?.matches ?? false;
     let animate = running && !reduced;
     let raf = 0;
     let start = performance.now();
@@ -23,7 +29,7 @@ export default function KnitSurface() {
     const pointer = {
       x: 0.5, y: 0.5, tx: 0.5, ty: 0.5,
       down: false, active: false,
-      waveT: -999, strength: 0
+      strength: 0
     };
 
     const resize = () => {
@@ -54,17 +60,17 @@ export default function KnitSurface() {
       Math.sin(x * 0.018 - y * 0.071 - t * 0.16) * 0.33 +
       Math.cos((x + y) * 0.041 + t * 0.11) * 0.25;
 
-    const waveField = (x: number, y: number, w: number, h: number, t: number) => {
+    const tensionField = (x: number, y: number, w: number, h: number) => {
       const px = pointer.x * w, py = pointer.y * h;
       const dx = x - px, dy = y - py, d = Math.hypot(dx, dy);
-      const age = t - pointer.waveT;
-      if (!pointer.active || age < 0 || age > 2.6) return [0, 0, 0] as const;
-      const radius = age * 220;
-      const envelope = Math.exp(-Math.pow((d - radius) / 125, 2));
-      const oscillation = Math.sin(d * 0.034 - age * 6.2);
-      const falloff = Math.exp(-d / 620);
-      const amp = envelope * oscillation * falloff * pointer.strength * 14;
-      return [(dx / (d + 0.001)) * amp, (dy / (d + 0.001)) * amp, Math.abs(amp)] as const;
+      if (!pointer.active) return [0, 0, 0] as const;
+      const radius = Math.min(w, h) * 0.28;
+      const falloff = Math.exp(-(d * d) / (2 * radius * radius));
+      const lagX = (pointer.tx - pointer.x) * w;
+      const lagY = (pointer.ty - pointer.y) * h;
+      const pressure = pointer.down ? 1.35 : 1;
+      const strength = falloff * pointer.strength * pressure;
+      return [lagX * strength * 0.34, lagY * strength * 0.34, strength] as const;
     };
 
     const deform = (x: number, y: number, i: number, j: number, w: number, h: number, t: number): Point => {
@@ -72,16 +78,12 @@ export default function KnitSurface() {
       const idle = Math.sin(nx * 5.7 + ny * 2.3 + t * 0.22) * 4.0 + Math.sin(ny * 7.8 - nx * 2.8 - t * 0.17) * 3.0;
       const handmadeX = Math.sin(i * 0.8 + j * 0.26) * 4.0 + Math.cos(j * 0.43 - i * 0.19) * 2.4;
       const handmadeY = Math.sin(j * 0.68 + i * 0.21) * 3.6 + Math.cos(i * 0.39 - j * 0.18) * 2.1;
-      const px = pointer.x * w, py = pointer.y * h;
-      const vx = x - px, vy = y - py, d = Math.hypot(vx, vy);
-      const influence = Math.exp(-(d * d) / (2 * Math.pow(Math.min(w, h) * 0.22, 2))) * (pointer.active ? 1 : 0.15);
-      const pull = pointer.down ? 14 : 4;
-      const wave = waveField(x, y, w, h, t);
+      const tension = tensionField(x, y, w, h);
       return [
-        x + handmadeX + Math.sin(ny * 8 + t * 0.12) * 2.4 + (-vx / (d + 1)) * influence * pull + wave[0],
-        y + handmadeY + idle + noise(x, y, t) * 3.4 + (-vy / (d + 1)) * influence * pull + wave[1],
-        influence,
-        wave[2]
+        x + handmadeX + Math.sin(ny * 8 + t * 0.12) * 2.4 + tension[0],
+        y + handmadeY + idle + noise(x, y, t) * 3.4 + tension[1],
+        tension[2],
+        Math.hypot(tension[0], tension[1])
       ];
     };
 
@@ -107,8 +109,8 @@ export default function KnitSurface() {
       bg.addColorStop(0, '#28262b'); bg.addColorStop(0.48, '#1a1d19'); bg.addColorStop(1, '#111712');
       ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
 
-      const stepX = Math.max(22, Math.min(31, w / 42));
-      const stepY = stepX * 0.95;
+      const stepX = Math.max(25, Math.min(35, w / 38));
+      const stepY = stepX * 0.93;
       const cols = Math.ceil(w / stepX) + 7;
       const rows = Math.ceil(h / stepY) + 7;
       const pts: Point[][] = [];
@@ -131,12 +133,12 @@ export default function KnitSurface() {
           const p = pts[j][i], pr = pts[j][i + 1], pd = pts[j + 1][i];
           const base = colorAt(clamp(p[0] / w, 0, 1), clamp(p[1] / h, 0, 1));
           const irregular = 0.85 + (Math.sin(i * 0.57 + j * 0.31) + 1) * 0.34 + (Math.cos(i * 0.19 - j * 0.63) + 1) * 0.18;
-          const thick = 3.1 * irregular + p[3] * 0.025;
+          const thick = 3.8 * irregular + p[3] * 0.02;
 
           drawCurve([p[0] + 1.5, p[1] + 1.7, 0, 0], [pr[0] + 1.5, pr[1] + 1.7, 0, 0], 'rgba(0,0,0,.33)', thick + 3.0, 0, -4.2);
           drawCurve([p[0] + 1.5, p[1] + 1.7, 0, 0], [pd[0] + 1.5, pd[1] + 1.7, 0, 0], 'rgba(0,0,0,.33)', thick + 3.0, 4.3, 0);
-          drawCurve(p, pr, rgba(base), thick, 0, -4.2 - Math.sin(i + j) * 1.4);
-          drawCurve(p, pd, rgba(base), thick * 0.95, 4.3 + Math.cos(i * 0.8) * 1.1, 0);
+          drawCurve(p, pr, rgba(base), thick, 0, -5.4 - Math.sin(i + j) * 1.8);
+          drawCurve(p, pd, rgba(base), thick * 0.95, 5.2 + Math.cos(i * 0.8) * 1.5, 0);
           drawCurve([p[0] - .7, p[1] - .7, 0, 0], [pr[0] - .7, pr[1] - .7, 0, 0], 'rgba(255,255,245,.20)', Math.max(.8, thick * .22), 0, -4.2);
 
           if ((i + j) % 2 === 0) {
@@ -159,7 +161,6 @@ export default function KnitSurface() {
       pointer.tx = clamp((e.clientX - r.left) / r.width, 0, 1);
       pointer.ty = clamp((e.clientY - r.top) / r.height, 0, 1);
       pointer.active = true;
-      pointer.waveT = (performance.now() - start) / 1000;
     };
     const onDown = (e: PointerEvent) => { setPointer(e); pointer.down = true; canvas.setPointerCapture?.(e.pointerId); };
     const onUp = () => { pointer.down = false; };
@@ -170,6 +171,13 @@ export default function KnitSurface() {
     canvas.addEventListener('pointerup', onUp);
     canvas.addEventListener('pointercancel', onUp);
     canvas.addEventListener('pointerleave', onLeave);
+    const onMotionPreference = (event: MediaQueryListEvent) => {
+      reduced = event.matches;
+      animate = running && !reduced;
+      cancelAnimationFrame(raf);
+      draw();
+    };
+    motionQuery?.addEventListener('change', onMotionPreference);
     const ro = new ResizeObserver(() => { resize(); if (!animate) draw(); });
     ro.observe(canvas);
     resize(); draw();
@@ -183,6 +191,7 @@ export default function KnitSurface() {
       canvas.removeEventListener('pointerup', onUp);
       canvas.removeEventListener('pointercancel', onUp);
       canvas.removeEventListener('pointerleave', onLeave);
+      motionQuery?.removeEventListener('change', onMotionPreference);
     };
   }, [running]);
 
@@ -194,7 +203,7 @@ export default function KnitSurface() {
           <p className="eyebrow">LUMPESAMMLIG / SAMPLE 001</p>
           <h1>Waschlumpe<br />becomes interface.</h1>
           <p className="lede">A real knitted cloth, translated into a procedural web surface.</p>
-          <a className="scroll-link" href="#library">Enter the collection ↓</a>
+          <a className="scroll-link" href={collectionHref}>Enter the collection ↓</a>
         </div>
         <button className="motion" type="button" aria-pressed={running} onClick={() => setRunning(v => !v)}>
           {running ? 'Pause motion' : 'Resume motion'}
