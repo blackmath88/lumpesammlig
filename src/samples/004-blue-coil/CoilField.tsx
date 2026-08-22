@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './cord-field.css';
+import './coil-field.css';
 
 const vertexShader = `
   attribute vec2 position;
@@ -18,8 +18,8 @@ const fragmentShader = `
   uniform float time;
 
   float hash21(vec2 p) {
-    p = fract(p * vec2(123.34, 345.45));
-    p += dot(p, p + 34.345);
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
     return fract(p.x * p.y);
   }
 
@@ -31,85 +31,76 @@ const fragmentShader = `
                mix(hash21(i + vec2(0., 1.)), hash21(i + 1.), f.x), f.y);
   }
 
-  float cordCrown(float coordinate) {
-    float d = abs(fract(coordinate) - .5) * 2.;
-    return pow(max(0., 1. - d * d), .62);
-  }
-
-  float heightField(vec2 uv) {
+  vec3 fieldData(vec2 uv) {
     float aspect = resolution.x / max(resolution.y, 1.);
-    vec2 p = (uv - .5) * vec2(aspect, 1.);
-    float angle = -.31;
-    mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-    vec2 q = rotation * p;
+    vec2 p = (uv - vec2(.53, .49)) * vec2(aspect, 1.);
+    float r = length(p);
+    float a = atan(p.y, p.x);
+    float wobble = (noise(vec2(a * 1.4 + 8., r * 5.)) - .5) * .012;
+    wobble += sin(a * 5. + r * 18.) * .0025;
+    float spiral = r + wobble + a * .0018;
+    float spacing = .049;
+    float band = spiral / spacing;
+    float ringId = floor(band);
+    float local = fract(band);
+    float d = abs(local - .5) * 2.;
+    float crown = pow(max(0., 1. - d * d), .56);
 
-    float broadWarp = (noise(q * vec2(1.8, 3.1) + 4.2) - .5) * .075;
-    broadWarp += sin(q.x * 3.1 + noise(q * 1.3) * 2.) * .012;
-    float band = (q.y + broadWarp) / .074;
-    float row = floor(band);
-    float crown = cordCrown(band);
+    float arc = a * max(r, .025);
+    float wrapPhase = arc * 530. + r * 38. + noise(vec2(a * 16., ringId)) * 3.2;
+    float wrap = sin(wrapPhase);
+    float wrapFine = sin(wrapPhase * 2.03 + 1.1);
+    float handmade = noise(vec2(a * 26. + ringId, ringId * 1.7)) - .5;
+    float height = crown * (1. + wrap * .034 + wrapFine * .012 + handmade * .038);
 
-    float across = (fract(band) - .5);
-    float helix = sin(q.x * 58. + across * 15. + row * 2.27 + noise(vec2(q.x * 3., row)) * 1.8);
-    helix += .38 * sin(q.x * 116. + across * 29. - row * 1.71);
-    float fine = sin(q.x * 430. + across * 52. + noise(q * 46.) * 4.2);
-    fine += .42 * sin(q.x * 710. + across * 81.);
-    float broken = noise(q * vec2(115., 42.)) - .5;
-    float h = crown * (1. + helix * .024 + fine * .011 + broken * .032);
+    float centerLift = smoothstep(.19, 0., r);
+    float centerSpiral = sin((r + a * .018) * 150.);
+    height += centerLift * (.33 + centerSpiral * .055);
 
-    float crossCenter = -.04 + sin(q.x * 1.8 + .7) * .055;
-    float crossBand = (q.y - crossCenter) / .084;
-    float crossMask = smoothstep(.86, .18, abs(q.x + .04));
-    float crossCrown = cordCrown(crossBand) * crossMask;
-    float crossHelix = sin(q.x * 54. + (fract(crossBand) - .5) * 16. + 1.4) * .028 + sin(q.x * 166.) * .011;
-    h = max(h, crossCrown * (1.12 + crossHelix) + crossMask * .05);
-
-    float fuzz = step(.975, hash21(floor(q * vec2(330., 145.)))) * noise(q * 280.);
-    return h + fuzz * .045;
+    float blueSequence = step(5.15, mod(ringId + 1., 7.));
+    blueSequence = max(blueSequence, step(.5, smoothstep(.305, .335, r) * (1. - smoothstep(.365, .395, r))));
+    float blueBeat = smoothstep(.1, .5, sin(wrapPhase * .48 + ringId * .7));
+    float blue = blueSequence * blueBeat * smoothstep(.08, .55, crown);
+    blue *= 1. - centerLift * .82;
+    return vec3(height, blue, crown);
   }
 
   void main() {
     vec2 texel = 1. / resolution;
-    float h = heightField(vUv);
-    float hx = heightField(vUv + vec2(texel.x * 1.6, 0.)) - heightField(vUv - vec2(texel.x * 1.6, 0.));
-    float hy = heightField(vUv + vec2(0., texel.y * 1.6)) - heightField(vUv - vec2(0., texel.y * 1.6));
-    vec3 normal = normalize(vec3(-hx * 11., -hy * 11., 1.));
+    vec3 data = fieldData(vUv);
+    float hx = fieldData(vUv + vec2(texel.x * 1.7, 0.)).x - fieldData(vUv - vec2(texel.x * 1.7, 0.)).x;
+    float hy = fieldData(vUv + vec2(0., texel.y * 1.7)).x - fieldData(vUv - vec2(0., texel.y * 1.7)).x;
+    vec3 normal = normalize(vec3(-hx * 12., -hy * 12., 1.));
 
-    vec2 lightMotion = (pointer - .5) * vec2(.34, .22);
-    lightMotion += vec2(sin(time * .11), cos(time * .09)) * .018;
-    vec3 light = normalize(vec3(-.38 + lightMotion.x, .46 - lightMotion.y, .82));
+    vec2 lightShift = (pointer - .5) * vec2(.28, .2);
+    lightShift += vec2(sin(time * .08), cos(time * .07)) * .012;
+    vec3 light = normalize(vec3(-.42 + lightShift.x, .52 - lightShift.y, .86));
     float diffuse = max(dot(normal, light), 0.);
-    float wrap = max(dot(normal, light) * .5 + .5, 0.);
-
-    vec3 valley = vec3(.225, .243, .211);
-    vec3 body = vec3(.455, .478, .421);
-    vec3 ridge = vec3(.612, .628, .564);
-    vec3 color = mix(valley, body, smoothstep(.02, .72, h));
-    color = mix(color, ridge, pow(max(h, 0.), 2.6) * .34);
+    float wrapLight = max(dot(normal, light) * .5 + .5, 0.);
 
     float aspect = resolution.x / max(resolution.y, 1.);
-    vec2 materialP = (vUv - .5) * vec2(aspect, 1.);
-    float materialAngle = -.31;
-    mat2 materialRotation = mat2(cos(materialAngle), -sin(materialAngle), sin(materialAngle), cos(materialAngle));
-    vec2 materialQ = materialRotation * materialP;
-    float thread = sin(materialQ.y * 1180. + materialQ.x * 76. + noise(materialQ * 91.) * 4.5);
-    float threadFine = sin(materialQ.y * 1930. - materialQ.x * 43.);
-    float threadBreak = noise(materialQ * vec2(205., 74.));
-    float threadTone = thread * .034 + threadFine * .014;
-    color *= 1. + threadTone * (.55 + h * .45);
-    color += vec3(.052, .055, .047) * smoothstep(.92, 1., thread) * step(.57, threadBreak) * h;
+    vec2 p = (vUv - vec2(.53, .49)) * vec2(aspect, 1.);
+    float r = length(p);
+    float a = atan(p.y, p.x);
+    float arc = a * max(r, .025);
+    float fibre = sin(arc * 1080. + r * 95. + noise(vec2(a * 71., r * 260.)) * 4.);
+    float fibreBreak = noise(vec2(arc * 340., r * 420.));
 
-    float fiberBreak = noise(vUv * resolution * vec2(.16, .055));
-    float matteLight = .48 + diffuse * .31 + wrap * .17;
-    matteLight *= .93 + fiberBreak * .11;
-    matteLight *= .78 + h * .24;
-    color *= matteLight;
+    vec3 valley = vec3(.205, .151, .101);
+    vec3 straw = vec3(.56, .405, .245);
+    vec3 ridge = vec3(.76, .61, .40);
+    vec3 indigo = vec3(.055, .12, .205);
+    vec3 color = mix(valley, straw, smoothstep(.04, .72, data.x));
+    color = mix(color, ridge, pow(max(data.x, 0.), 2.5) * .24);
+    color = mix(color, indigo, data.y * .9);
+    color *= .48 + diffuse * .34 + wrapLight * .19;
+    color *= .94 + fibre * .045 * data.z;
+    color += vec3(.07, .052, .029) * smoothstep(.92, 1., fibre) * step(.6, fibreBreak) * data.z;
+    color *= .9 + noise(vUv * vec2(7., 9.)) * .12;
 
-    float warmVariation = noise(vUv * vec2(3.2, 4.7));
-    color += vec3(.027, .019, .008) * warmVariation;
-    float vignette = 1. - smoothstep(.38, .9, length((vUv - .5) * vec2(.72, 1.)));
-    color *= .78 + vignette * .24;
-    color = pow(color, vec3(.92));
+    float vignette = 1. - smoothstep(.4, .98, length((vUv - .5) * vec2(.72, 1.)));
+    color *= .8 + vignette * .23;
+    color = pow(color, vec3(.9));
     gl_FragColor = vec4(color, 1.);
   }
 `;
@@ -127,7 +118,7 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function CordField() {
+export default function CoilField() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -135,10 +126,9 @@ export default function CordField() {
     if (!canvas) return;
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'high-performance' });
     if (!gl) {
-      canvas.closest('.cord-hero')?.classList.add('cord-hero--fallback');
+      canvas.closest('.coil-hero')?.classList.add('coil-hero--fallback');
       return;
     }
-
     const vert = compile(gl, gl.VERTEX_SHADER, vertexShader);
     const frag = compile(gl, gl.FRAGMENT_SHADER, fragmentShader);
     if (!vert || !frag) return;
@@ -149,19 +139,17 @@ export default function CordField() {
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
     gl.useProgram(program);
-
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     const position = gl.getAttribLocation(program, 'position');
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-
     const resolution = gl.getUniformLocation(program, 'resolution');
     const pointerUniform = gl.getUniformLocation(program, 'pointer');
     const timeUniform = gl.getUniformLocation(program, 'time');
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const pointer = { x: .68, y: .28, tx: .68, ty: .28 };
+    const pointer = { x: .32, y: .25, tx: .32, ty: .25 };
     let reduced = motionQuery.matches;
     let frame = 0;
     let lastRender = 0;
@@ -175,7 +163,6 @@ export default function CordField() {
       canvas.height = Math.max(1, Math.floor(rect.height * dpr));
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
-
     const draw = (now = performance.now()) => {
       if (!reduced && now - lastRender < 33) {
         frame = requestAnimationFrame(draw);
@@ -186,11 +173,10 @@ export default function CordField() {
       pointer.y += (pointer.ty - pointer.y) * .035;
       gl.uniform2f(resolution, canvas.width, canvas.height);
       gl.uniform2f(pointerUniform, pointer.x, 1 - pointer.y);
-      gl.uniform1f(timeUniform, (performance.now() - started) / 1000);
+      gl.uniform1f(timeUniform, (now - started) / 1000);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduced) frame = requestAnimationFrame(draw);
     };
-
     const onPointer = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer.tx = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
@@ -198,15 +184,14 @@ export default function CordField() {
       if (reduced) draw();
     };
     const onLeave = () => {
-      pointer.tx = .68;
-      pointer.ty = .28;
+      pointer.tx = .32;
+      pointer.ty = .25;
     };
     const onMotion = (event: MediaQueryListEvent) => {
       reduced = event.matches;
       cancelAnimationFrame(frame);
       draw();
     };
-
     canvas.addEventListener('pointermove', onPointer, { passive: true });
     canvas.addEventListener('pointerleave', onLeave);
     motionQuery.addEventListener('change', onMotion);
@@ -217,7 +202,6 @@ export default function CordField() {
     observer.observe(canvas);
     resize();
     draw();
-
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
@@ -232,19 +216,16 @@ export default function CordField() {
   }, []);
 
   return (
-    <section className="cord-hero" aria-labelledby="cord-title">
-      <canvas ref={canvasRef} className="cord-canvas" aria-label="Procedural macro study of densely wound soft green cotton cord" />
-      <div className="cord-veil" aria-hidden="true" />
-      <div className="cord-copy">
-        <p className="cord-index">LUMPESAMMLIG / OBJECT 003</p>
-        <h1 id="cord-title">Soft<br />Green</h1>
-        <p className="cord-lede">A material field held together by thousands of weak fibres, turned strong through twist.</p>
+    <section className="coil-hero" aria-labelledby="coil-title">
+      <canvas ref={canvasRef} className="coil-canvas" aria-label="Procedural macro study of concentric natural-fibre coils with indigo bindings" />
+      <div className="coil-shade" aria-hidden="true" />
+      <div className="coil-copy">
+        <p>OBJECT 004 / COIL STUDY</p>
+        <h1 id="coil-title">Blue<br />Coil</h1>
+        <span>Wrapped fibre accumulates around a centre. Indigo interrupts the repetition.</span>
       </div>
-      <div className="cord-note">
-        <span>3.5 MM / 100 M</span>
-        <p>Move slowly. Only the light changes; the wound material stays under load.</p>
-      </div>
-      <a className="cord-back" href="/#library">Collection ↙</a>
+      <div className="coil-note"><b>MOVE SLOWLY</b><span>The material stays still. Only its broad light direction changes.</span></div>
+      <a className="coil-back" href="/#library">Collection ↙</a>
     </section>
   );
 }

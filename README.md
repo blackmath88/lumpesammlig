@@ -18,6 +18,10 @@ The source note and implementation live together in src/samples/001-waschlumpe/.
 
 A wound 3.5 mm macramé cord becomes a procedural height field. A raw WebGL island reconstructs packed diagonal bands, internal twist and fibre-scale roughness before deriving normals for matte lighting. The real photographs remain evidence below the synthetic material study.
 
+### 004 — Blue Coil
+
+A hand-wrapped basket lid becomes a concentric procedural relief. Its raw WebGL study preserves accumulated coils, short indigo binding marks, radial compression and the small drift of hand construction. Pointer input changes only the broad light direction; the material itself remains still.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -35,6 +39,7 @@ src/
     samples/
       001-waschlumpe.astro       # dedicated exhibition route
       003-soft-green.astro
+      004-blue-coil.astro
   samples/
     001-waschlumpe/
       sample.md                  # object, observation, translation, boundary
@@ -44,9 +49,13 @@ src/
       sample.md
       CordField.tsx              # raw WebGL + GLSL island
       cord-field.css
+    004-blue-coil/
+      sample.md
+      CoilField.tsx              # concentric raw WebGL + GLSL relief
+      coil-field.css
 ~~~
 
-Only KnitSurface hydrates (client:load). The library, layout and notes are static Astro. React is therefore a local choice for Sample 001, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
+Only each sample's focused interactive island hydrates (`KnitSurface`, `CordField`, and `CoilField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
 
 There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
 

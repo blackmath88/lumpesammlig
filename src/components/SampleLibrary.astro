@@ -16,7 +16,11 @@ import { samples } from '../data/samples';
           <span>{sample.status}</span>
         </div>
         <div class="preview" aria-hidden="true">
-          {sample.id === 'waschlumpe' ? <div class="mini-knit"></div> : <div class="mini-cord"><i></i></div>}
+          {sample.id === 'waschlumpe'
+            ? <div class="mini-knit"></div>
+            : sample.id === 'blue-coil-basket'
+              ? <div class="mini-coil"></div>
+              : <div class="mini-cord"><i></i></div>}
           <span class="enter">enter study ↗</span>
         </div>
         <div class="sample-copy">
@@ -52,6 +56,9 @@ import { samples } from '../data/samples';
   .mini-cord{position:absolute;inset:-12%;transform:rotate(-7deg);background:repeating-linear-gradient(106deg,#434a40 0 5px,#727969 6px 26px,#9ba08f 27px 34px,#596052 35px 41px);filter:saturate(.72) contrast(1.08)}
   .mini-cord:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(101deg,transparent 0 5px,rgba(231,232,219,.2) 6px,transparent 7px 12px);mix-blend-mode:screen}
   .mini-cord i{position:absolute;left:-5%;right:-5%;top:45%;height:16%;border-radius:999px;background:repeating-linear-gradient(104deg,#596052 0 5px,#919786 5px 12px,#686f60 12px 17px);box-shadow:0 12px 18px rgba(34,39,32,.4),inset 0 8px 12px rgba(255,255,245,.16);transform:rotate(2deg)}
+  .mini-coil{position:absolute;inset:-14%;background:repeating-radial-gradient(circle at 54% 48%,#bf9763 0 17px,#68482d 18px 21px,#c6a071 22px 36px,#21334a 37px 41px,#a87e4f 42px 57px);filter:saturate(.82) contrast(1.08);transform:scale(1.12)}
+  .mini-coil:before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 7deg at 54% 48%,transparent 0 2.2deg,rgba(44,32,21,.3) 2.35deg 2.7deg,rgba(238,209,163,.18) 2.85deg 3.15deg);mix-blend-mode:multiply;opacity:.72}
+  .mini-coil:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 43% 37%,rgba(255,235,194,.36),transparent 38%),radial-gradient(circle at 54% 48%,transparent 0 16%,rgba(31,21,14,.34) 68%,rgba(20,15,12,.76));mix-blend-mode:soft-light}
   .enter{position:absolute;right:18px;bottom:17px;background:#eeeae3;color:#171917;padding:10px 13px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
   .sample-copy{padding-top:clamp(20px,5vw,70px)}
   h3{font-size:clamp(42px,5vw,74px);line-height:.95;letter-spacing:-.05em;margin:0 0 24px}

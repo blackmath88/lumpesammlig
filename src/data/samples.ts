@@ -32,5 +32,16 @@ export const samples: Sample[] = [
     route: '/samples/003-soft-green',
     status: 'study',
     technology: ['React island', 'Raw WebGL', 'GLSL']
+  },
+  {
+    id: 'blue-coil-basket',
+    number: '004',
+    title: 'Blue Coil',
+    object: 'A hand-wrapped basket lid built by accumulating natural fibre around a raised centre.',
+    material: 'Coiled plant fibre / indigo binding / radial repetition / handmade drift',
+    translation: 'A procedural concentric relief whose light reveals wrapping, compression and interruption.',
+    route: '/samples/004-blue-coil',
+    status: 'study',
+    technology: ['React island', 'Raw WebGL', 'GLSL']
   }
 ];

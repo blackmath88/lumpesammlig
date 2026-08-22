@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CoilField from '../../samples/004-blue-coil/CoilField';
+---
+<BaseLayout title="004 Blue Coil — Lumpesammlig" description="A coiled basket lid reconstructed as concentric natural-fibre relief with indigo bindings.">
+  <main class="coil-page">
+    <CoilField client:load />
+
+    <section class="opening">
+      <p class="label">004 / MATERIAL READING</p>
+      <p class="statement">The object grows by returning to itself. <em>Each circuit holds the next one in place.</em></p>
+      <p class="observed">Dry plant fibre, rounded coils, dense transverse wrapping and deep blue marks that interrupt rather than decorate the construction.</p>
+    </section>
+
+    <section class="evidence" aria-labelledby="source-heading">
+      <div class="evidence-copy">
+        <p class="label">SOURCE OBJECT</p>
+        <h2 id="source-heading">A structure made<br />by going around.</h2>
+        <p>The photograph is treated as evidence: a raised centre, continuous coiling, uneven radial pressure and indigo bindings. Origin and exact fibre species remain deliberately unspecified.</p>
+      </div>
+      <figure>
+        <img src="/samples/004-blue-coil/source.png" alt="Close view of a natural-fibre coiled basket lid with dark blue binding marks and a raised spiral centre" loading="lazy" />
+        <figcaption>Real object / construction reference</figcaption>
+      </figure>
+    </section>
+
+    <section class="scales" aria-labelledby="scales-heading">
+      <header><p class="label">WHAT SURVIVES TRANSLATION?</p><h2 id="scales-heading">Three distances<br />from the centre.</h2></header>
+      <ol>
+        <li><span>MACRO</span><strong>Accumulated coil</strong><p>One circular path becomes a field through repetition, with a raised beginning still visible at its centre.</p></li>
+        <li><span>MESO</span><strong>Binding rhythm</strong><p>Short perpendicular wraps stitch neighbouring rounds together. Indigo appears in runs, then recedes.</p></li>
+        <li><span>MICRO</span><strong>Dry fibre</strong><p>Fine aligned breakup, warm colour drift and compressed channels keep the relief matte and handmade.</p></li>
+      </ol>
+    </section>
+
+    <section class="verbs" aria-label="Performative reading of the material">
+      <p class="label">THE MATERIAL CAN</p>
+      <div><span>coil</span><i></i><span>bind</span><i></i><span>repeat</span><i></i><span>radiate</span><i></i><span>contain</span></div>
+    </section>
+
+    <section class="hypothesis" aria-labelledby="hypothesis-heading">
+      <p class="label">TRANSLATION HYPOTHESIS</p>
+      <h2 id="hypothesis-heading">What if an interface accumulated concentrically?</h2>
+      <div class="radial-study">
+        <div class="rings" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <ol aria-label="A concentric reading order">
+          <li><span>01</span><b>source</b></li>
+          <li><span>02</span><b>structure</b></li>
+          <li><span>03</span><b>behaviour</b></li>
+          <li><span>04</span><b>boundary</b></li>
+        </ol>
+        <p>Read outward: distance from the origin replaces position in a stack.</p>
+      </div>
+      <p class="execution">This is only a reading-order proposition, not a finished navigation system. Rotation, draggable rings and ornamental weaving are withheld until a real use proves they clarify rather than imitate the basket.</p>
+    </section>
+
+    <footer><span>004 / BLUE COIL</span><span>radius → relief → matte light</span></footer>
+  </main>
+</BaseLayout>
+
+<style>
+  .coil-page{background:#eadbc2;color:#292018}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .opening,.evidence,.scales,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
+  .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}.statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400}.observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#695744}
+  .evidence{display:grid;grid-template-columns:.67fr 1.33fr;gap:clamp(34px,7vw,110px);padding-top:100px;padding-bottom:150px;border-top:1px solid #b8a487;align-items:start}.evidence-copy{position:sticky;top:40px}.evidence h2,.scales h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child,.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#695744}.evidence figure{margin:0}.evidence img{display:block;width:100%;height:auto;filter:saturate(.78) contrast(1.03)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}
+  .scales{display:grid;grid-template-columns:.8fr 1.2fr;gap:8vw;padding-top:120px;padding-bottom:150px;border-top:1px solid #b8a487}.scales ol{list-style:none;padding:0;margin:0;border-top:1px solid #b8a487}.scales li{display:grid;grid-template-columns:90px .58fr 1fr;gap:24px;padding:25px 0;border-bottom:1px solid #c9b89e}.scales li span{font-size:9px;letter-spacing:.18em;color:#243b58}.scales li strong{font-size:22px}.scales li p{margin:0;color:#6d5a45;line-height:1.5}
+  .verbs{padding-top:110px;padding-bottom:140px;border-top:1px solid #b8a487}.verbs>div{display:flex;align-items:center;gap:18px;margin-top:40px;overflow:hidden}.verbs span{font-size:clamp(30px,5vw,70px);letter-spacing:-.05em}.verbs i{height:8px;min-width:18px;flex:1;background:repeating-linear-gradient(90deg,#b38b5b 0 11px,#243b58 12px 15px,#caa474 16px 25px);border-radius:999px}
+  .hypothesis{padding-top:110px;padding-bottom:140px;border-top:1px solid #b8a487}.hypothesis h2{max-width:1050px}.radial-study{position:relative;min-height:620px;margin-top:68px;background:#d6bd95;overflow:hidden}.rings{position:absolute;width:720px;height:720px;left:50%;top:50%;transform:translate(-50%,-50%);border:2px solid #a88354;border-radius:50%;box-shadow:0 0 0 34px #d6bd95,0 0 0 36px #243b58,0 0 0 83px #d6bd95,0 0 0 85px #a88354,0 0 0 139px #d6bd95,0 0 0 141px #243b58}.rings:after{content:"";position:absolute;inset:-180px;border:2px solid #a88354;border-radius:50%}.radial-study ol{list-style:none;margin:0;padding:0;position:absolute;inset:0}.radial-study li{position:absolute;display:flex;gap:10px;align-items:center;font-size:12px;text-transform:uppercase;letter-spacing:.12em}.radial-study li span{width:30px;height:30px;display:grid;place-items:center;background:#243b58;color:#f2e4cf;border-radius:50%;font-size:9px}.radial-study li:nth-child(1){left:50%;top:50%;transform:translate(-50%,-50%)}.radial-study li:nth-child(2){left:57%;top:38%}.radial-study li:nth-child(3){left:27%;top:67%}.radial-study li:nth-child(4){right:8%;top:70%}.radial-study>p{position:absolute;left:24px;bottom:22px;margin:0;max-width:300px;font-family:Georgia,serif;line-height:1.45;color:#624f39}.execution{max-width:720px;margin:40px 0 0}
+  footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #b8a487;padding-top:22px;padding-bottom:55px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.58}
+  @media(max-width:900px){.opening{grid-template-columns:1fr}.observed{max-width:560px}.evidence{grid-template-columns:1fr}.evidence-copy{position:static}.scales{grid-template-columns:1fr}.verbs>div{gap:10px}.verbs i{min-width:8px}.radial-study{min-height:520px}.rings{width:490px;height:490px}}
+  @media(max-width:620px){.scales li{grid-template-columns:65px 1fr}.scales li p{grid-column:2}.verbs>div{flex-wrap:wrap}.verbs i{flex:0 0 26px}.radial-study{min-height:470px;margin-left:-22px;margin-right:-22px}.rings{width:300px;height:300px}.radial-study li:nth-child(2){left:55%;top:33%}.radial-study li:nth-child(3){left:8%;top:61%}.radial-study li:nth-child(4){right:4%;top:72%}.radial-study>p{max-width:230px}footer{flex-direction:column}}
+</style>
