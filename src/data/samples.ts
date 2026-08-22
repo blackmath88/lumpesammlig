@@ -21,5 +21,16 @@ export const samples: Sample[] = [
     route: '/samples/001-waschlumpe',
     status: 'live',
     technology: ['React island', 'Canvas 2D']
+  },
+  {
+    id: 'soft-green-macrame',
+    number: '003',
+    title: 'Soft Green',
+    object: 'A 3.5 mm macramé cord whose fine fibres become load-bearing through twist.',
+    material: 'Wound cotton cord / matte fuzz / compression / helical structure',
+    translation: 'A procedural height field lit as dense, dry, diagonally wound fibre.',
+    route: '/samples/003-soft-green',
+    status: 'study',
+    technology: ['React island', 'Raw WebGL', 'GLSL']
   }
 ];

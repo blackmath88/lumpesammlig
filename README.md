@@ -6,13 +6,17 @@ Lumpesammlig is a small digital exhibition and front-end R&D repository. It star
 
 This is not a component library, design system, texture collection, or factory for identical case-study pages. The exhibition shell should remain coherent; each sample should remain technically and aesthetically free.
 
-## Current sample
+## Current samples
 
 ### 001 — Waschlumpe
 
 A loosely knitted washcloth becomes a runtime-generated Canvas 2D textile. Thick, uneven yarn and open holes move from lavender-grey through sage to mint/aqua. A broad delayed pointer field introduces soft tension; it is intentionally not a click ripple or magnetic pull.
 
 The source note and implementation live together in src/samples/001-waschlumpe/.
+
+### 003 — Soft Green
+
+A wound 3.5 mm macramé cord becomes a procedural height field. A raw WebGL island reconstructs packed diagonal bands, internal twist and fibre-scale roughness before deriving normals for matte lighting. The real photographs remain evidence below the synthetic material study.
 
 ## Architecture
 
@@ -30,11 +34,16 @@ src/
     index.astro                  # current experiment → collection
     samples/
       001-waschlumpe.astro       # dedicated exhibition route
+      003-soft-green.astro
   samples/
     001-waschlumpe/
       sample.md                  # object, observation, translation, boundary
       KnitSurface.tsx            # the sample's React island
       knit-surface.css           # sample-owned presentation
+    003-soft-green/
+      sample.md
+      CordField.tsx              # raw WebGL + GLSL island
+      cord-field.css
 ~~~
 
 Only KnitSurface hydrates (client:load). The library, layout and notes are static Astro. React is therefore a local choice for Sample 001, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
@@ -54,6 +63,8 @@ Start only after there is a real object and an observation worth translating.
 7. Verify keyboard access, reduced motion where relevant, small screens, runtime errors and production build output.
 
 Do not add empty placeholder samples, prebuild hypothetical component mutations, force all experiments through React, or extract shared abstractions until at least two real implementations prove the same boundary.
+
+For each object, work in this order: reconstruct the material first, identify its performative behaviour second, and derive interface mutations third. The source photograph is evidence and reference—not the rendered background.
 
 ## Local development (Windows)
 

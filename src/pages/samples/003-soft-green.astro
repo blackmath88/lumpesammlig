@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CordField from '../../samples/003-soft-green/CordField';
+---
+<BaseLayout title="003 Soft Green — Lumpesammlig" description="Soft green macramé cord reconstructed as a procedural, light-responsive material field.">
+  <main class="cord-page">
+    <CordField client:load />
+
+    <section class="opening">
+      <p class="label">003 / MATERIAL READING</p>
+      <p class="statement">The colour is quiet. The structure is not. <em>Many fine fibres are twisted until they can carry load.</em></p>
+      <p class="observed">Muted grey-green cord, broad matte highlights, compressed dark channels and a fine halo where cotton fibres escape the strand.</p>
+    </section>
+
+    <section class="evidence" aria-labelledby="source-heading">
+      <div class="evidence-copy">
+        <p class="label">SOURCE OBJECT</p>
+        <h2 id="source-heading">A wound cord,<br />not a green pattern.</h2>
+        <p>The label identifies macramé yarn in “Soft Green”, 3.5&nbsp;mm in diameter and 100&nbsp;m long. Cotton and recycled-cotton language is visible; no narrower composition is assumed.</p>
+      </div>
+      <figure class="source-main">
+        <img src="/samples/003-soft-green/front-2.jpg" alt="Soft Green macramé cord wound around a labelled cylindrical spool" loading="lazy" />
+        <figcaption>Real object / front view</figcaption>
+      </figure>
+      <figure class="source-detail">
+        <img src="/samples/003-soft-green/detail.png" alt="Macro detail of overlapping grey-green macramé cords and their fine fibres" loading="lazy" />
+        <figcaption>Reference crop / macro structure</figcaption>
+      </figure>
+    </section>
+
+    <section class="scales" aria-labelledby="scales-heading">
+      <header><p class="label">WHAT SURVIVES TRANSLATION?</p><h2 id="scales-heading">Three scales<br />of one material.</h2></header>
+      <ol>
+        <li><span>MACRO</span><strong>Wound bands</strong><p>Thick cords pack diagonally, compress into darker channels and occasionally cross above the field.</p></li>
+        <li><span>MESO</span><strong>Twisted sub-strands</strong><p>Helical organization breaks the broad highlight and makes direction visible inside every cord.</p></li>
+        <li><span>MICRO</span><strong>Fibre noise</strong><p>Fine aligned breakup, roughness variation and sparse fuzz stop the surface from becoming plastic tubing.</p></li>
+      </ol>
+    </section>
+
+    <section class="verbs" aria-label="Performative reading of the material">
+      <p class="label">THE MATERIAL CAN</p>
+      <div><span>twist</span><i></i><span>bind</span><i></i><span>carry</span><i></i><span>loosen</span><i></i><span>fray</span></div>
+    </section>
+
+    <section class="hypothesis">
+      <p class="label">TRANSLATION HYPOTHESIS</p>
+      <h2>What if layout were held together by tension?</h2>
+      <div class="tension-study" aria-label="Diagram of a panel suspended by continuous cord">
+        <svg viewBox="0 0 900 430" role="img" aria-label="A rectangular panel suspended between two tensioned cord paths">
+          <path d="M40 70 C180 70 170 210 310 218 S590 218 710 218 C820 218 810 75 860 70" />
+          <path class="fibre" d="M38 77 C180 77 172 217 310 225 S590 225 710 225 C820 225 812 82 862 77" />
+        </svg>
+        <div class="load"><small>LOAD-BEARING REGION</small><strong>Content exists because the line stays under tension.</strong></div>
+      </div>
+      <p class="execution">For now, the interface mutation remains a single structural proposition. Knots, navigation and fray states wait until the material study has been judged against the physical cord.</p>
+    </section>
+
+    <footer><span>003 / SOFT GREEN</span><span>height → normal → matte light</span></footer>
+  </main>
+</BaseLayout>
+
+<style>
+  .cord-page{background:#e9e8e0;color:#282c27}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.55}
+  .opening,.evidence,.scales,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
+  .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}
+  .statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400}
+  .observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#555b52}
+  .evidence{display:grid;grid-template-columns:.72fr 1fr .68fr;gap:clamp(18px,3vw,44px);padding-top:90px;padding-bottom:140px;border-top:1px solid #aeb2a6;align-items:start}
+  .evidence-copy{padding-right:3vw}.evidence h2,.scales h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#555b52}
+  figure{margin:0}figure img{display:block;width:100%;height:auto;filter:saturate(.72) contrast(1.03)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.5}.source-detail{margin-top:24vw}
+  .scales{padding-top:120px;padding-bottom:150px;border-top:1px solid #aeb2a6}.scales{display:grid;grid-template-columns:.8fr 1.2fr;gap:8vw}.scales ol{list-style:none;padding:0;margin:0;border-top:1px solid #aeb2a6}.scales li{display:grid;grid-template-columns:90px .55fr 1fr;gap:24px;padding:25px 0;border-bottom:1px solid #c0c3b9}.scales li span{font-size:9px;letter-spacing:.18em}.scales li strong{font-size:22px}.scales li p{margin:0;color:#5c6259;line-height:1.5}
+  .verbs{padding-top:110px;padding-bottom:140px;border-top:1px solid #aeb2a6}.verbs>div{display:flex;align-items:center;gap:18px;margin-top:40px;overflow:hidden}.verbs span{font-size:clamp(30px,5vw,70px);letter-spacing:-.05em}.verbs i{height:5px;min-width:18px;flex:1;background:repeating-linear-gradient(104deg,#596052 0 3px,#959b8a 3px 6px,#697161 6px 9px)}
+  .hypothesis{padding-top:110px;padding-bottom:140px;border-top:1px solid #aeb2a6}.hypothesis h2{max-width:1050px}.tension-study{position:relative;min-height:440px;background:#d2d5cb;margin-top:68px;overflow:hidden}.tension-study svg{position:absolute;inset:0;width:100%;height:100%}.tension-study path{fill:none;stroke:#596151;stroke-width:18;stroke-linecap:round}.tension-study .fibre{stroke:#a4aa99;stroke-width:4;stroke-dasharray:3 8}.load{position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:min(370px,70%);min-height:180px;background:#eeede6;padding:28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 40px rgba(47,53,44,.12)}.load small{font-size:9px;letter-spacing:.17em}.load strong{font-size:clamp(22px,3vw,36px);line-height:1.05}.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;max-width:720px;margin:40px 0 0;color:#565c53}
+  footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #aeb2a6;padding-top:22px;padding-bottom:55px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+  @media(max-width:900px){.opening{grid-template-columns:1fr}.observed{max-width:560px}.evidence{grid-template-columns:1fr 1fr}.evidence-copy{grid-column:1/-1}.source-detail{margin-top:18vw}.scales{grid-template-columns:1fr}.verbs>div{gap:10px}.verbs i{min-width:8px}}
+  @media(max-width:620px){.evidence{grid-template-columns:1fr}.source-detail{margin-top:24px}.scales li{grid-template-columns:65px 1fr}.scales li p{grid-column:2}.verbs>div{flex-wrap:wrap}.verbs i{flex:0 0 26px}.tension-study{min-height:360px;margin-left:-22px;margin-right:-22px}footer{flex-direction:column}}
+</style>

@@ -1,0 +1,14 @@
+.cord-hero{position:relative;min-height:100svh;overflow:hidden;background:#697061;color:#eef0e8;isolation:isolate}
+.cord-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.cord-hero--fallback{background:repeating-linear-gradient(108deg,#4e554a 0 7px,#78806f 8px 34px,#969c8b 35px 42px,#596052 43px 50px)}
+.cord-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,31,26,.62),rgba(34,38,32,.22) 48%,rgba(24,28,23,.04) 75%),linear-gradient(0deg,rgba(25,28,24,.32),transparent 42%);pointer-events:none}
+.cord-copy{position:relative;z-index:2;width:min(820px,88vw);padding:clamp(30px,6vw,86px);padding-top:clamp(110px,17vh,190px);text-shadow:0 2px 28px rgba(20,24,19,.42)}
+.cord-index{font-size:10px;letter-spacing:.22em;font-weight:750;margin:0 0 38px;opacity:.72}
+.cord-copy h1{font-size:clamp(82px,16vw,230px);line-height:.68;letter-spacing:-.085em;font-weight:630;margin:0 0 48px}
+.cord-lede{font-family:Georgia,serif;font-size:clamp(20px,2.5vw,34px);line-height:1.22;width:min(20em,100%);max-width:100%;margin:0;color:rgba(242,244,236,.84);overflow-wrap:anywhere}
+.cord-note{position:absolute;z-index:2;right:clamp(26px,5vw,74px);bottom:clamp(28px,5vw,66px);width:min(310px,38vw);border-top:1px solid rgba(238,240,232,.55);padding-top:12px}
+.cord-note span{font-size:9px;letter-spacing:.18em}.cord-note p{font-family:Georgia,serif;line-height:1.45;margin:10px 0 0;color:rgba(242,244,236,.78)}
+.cord-back{position:absolute;z-index:3;right:clamp(26px,5vw,74px);top:clamp(28px,5vw,66px);font-size:11px;letter-spacing:.1em;text-decoration:none}
+.cord-back:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+@media(max-width:650px){.cord-copy{padding:100px 22px 230px;width:100%;max-width:100vw;overflow:hidden}.cord-copy h1{font-size:clamp(76px,27vw,112px);margin-bottom:36px}.cord-lede{width:calc(100vw - 44px)}.cord-note{left:22px;right:22px;bottom:30px;width:auto;max-width:calc(100vw - 44px);overflow:hidden}.cord-back{right:22px;top:24px}.cord-veil{background:linear-gradient(90deg,rgba(25,29,24,.6),rgba(29,33,27,.1)),linear-gradient(0deg,rgba(21,25,20,.48),transparent 55%)}}
+@media(prefers-reduced-motion:reduce){.cord-canvas{touch-action:auto}}
