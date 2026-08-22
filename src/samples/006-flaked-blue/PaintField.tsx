@@ -48,33 +48,42 @@ const fragmentShader = `
     vec2 warp = vec2(fbm(p * vec2(2.1, .72) + 7.4), fbm(p * vec2(1.5, 1.1) + 31.));
     vec2 q = p + (warp - .5) * vec2(.105, .035);
 
-    float longWear = fbm(vec2(q.x * 1.75, q.y * .52) + vec2(4., 17.));
-    float brokenMass = fbm(q * vec2(3.8, 1.42) + vec2(-9., 5.));
-    float ageBand = sin(q.x * 5.6 + fbm(q * vec2(1.1, .45)) * 4.2) * .5 + .5;
-    float concentration = smoothstep(.38, .88, ageBand) * (.35 + .65 * fbm(q * vec2(2.2, .68) + 81.));
-    float erosion = longWear * .45 + brokenMass * .39 + concentration * .22;
+    float longWear = fbm(vec2(q.x * 2.7, q.y * .76) + vec2(4., 17.));
+    float brokenMass = fbm(q * vec2(6.4, 2.25) + vec2(-9., 5.));
+    float ageBand = sin(q.x * 8.7 + fbm(q * vec2(1.65, .62)) * 3.6) * .5 + .5;
+    float concentration = smoothstep(.58, .9, ageBand) * smoothstep(.48, .73, fbm(q * vec2(3.5, .92) + 81.));
+    float chipEdge = fbm(q * vec2(13.2, 4.1) + vec2(37., -14.));
+    float erosion = longWear * .46 + brokenMass * .43 + concentration * .105;
+    erosion += (chipEdge - .5) * .14 * smoothstep(.51, .67, longWear + brokenMass * .16);
+    float scarAxis = .68 + (fbm(vec2(q.y * 1.35, 4.2)) - .5) * .15;
+    float scarBreak = smoothstep(.43, .65, fbm(q * vec2(7.2, 2.55) + vec2(71., 6.)));
+    float scar = smoothstep(.095, .018, abs(uv.x - scarAxis)) * scarBreak;
+    float oldScarAxis = .27 + (fbm(vec2(q.y * 1.8, 29.)) - .5) * .09;
+    float oldScar = smoothstep(.055, .012, abs(uv.x - oldScarAxis));
+    oldScar *= smoothstep(.53, .74, fbm(q * vec2(5.4, 2.8) + 12.));
+    erosion += scar * .38 + oldScar * .23;
 
-    float lostPaint = smoothstep(.59, .625, erosion);
-    float depthHistory = fbm(q * vec2(5.1, 1.85) + vec2(27., -8.));
-    float rawWood = lostPaint * smoothstep(.61, .76, depthHistory + longWear * .13);
+    float lostPaint = smoothstep(.66, .692, erosion);
+    float depthHistory = fbm(q * vec2(8.1, 2.8) + vec2(27., -8.));
+    float rawWood = lostPaint * smoothstep(.79, .91, depthHistory + longWear * .055);
     float undercoat = lostPaint * (1. - rawWood);
     float paint = 1. - lostPaint;
 
-    float edgeDistance = abs(erosion - .607);
-    float liftedEdge = (1. - smoothstep(.008, .046, edgeDistance)) * paint;
+    float edgeDistance = abs(erosion - .676);
+    float liftedEdge = (1. - smoothstep(.005, .032, edgeDistance)) * paint;
     liftedEdge *= .55 + .45 * noise(q * vec2(28., 11.));
 
-    float verticalCrack = abs(fract(q.x * 4.3 + fbm(vec2(q.y * 1.4, q.x * 2.7) + 43.) * 1.7) - .5);
-    float branchCrack = abs(fract((q.x + q.y * .18) * 3.15 + fbm(q * vec2(1.2, 2.4) + 19.) * 1.45) - .5);
-    float crack = (1. - smoothstep(.006, .019, min(verticalCrack, branchCrack))) * paint;
-    crack *= smoothstep(.36, .68, fbm(q * vec2(3., 1.2) + 103.));
+    float verticalCrack = abs(fract(q.x * 5.1 + fbm(vec2(q.y * 1.8, q.x * 3.1) + 43.) * 1.55) - .5);
+    float branchCrack = abs(fract((q.x + q.y * .14) * 4.2 + fbm(q * vec2(1.7, 3.1) + 19.) * 1.28) - .5);
+    float crack = (1. - smoothstep(.003, .009, min(verticalCrack, branchCrack))) * paint;
+    crack *= smoothstep(.55, .76, fbm(q * vec2(3.8, 1.55) + 103.));
 
     float woodGrain = sin(q.y * 11. + fbm(vec2(q.x * 8., q.y * .42)) * 7.);
     float height = .11 + woodGrain * .012;
     height = mix(height, .35 + noise(q * 35.) * .018, undercoat);
     height = mix(height, .71 + fbm(q * vec2(8., 2.1)) * .028, paint);
     height += liftedEdge * .13;
-    height -= crack * .105;
+    height -= crack * .045;
     return vec4(height, paint, undercoat, rawWood);
   }
 
