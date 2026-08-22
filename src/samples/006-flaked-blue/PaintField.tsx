@@ -42,6 +42,13 @@ const fragmentShader = `
     return value;
   }
 
+  float flakeIsland(vec2 uv, vec2 center, vec2 size, float seed) {
+    vec2 local = (uv - center) / size;
+    float tornEdge = (fbm(uv * vec2(31., 43.) + seed) - .5) * .84;
+    float split = sin((local.y + fbm(uv * 13. + seed * 2.)) * 14.) * .085;
+    return 1. - smoothstep(.72, .97, length(local) + tornEdge + split);
+  }
+
   vec4 strata(vec2 uv) {
     float aspect = resolution.x / max(resolution.y, 1.);
     vec2 p = vec2(uv.x * aspect, uv.y);
@@ -61,15 +68,21 @@ const fragmentShader = `
     float oldScarAxis = .27 + (fbm(vec2(q.y * 1.8, 29.)) - .5) * .09;
     float oldScar = smoothstep(.055, .012, abs(uv.x - oldScarAxis));
     oldScar *= smoothstep(.53, .74, fbm(q * vec2(5.4, 2.8) + 12.));
-    erosion += scar * .38 + oldScar * .23;
+    erosion += scar * .18 + oldScar * .1;
+    float flakeCluster = flakeIsland(uv, vec2(.73, .25), vec2(.065, .13), 5.);
+    flakeCluster = max(flakeCluster, flakeIsland(uv, vec2(.79, .48), vec2(.044, .086), 17.));
+    flakeCluster = max(flakeCluster, flakeIsland(uv, vec2(.66, .64), vec2(.034, .07), 31.));
+    flakeCluster = max(flakeCluster, flakeIsland(uv, vec2(.29, .29), vec2(.027, .065), 47.));
+    flakeCluster = max(flakeCluster, flakeIsland(uv, vec2(.24, .72), vec2(.042, .092), 63.));
+    float failure = max(erosion, .622 + flakeCluster * .115);
 
-    float lostPaint = smoothstep(.66, .692, erosion);
+    float lostPaint = smoothstep(.66, .692, failure);
     float depthHistory = fbm(q * vec2(8.1, 2.8) + vec2(27., -8.));
-    float rawWood = lostPaint * smoothstep(.79, .91, depthHistory + longWear * .055);
+    float rawWood = lostPaint * smoothstep(.77, .89, depthHistory + longWear * .055 + flakeCluster * .045);
     float undercoat = lostPaint * (1. - rawWood);
     float paint = 1. - lostPaint;
 
-    float edgeDistance = abs(erosion - .676);
+    float edgeDistance = abs(failure - .676);
     float liftedEdge = (1. - smoothstep(.005, .032, edgeDistance)) * paint;
     liftedEdge *= .55 + .45 * noise(q * vec2(28., 11.));
 

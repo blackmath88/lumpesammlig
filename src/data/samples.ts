@@ -54,5 +54,16 @@ export const samples: Sample[] = [
     route: '/samples/006-flaked-blue',
     status: 'study',
     technology: ['React island', 'Raw WebGL', 'GLSL']
+  },
+  {
+    id: 'blue-printed-paper',
+    number: '007',
+    title: 'Blue Printed Paper',
+    object: 'A dusty indigo decorative paper whose cream dashes gather into overlapping radial fields.',
+    material: 'Fibrous paper / absorbed pigment / feathered print / systematic drift',
+    translation: 'A seeded print system whose every mark inherits one coherent field of material error.',
+    route: '/samples/007-blue-printed-paper',
+    status: 'study',
+    technology: ['React island', 'Raw WebGL', 'GLSL']
   }
 ];
