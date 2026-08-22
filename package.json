@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "deploy": "npm run build && wrangler deploy",
     "preview": "astro preview",
     "check": "astro check"
   },
@@ -19,6 +20,7 @@
     "@astrojs/check": "^0.9.10",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.125.0"
   }
 }
