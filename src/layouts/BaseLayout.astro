@@ -1,0 +1,17 @@
+---
+import '../styles/global.css';
+const { title = 'Lumpesammlig', description = 'Real objects, translated into interactive web artefacts.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#151815" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

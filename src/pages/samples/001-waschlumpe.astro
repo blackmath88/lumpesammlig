@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import KnitSurface from '../../components/KnitSurface';
+---
+<BaseLayout title="001 Waschlumpe — Lumpesammlig">
+  <main>
+    <KnitSurface client:load />
+    <article class="sample-notes">
+      <a href="/">← Collection</a>
+      <p class="tag">SAMPLE 001 / WASCHLUMPE</p>
+      <h2>From loose cotton knit to responsive surface.</h2>
+      <div class="cols">
+        <p>The source object is deliberately ordinary: a loosely knitted washcloth. Its appeal comes from open stitches, uneven tension, softness and an accidental colour transition.</p>
+        <p>The web translation avoids using the object as a flat image. Instead, the surface is reconstructed procedurally and reacts to pointer movement as if tension travels through cloth.</p>
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+<style is:global>
+  .sample-notes{background:#eeeae3;color:#171917;padding:clamp(64px,10vw,130px) clamp(20px,8vw,120px)}
+  .sample-notes>a{color:#525751;text-decoration:none}.sample-notes .tag{margin:80px 0 18px;font-size:10px;letter-spacing:.2em}.sample-notes h2{font-size:clamp(42px,7vw,92px);line-height:.94;letter-spacing:-.05em;max-width:1050px;margin:0 0 54px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:960px}.cols p{font-size:19px;line-height:1.58;color:#4f554e;margin:0}@media(max-width:700px){.cols{grid-template-columns:1fr}}
+</style>

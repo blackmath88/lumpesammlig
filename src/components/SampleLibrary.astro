@@ -1,0 +1,56 @@
+---
+import { samples } from '../data/samples';
+---
+<section class="library" id="library">
+  <header class="library-head">
+    <div>
+      <p class="eyebrow">THE COLLECTION</p>
+      <h2>Real things.<br />Front-end translations.</h2>
+    </div>
+    <p class="intro">Each sample starts with a physical object, surface, mechanism or accidental interface. We keep its behaviour, material logic or visual tension—and rebuild it as something native to the web.</p>
+  </header>
+
+  <div class="grid">
+    {samples.map((sample) => (
+      <a class:list={['card', sample.status !== 'live' && 'card--planned']} href={sample.route} aria-disabled={sample.status !== 'live' ? 'true' : undefined}>
+        <div class="card-top"><span>{sample.number}</span><span>{sample.status}</span></div>
+        <div class="preview" aria-hidden="true">
+          {sample.id === 'waschlumpe' ? (
+            <div class="mini-knit"><span></span><span></span><span></span><span></span></div>
+          ) : <div class="empty-mark">+</div>}
+        </div>
+        <h3>{sample.title}</h3>
+        <p>{sample.object}</p>
+        <dl>
+          <div><dt>Material</dt><dd>{sample.material}</dd></div>
+          <div><dt>Web translation</dt><dd>{sample.translation}</dd></div>
+        </dl>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .library{background:#eeeae3;color:#161816;padding:clamp(72px,10vw,140px) clamp(20px,5vw,72px)}
+  .library-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(260px,.75fr);gap:48px;align-items:end;margin:0 auto 64px;max-width:1400px}
+  .eyebrow{font-size:11px;letter-spacing:.22em;font-weight:750;margin:0 0 18px;opacity:.55}
+  h2{font-size:clamp(44px,7vw,96px);line-height:.92;letter-spacing:-.055em;margin:0;font-weight:650}
+  .intro{font-size:clamp(16px,1.8vw,21px);line-height:1.48;margin:0;color:#4b504a}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1400px;margin:auto}
+  .card{min-width:0;text-decoration:none;color:inherit;border-top:1px solid rgba(22,24,22,.28);padding-top:14px;transition:transform .3s ease,opacity .3s ease}
+  .card:hover{transform:translateY(-4px)}
+  .card--planned{opacity:.42;pointer-events:none}
+  .card-top{display:flex;justify-content:space-between;text-transform:uppercase;font-size:10px;letter-spacing:.18em;margin-bottom:16px}
+  .preview{height:330px;background:#191c18;overflow:hidden;display:grid;place-items:center;margin-bottom:22px}
+  .mini-knit{position:relative;width:120%;height:120%;background:repeating-linear-gradient(90deg,transparent 0 17px,rgba(188,183,200,.85) 18px 21px,transparent 22px 37px),repeating-linear-gradient(0deg,transparent 0 17px,rgba(164,199,177,.8) 18px 21px,transparent 22px 37px);filter:blur(.2px);transform:rotate(-6deg) scale(1.12);opacity:.92}
+  .mini-knit:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(184,177,196,.35),rgba(175,191,158,.15) 48%,rgba(149,205,185,.32));mix-blend-mode:screen}
+  .empty-mark{font-size:64px;font-weight:200;color:#767b75}
+  h3{font-size:28px;letter-spacing:-.025em;margin:0 0 10px}
+  .card>p{color:#575d56;line-height:1.48;margin:0 0 28px;min-height:68px}
+  dl{margin:0;border-top:1px solid rgba(22,24,22,.16)}
+  dl div{padding:12px 0;border-bottom:1px solid rgba(22,24,22,.12)}
+  dt{text-transform:uppercase;font-size:9px;letter-spacing:.16em;margin-bottom:4px;color:#777d76}
+  dd{margin:0;font-size:13px;line-height:1.4}
+  @media(max-width:900px){.library-head{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.preview{height:270px}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}.preview{height:300px}.library-head{gap:28px}}
+</style>
