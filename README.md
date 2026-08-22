@@ -22,6 +22,10 @@ A wound 3.5 mm macramé cord becomes a procedural height field. A raw WebGL isla
 
 A hand-wrapped basket lid becomes a concentric procedural relief. Its raw WebGL study preserves accumulated coils, short indigo binding marks, radial compression and the small drift of hand construction. Pointer input changes only the broad light direction; the material itself remains still.
 
+### 006 — Flaked Blue
+
+Old blue-grey paint becomes a procedural material stratigraphy. One erosion history determines intact paint, lifted edges, pale undercoat and deeper wood exposure; a derived height field keeps their order visible through matte light and micro-shadow rather than colour alone.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -40,6 +44,7 @@ src/
       001-waschlumpe.astro       # dedicated exhibition route
       003-soft-green.astro
       004-blue-coil.astro
+      006-flaked-blue.astro
   samples/
     001-waschlumpe/
       sample.md                  # object, observation, translation, boundary
@@ -53,9 +58,13 @@ src/
       sample.md
       CoilField.tsx              # concentric raw WebGL + GLSL relief
       coil-field.css
+    006-flaked-blue/
+      sample.md
+      PaintField.tsx             # layered erosion + height-derived lighting
+      paint-field.css
 ~~~
 
-Only each sample's focused interactive island hydrates (`KnitSurface`, `CordField`, and `CoilField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
+Only each sample's focused interactive island hydrates (`KnitSurface`, `CordField`, `CoilField`, and `PaintField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
 
 There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
 

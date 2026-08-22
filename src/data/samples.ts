@@ -43,5 +43,16 @@ export const samples: Sample[] = [
     route: '/samples/004-blue-coil',
     status: 'study',
     technology: ['React island', 'Raw WebGL', 'GLSL']
+  },
+  {
+    id: 'flaked-blue-painted-wood',
+    number: '006',
+    title: 'Flaked Blue',
+    object: 'An old blue-grey painted wooden surface failing beside a window.',
+    material: 'Chalky paint / brittle flakes / pale undercoat / directional wood grain',
+    translation: 'A layered erosion field whose height and shadows expose accumulated material history.',
+    route: '/samples/006-flaked-blue',
+    status: 'study',
+    technology: ['React island', 'Raw WebGL', 'GLSL']
   }
 ];

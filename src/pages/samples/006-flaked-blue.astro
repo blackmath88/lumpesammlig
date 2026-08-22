@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaintField from '../../samples/006-flaked-blue/PaintField';
+---
+<BaseLayout title="006 Flaked Blue — Lumpesammlig" description="Old blue-grey paint reconstructed as a layered, eroding material above undercoat and wood.">
+  <main class="paint-page">
+    <PaintField client:load />
+
+    <section class="opening">
+      <p class="label">006 / MATERIAL READING</p>
+      <p class="statement">Age does not add an ornament. <em>It removes the present until earlier surfaces return.</em></p>
+      <p class="observed">Muted mineral blue, chalky pigment, directional cracks, brittle lifted rims and pale losses deep enough to reveal the wood beneath.</p>
+    </section>
+
+    <section class="evidence" aria-labelledby="source-heading">
+      <div class="evidence-copy">
+        <p class="label">SOURCE OBJECT</p>
+        <h2 id="source-heading">A painted wall<br />with a memory.</h2>
+        <p>The photograph records an old wooden surface beside a window. Its composition and exact paint history are unknown, so the reconstruction keeps only what can be observed: layer order, vertical grain, clustered failure and matte light.</p>
+      </div>
+      <figure>
+        <img src="/samples/006-flaked-blue/source.png" alt="Old blue-grey painted wood beside a window, with cracked and flaking paint exposing pale layers" loading="lazy" />
+        <figcaption>Real object / layer and damage reference</figcaption>
+      </figure>
+    </section>
+
+    <section class="strata" aria-labelledby="strata-heading">
+      <header>
+        <p class="label">DEPTH, NOT DECORATION</p>
+        <h2 id="strata-heading">Four readings<br />of one failure.</h2>
+      </header>
+      <ol>
+        <li><span>01 / FIELD</span><strong>Chalky paint</strong><p>The largest region stays calm: uneven mineral blue with broad diffuse light and almost no gloss.</p></li>
+        <li><span>02 / EDGE</span><strong>Lifted flakes</strong><p>A narrow raised rim catches light while its lower side accumulates a thin occlusion shadow.</p></li>
+        <li><span>03 / LOSS</span><strong>Pale undercoat</strong><p>Paint failure reveals a rougher, physically lower layer that follows the same erosion boundary.</p></li>
+        <li><span>04 / DEPTH</span><strong>Wood grain</strong><p>Only deeper, older losses reach warm directional fibre—the bottom of the visible stack.</p></li>
+      </ol>
+    </section>
+
+    <section class="verbs" aria-label="Performative reading of the material">
+      <p class="label">THE SURFACE CAN</p>
+      <div><span>cover</span><i></i><span>age</span><i></i><span>crack</span><i></i><span>lift</span><i></i><span>reveal</span></div>
+    </section>
+
+    <section class="hypothesis" aria-labelledby="hypothesis-heading">
+      <p class="label">TRANSLATION HYPOTHESIS / ONE PROPOSITION</p>
+      <h2 id="hypothesis-heading">The interface accumulates history by losing its surface.</h2>
+      <div class="history-study" aria-label="Three interface states shown as physically layered records">
+        <article class="history history--wood"><span>1998 / FOUNDATION</span><strong>The first record remains structurally present.</strong></article>
+        <article class="history history--primer"><span>2012 / REVISION</span><strong>A later reading covers, but does not erase, what came before.</strong></article>
+        <article class="history history--paint"><span>NOW / SURFACE</span><strong>Current information is complete only where time has not opened it.</strong></article>
+        <div class="loss" aria-hidden="true"></div>
+      </div>
+      <p class="execution">This remains a static cutaway rather than a scratch card. It tests whether state history can occupy physical depth without turning erosion into a reward animation or a distressed component style.</p>
+    </section>
+
+    <footer><span>006 / FLAKED BLUE</span><span>erosion → height → layer shadow</span></footer>
+  </main>
+</BaseLayout>
+
+<style>
+  .paint-page{background:#dcd8ca;color:#253235}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .opening,.evidence,.strata,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
+  .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}.statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400;color:#41656b}.observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#5c6562}
+  .evidence{display:grid;grid-template-columns:.66fr 1.34fr;gap:clamp(34px,7vw,110px);padding-top:100px;padding-bottom:150px;border-top:1px solid #aeb3aa;align-items:start}.evidence-copy{position:sticky;top:40px}.evidence h2,.strata h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child,.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#5c6562}.evidence figure{margin:0}.evidence img{display:block;width:100%;height:auto;filter:saturate(.72) contrast(1.03)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}
+  .strata{display:grid;grid-template-columns:.8fr 1.2fr;gap:8vw;padding-top:120px;padding-bottom:150px;border-top:1px solid #aeb3aa}.strata ol{list-style:none;padding:0;margin:0;border-top:1px solid #aeb3aa}.strata li{display:grid;grid-template-columns:100px .58fr 1fr;gap:24px;padding:25px 0;border-bottom:1px solid #bcc1b8}.strata li span{font-size:9px;letter-spacing:.18em;color:#41656b}.strata li strong{font-size:22px}.strata li p{margin:0;color:#5c6562;line-height:1.5}
+  .verbs{padding-top:110px;padding-bottom:140px;border-top:1px solid #aeb3aa}.verbs>div{display:flex;align-items:center;gap:18px;margin-top:40px;overflow:hidden}.verbs span{font-size:clamp(30px,5vw,70px);letter-spacing:-.05em}.verbs i{height:14px;min-width:18px;flex:1;background:linear-gradient(#42666b 0 46%,#c4bead 47% 70%,#80664a 71%);clip-path:polygon(0 16%,12% 4%,25% 22%,38% 0,52% 18%,65% 7%,78% 26%,90% 5%,100% 18%,100% 100%,0 100%)}
+  .hypothesis{padding-top:110px;padding-bottom:140px;border-top:1px solid #aeb3aa}.hypothesis h2{max-width:1120px}.history-study{position:relative;min-height:650px;margin-top:68px;background:#786249;overflow:hidden}.history{position:absolute;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,4vw,58px);inset:0}.history span{font-size:9px;letter-spacing:.18em}.history strong{font-size:clamp(25px,4vw,52px);line-height:1.02;letter-spacing:-.035em;width:min(13em,76%)}.history--wood{background:repeating-linear-gradient(90deg,#705941 0 56px,#765e45 57px 61px,#664e38 62px 64px);color:#efe8da}.history--primer{background:#c4bead;color:#334245;clip-path:polygon(0 0,100% 0,100% 100%,49% 100%,54% 84%,48% 72%,56% 57%,51% 43%,57% 26%,52% 12%,36% 0)}.history--paint{background:#41656b;color:#eff0e8;clip-path:polygon(0 0,36% 0,42% 9%,37% 22%,44% 35%,39% 49%,45% 62%,38% 78%,44% 90%,40% 100%,0 100%)}.history--primer strong{margin-left:auto}.history--primer span{text-align:right}.history--paint strong{width:min(8em,34%)}.loss{position:absolute;left:39%;top:0;bottom:0;width:8%;background:linear-gradient(90deg,rgba(26,35,35,.26),transparent 22%,transparent 65%,rgba(255,249,232,.18));clip-path:polygon(0 0,44% 9%,10% 22%,54% 35%,18% 49%,62% 62%,0 78%,55% 90%,21% 100%,100% 100%,100% 0)}.execution{max-width:740px;margin:40px 0 0}
+  footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #aeb3aa;padding-top:22px;padding-bottom:55px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.58}
+  @media(max-width:900px){.opening{grid-template-columns:1fr}.observed{max-width:560px}.evidence{grid-template-columns:1fr}.evidence-copy{position:static}.strata{grid-template-columns:1fr}.verbs>div{gap:10px}.verbs i{min-width:8px}.history-study{min-height:540px}}
+  @media(max-width:620px){.strata li{grid-template-columns:78px 1fr}.strata li p{grid-column:2}.verbs>div{flex-wrap:wrap}.verbs i{flex:0 0 26px}.history-study{min-height:500px;margin-left:-22px;margin-right:-22px}.history{padding:24px}.history strong{font-size:25px}.history--primer strong{width:48%}.history--paint strong{width:38%}.execution{margin-top:32px}footer{flex-direction:column}}
+</style>
