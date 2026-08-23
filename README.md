@@ -37,7 +37,7 @@ Astro is the stable, mostly static exhibition shell:
 ~~~text
 src/
   components/
-    SampleLibrary.astro          # collection promenade (Astro, no hydration)
+    SampleLibrary.astro          # static promenade + sample-specific live 001 preview
   data/
     samples.ts                   # lightweight metadata for real samples only
   layouts/
@@ -53,8 +53,15 @@ src/
   samples/
     001-waschlumpe/
       sample.md                  # object, observation, translation, boundary
-      KnitSurface.tsx            # the sample's React island
-      knit-surface.css           # sample-owned presentation
+      KnitSurface.tsx            # immersive hero using the shared 001 engine
+      MaterialLab.tsx            # exhibition composition + late inspection lab
+      material/
+        KnitMaterial.tsx         # shared renderer and deformation field
+        parameters.ts            # semantic material coordinates
+        presets.ts               # named material readings
+      components/                # object-specific interface mutations
+      knit-surface.css
+      material-lab.css           # bespoke 001 presentation
     003-soft-green/
       sample.md
       CordField.tsx              # raw WebGL + GLSL island
@@ -73,7 +80,7 @@ src/
       paper-field.css
 ~~~
 
-Only each sample's focused interactive island hydrates (`KnitSurface`, `CordField`, `CoilField`, `PaintField`, and `PaperField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
+Only each sample's focused interactive islands hydrate (`KnitSurface`, the 001 material experience, `CordField`, `CoilField`, `PaintField`, and `PaperField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. Inside 001, hero, scale specimens, lab and behaviour-derived components all reuse `KnitMaterial`; this is a sample-local engine, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
 
 There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
 

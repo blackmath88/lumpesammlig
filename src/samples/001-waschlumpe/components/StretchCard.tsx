@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import KnitMaterial from '../material/KnitMaterial';
 import type { KnitMaterialParameters } from '../material/parameters';
 
@@ -12,8 +12,13 @@ export default function StretchCard({ material }: { material: KnitMaterialParame
     const dy = event.clientY - (rect.top + rect.height / 2);
     setDirection(Math.atan2(dy, dx)); setStretch(Math.min(1, Math.hypot(dx, dy) / (rect.width * .46)));
   };
+  const shellStyle = {
+    '--stretch': stretch,
+    '--stretch-x': Math.cos(direction),
+    '--stretch-y': Math.sin(direction),
+  } as CSSProperties;
   return (
-    <div className="stretch-card-shell" onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={onMove} onPointerUp={() => setStretch(0)} onPointerCancel={() => setStretch(0)}>
+    <div className="stretch-card-shell" style={shellStyle} data-stretched={stretch > .05} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={onMove} onPointerUp={() => setStretch(0)} onPointerCancel={() => setStretch(0)}>
       <KnitMaterial parameters={material} quality="small" deformation={{ type: 'stretch', amount: stretch, x: .5, y: .5, direction }} label="Stretchable knitted card perimeter" />
       <article className="stretch-card-content">
         <p className="component-index">BOUND FIELD / 03</p>

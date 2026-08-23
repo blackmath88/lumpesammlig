@@ -10,7 +10,9 @@ The useful qualities are not the photograph itself: uneven tension, changing yar
 
 ## Web translation
 
-`KnitMaterial.tsx` is the sample-local Canvas 2D renderer. `KnitSurface.tsx` composes it as the hero, while `MaterialLab.tsx` uses the same semantic parameter model for live variations, scale studies and four object-specific component mutations. The pointer adds a broad, delayed tension field rather than a click ripple or magnetic attraction; idle motion stays slow and reduced-motion users receive a static render.
+`KnitMaterial.tsx` is the sample-local Canvas 2D renderer. `KnitSurface.tsx` composes it as the hero, while `MaterialLab.tsx` uses the same semantic parameter model for live scale studies, a late inspection instrument and four object-specific component mutations. The pointer adds a broad, delayed tension field rather than a click ripple or magnetic attraction; idle motion stays slow and reduced-motion users receive a static render.
+
+The mutations are staged as an exhibition rather than a gallery. Pressure gathers a control from a fabric field, a toggle spans two anchors, progress crosses a page-wide membrane, and stable content sits inside a yielding perimeter.
 
 ## Boundary
 

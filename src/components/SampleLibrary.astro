@@ -1,5 +1,7 @@
 ---
 import { samples } from '../data/samples';
+import KnitMaterial from '../samples/001-waschlumpe/material/KnitMaterial';
+import { DEFAULT_KNIT_PARAMETERS } from '../samples/001-waschlumpe/material/parameters';
 ---
 <section class="library" id="library">
   <header class="library-head">
@@ -17,7 +19,7 @@ import { samples } from '../data/samples';
         </div>
         <div class="preview" aria-hidden="true">
           {sample.id === 'waschlumpe'
-            ? <div class="mini-knit"></div>
+            ? <KnitMaterial parameters={DEFAULT_KNIT_PARAMETERS} quality="small" className="mini-knit-live" label="" client:visible />
             : sample.id === 'blue-coil-basket'
               ? <div class="mini-coil"></div>
               : sample.id === 'flaked-blue-painted-wood'
@@ -55,8 +57,7 @@ import { samples } from '../data/samples';
   .sample-index{display:flex;flex-direction:column;gap:7px;text-transform:uppercase;font-size:10px;letter-spacing:.18em}.sample-index span:last-child{opacity:.5}
   .preview{height:clamp(390px,52vw,700px);position:relative;background:#171a17;overflow:hidden;transform:rotate(-1.15deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
   .sample:hover .preview{transform:rotate(.15deg) scale(.995)}
-  .mini-knit{position:absolute;inset:-12%;background:repeating-linear-gradient(92deg,transparent 0 24px,rgba(190,183,200,.9) 25px 31px,transparent 32px 55px),repeating-linear-gradient(-2deg,transparent 0 23px,rgba(164,199,177,.82) 24px 30px,transparent 31px 54px);filter:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence baseFrequency='.012 .035' numOctaves='2' seed='7' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='18'/%3E%3C/filter%3E%3C/svg%3E%23w");opacity:.9}
-  .mini-knit:after{content:"";position:absolute;inset:0;background:linear-gradient(125deg,rgba(184,177,196,.45),transparent 46%,rgba(149,205,185,.38));mix-blend-mode:screen}
+  .preview :global(.mini-knit-live){position:absolute;inset:0;display:block;width:100%;height:100%;background:#151815}
   .mini-cord{position:absolute;inset:-12%;transform:rotate(-7deg);background:repeating-linear-gradient(106deg,#434a40 0 5px,#727969 6px 26px,#9ba08f 27px 34px,#596052 35px 41px);filter:saturate(.72) contrast(1.08)}
   .mini-cord:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(101deg,transparent 0 5px,rgba(231,232,219,.2) 6px,transparent 7px 12px);mix-blend-mode:screen}
   .mini-cord i{position:absolute;left:-5%;right:-5%;top:45%;height:16%;border-radius:999px;background:repeating-linear-gradient(104deg,#596052 0 5px,#919786 5px 12px,#686f60 12px 17px);box-shadow:0 12px 18px rgba(34,39,32,.4),inset 0 8px 12px rgba(255,255,245,.16);transform:rotate(2deg)}

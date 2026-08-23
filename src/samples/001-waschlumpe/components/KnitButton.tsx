@@ -12,12 +12,17 @@ export default function KnitButton({ material, children, ...props }: Props) {
       className="knit-button"
       onPointerDown={(event) => { setPressure(1); props.onPointerDown?.(event); }}
       onPointerUp={(event) => { setPressure(0); props.onPointerUp?.(event); }}
+      onPointerCancel={() => setPressure(0)}
       onPointerLeave={(event) => { setPressure(0); props.onPointerLeave?.(event); }}
       onKeyDown={(event) => { if (event.key === ' ' || event.key === 'Enter') setPressure(1); props.onKeyDown?.(event); }}
       onKeyUp={(event) => { setPressure(0); props.onKeyUp?.(event); }}
+      onBlur={() => setPressure(0)}
+      data-pressed={pressure > 0}
     >
       <KnitMaterial parameters={material} quality="small" deformation={{ type: 'press', amount: pressure }} label="" />
-      <span>{children}</span>
+      <i className="gather-thread gather-thread--left" aria-hidden="true" />
+      <i className="gather-thread gather-thread--right" aria-hidden="true" />
+      <span className="knit-button-label">{children}</span>
     </button>
   );
 }

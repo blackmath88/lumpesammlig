@@ -1,16 +1,15 @@
 .knit-stage {
   position: relative;
-  min-height: 760px;
+  min-height: max(760px, 100svh);
   background: #151815;
   overflow: hidden;
 }
-
 .knit-canvas {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
-  height: 760px;
+  height: 100%;
   touch-action: pan-y;
   background: #151815;
 }
@@ -94,8 +93,8 @@
 @media (max-width: 700px) {
   .knit-stage,
   .knit-canvas {
-    min-height: 680px;
-    height: 680px;
+    min-height: max(680px, 100svh);
+    height: 100%;
   }
 
   .knit-overlay {

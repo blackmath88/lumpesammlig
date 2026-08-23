@@ -31,7 +31,10 @@ export default function MaterialLab() {
     [activePreset],
   );
 
-  const applyPreset = (preset: KnitPreset) => { setParameters(copy(preset.values)); setActivePreset(preset.id); };
+  const applyPreset = (preset: KnitPreset) => {
+    setParameters(copy(preset.values));
+    setActivePreset(preset.id);
+  };
   const update = (key: keyof KnitMaterialParameters, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }));
     setActivePreset('custom');
@@ -39,11 +42,89 @@ export default function MaterialLab() {
 
   return (
     <div className="material-experience">
+      <section className="gather-scene" aria-labelledby="gather-title">
+        <div className="scene-copy gather-copy">
+          <p className="lab-index">04 / PRESSURE</p>
+          <h2 id="gather-title">A control gathers<br />out of the field.</h2>
+          <p>There is no permanent button frame. Local tension gives a soft region enough structure to accept pressure; release travels back into the weave.</p>
+        </div>
+        <div className="gather-field">
+          <KnitButton material={parameters}>Press the gathered cloth</KnitButton>
+          <figure className="scale-whisper scale-whisper--micro">
+            <div><KnitMaterial parameters={parameters} quality="micro" label="Micro knit specimen" /></div>
+            <figcaption>36 px / fibre becomes signal</figcaption>
+          </figure>
+          <p className="field-note">PRESS / HOLD / RELEASE</p>
+        </div>
+      </section>
+
+      <section className="anchor-scene" aria-labelledby="anchor-title">
+        <header className="scene-copy anchor-copy">
+          <p className="lab-index">05 / TWO ANCHORS</p>
+          <h2 id="anchor-title">State is the distance<br />the cloth can hold.</h2>
+        </header>
+        <div className="anchor-stage">
+          <TensionToggle material={parameters} checked={toggle} onChange={setToggle} />
+          <p className="anchor-explanation">Loose cloth hangs between two fixed points. Toggle the state and the mesh itself becomes the indicator: openings align, slack is taken up, and the span rises.</p>
+        </div>
+      </section>
+
+      <section className="progress-scene" aria-labelledby="progress-title">
+        <div className="progress-heading">
+          <p className="lab-index">06 / PROPAGATION</p>
+          <h2 id="progress-title">Progress crosses<br />a connected field.</h2>
+          <p>Not a bar filling a container: a broad textile band moving from slack to held tension.</p>
+        </div>
+        <MeshLoader material={parameters} progress={progress} />
+        <label className="progress-control">
+          <span>Move the tension front</span>
+          <input type="range" min="0" max="1" step=".01" value={progress} onChange={(event) => setProgress(Number(event.currentTarget.value))} />
+          <output>{Math.round(progress * 100)}%</output>
+        </label>
+        <div className="travelling-specimen">
+          <span>INDETERMINATE / LOCAL WAVE</span>
+          <MeshLoader material={parameters} />
+        </div>
+      </section>
+
+      <section className="perimeter-scene" aria-labelledby="perimeter-title">
+        <div className="perimeter-intro">
+          <p className="lab-index">07 / PERIMETER</p>
+          <h2 id="perimeter-title">The reading stays still.<br />Its boundary negotiates.</h2>
+          <p>Drag the exposed cloth. The content remains composed while force moves through the material around it.</p>
+        </div>
+        <StretchCard material={parameters} />
+        <figure className="scale-whisper scale-whisper--small">
+          <div><KnitMaterial parameters={parameters} quality="micro" label="Small knit control specimen" /></div>
+          <figcaption>72 px / colour + topology</figcaption>
+        </figure>
+      </section>
+
+      <section className="scale-drift" aria-labelledby="scale-title">
+        <div className="scale-statement">
+          <p className="lab-index">08 / SCALE, DISPERSED</p>
+          <h2 id="scale-title">The cloth does not<br />survive intact.</h2>
+          <p>At each size a different part is surrendered. Failure is useful: it identifies which qualities can actually carry interface meaning.</p>
+        </div>
+        <figure className="drift-specimen drift-specimen--medium">
+          <div><KnitMaterial parameters={parameters} quality="small" label="Medium knit specimen" /></div>
+          <figcaption><b>220 px</b><span>yarn and openings remain distinct</span></figcaption>
+        </figure>
+        <figure className="drift-specimen drift-specimen--large">
+          <div><KnitMaterial parameters={parameters} quality="small" interactive label="Large interactive knit specimen" /></div>
+          <figcaption><b>environment</b><span>gesture can propagate through the field</span></figcaption>
+        </figure>
+        <figure className="drift-specimen drift-specimen--tiny">
+          <div><KnitMaterial parameters={parameters} quality="micro" label="Tiny knit specimen" /></div>
+          <figcaption><b>16 px</b><span>material collapses into a coloured pulse</span></figcaption>
+        </figure>
+      </section>
+
       <section className="material-lab" aria-labelledby="material-lab-title">
         <header className="lab-heading">
-          <p className="lab-index">04 / MATERIAL PLAYGROUND</p>
-          <h2 id="material-lab-title">One cloth,<br />many tensions.</h2>
-          <p>Change the physical reading, not rendering internals. Every study below inherits the same live material state.</p>
+          <p className="lab-index">09 / OPEN THE MATERIAL</p>
+          <h2 id="material-lab-title">Inspection<br />instrument.</h2>
+          <p>The exhibit has already behaved. Here the same engine can be opened, named and tuned. Every specimen above inherits this live material state.</p>
         </header>
 
         <div className="lab-workbench">
@@ -75,76 +156,10 @@ export default function MaterialLab() {
         </div>
       </section>
 
-      <section className="variation-study" aria-labelledby="variation-title">
-        <header className="section-heading">
-          <p className="lab-index">05 / COORDINATES</p>
-          <h2 id="variation-title">Same system.<br />Different weather.</h2>
-          <p>Each live tile is a coordinate, not a separate artwork. Choose one to send it back into the playground.</p>
-        </header>
-        <div className="variation-grid">
-          {KNIT_PRESETS.map((preset) => (
-            <button key={preset.id} type="button" className="variation-tile" aria-pressed={activePreset === preset.id} onClick={() => applyPreset(preset)}>
-              <KnitMaterial parameters={preset.values} quality="small" label={`${preset.label} knitted material variation`} />
-              <span>{preset.label}</span>
-            </button>
-          ))}
-          <button type="button" className="variation-tile" aria-pressed={activePreset === 'custom'} onClick={() => setActivePreset('custom')}>
-            <KnitMaterial parameters={parameters} quality="small" label="Current custom knitted material variation" />
-            <span>Current state</span>
-          </button>
-        </div>
-      </section>
-
-      <section className="scale-study" aria-labelledby="scale-title">
-        <header className="section-heading">
-          <p className="lab-index">06 / SCALE STUDY</p>
-          <h2 id="scale-title">What survives<br />when it shrinks?</h2>
-          <p>Small surfaces keep silhouette, colour drift and connected tension while surrendering fibre detail and frame rate.</p>
-        </header>
-        <div className="scale-grid">
-          <figure className="scale-micro"><div><KnitMaterial parameters={parameters} quality="micro" label="Micro scale knit sample" /></div><figcaption><b>Micro</b><span>Indicator / 36 px</span></figcaption></figure>
-          <figure className="scale-small"><div><KnitMaterial parameters={parameters} quality="micro" label="Small scale knit sample" /></div><figcaption><b>Small</b><span>Control / 72 px</span></figcaption></figure>
-          <figure className="scale-medium"><div><KnitMaterial parameters={parameters} quality="small" label="Medium scale knit sample" /></div><figcaption><b>Medium</b><span>Card / 220 px</span></figcaption></figure>
-          <figure className="scale-large"><div><KnitMaterial parameters={parameters} quality="small" interactive label="Large interactive knit sample" /></div><figcaption><b>Large</b><span>Panel / 440 px</span></figcaption></figure>
-        </div>
-      </section>
-
-      <section className="component-study" aria-labelledby="components-title">
-        <header className="section-heading component-heading">
-          <p className="lab-index">07 / COMPONENT MUTATIONS</p>
-          <h2 id="components-title">Behaviour,<br />not upholstery.</h2>
-          <p>The cloth becomes useful when its connected structure changes how a control responds—not when it merely decorates the background.</p>
-        </header>
-
-        <div className="component-row component-row-button">
-          <div className="component-copy"><p className="component-index">A / KNIT BUTTON</p><h3>Pressure spreads.</h3><p>Pressing compresses one area and asks neighbouring cells to make room. Release is deliberately slow.</p></div>
-          <div className="component-demo"><KnitButton material={parameters}>Continue through cloth</KnitButton></div>
-        </div>
-
-        <div className="component-row component-row-toggle">
-          <div className="component-copy"><p className="component-index">B / TENSION TOGGLE</p><h3>State becomes geometry.</h3><p>Loose openings settle into a taut field. The label confirms what the stitch structure communicates first.</p></div>
-          <div className="component-demo"><TensionToggle material={parameters} checked={toggle} onChange={setToggle} /></div>
-        </div>
-
-        <div className="component-row component-row-card">
-          <div className="component-copy"><p className="component-index">C / STRETCH CARD</p><h3>The frame yields.</h3><p>Drag is an enhancement. The semantic control offers the same tension state without precise pointer movement.</p></div>
-          <div className="component-demo"><StretchCard material={parameters} /></div>
-        </div>
-
-        <div className="component-row component-row-loader">
-          <div className="component-copy"><p className="component-index">D / MESH LOADER</p><h3>Loading travels.</h3><p>Progress is tension moving through connected cells, with a readable static state when motion is reduced.</p></div>
-          <div className="component-demo loader-stack">
-            <MeshLoader material={parameters} />
-            <MeshLoader material={parameters} progress={progress} />
-            <label className="progress-control"><span>Determinate tension</span><input type="range" min="0" max="1" step=".01" value={progress} onChange={(event) => setProgress(Number(event.currentTarget.value))} /></label>
-          </div>
-        </div>
-      </section>
-
       <section className="implementation-note">
-        <p className="lab-index">08 / IMPLEMENTATION NOTE</p>
+        <p className="lab-index">10 / IMPLEMENTATION NOTE</p>
         <blockquote>Code does not preserve a picture of the material. It preserves a field of possible behaviours.</blockquote>
-        <p>A single canvas reconstruction now scales its stitch count, detail, pixel density and motion budget to the surface it inhabits. Public controls remain physical; canvas internals remain private to sample 001.</p>
+        <p>A single canvas reconstruction scales stitch count, detail, pixel density and motion budget to every surface here. The exhibition changes shape around it; the material engine does not fork.</p>
       </section>
     </div>
   );
