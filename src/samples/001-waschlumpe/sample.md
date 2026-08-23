@@ -10,10 +10,10 @@ The useful qualities are not the photograph itself: uneven tension, changing yar
 
 ## Web translation
 
-`KnitSurface.tsx` is a single React island that owns a Canvas 2D surface. Astro owns the exhibition page around it. The pointer adds a broad, delayed tension field rather than a click ripple or magnetic attraction; idle motion stays slow and reduced-motion users receive a static render.
+`KnitMaterial.tsx` is the sample-local Canvas 2D renderer. `KnitSurface.tsx` composes it as the hero, while `MaterialLab.tsx` uses the same semantic parameter model for live variations, scale studies and four object-specific component mutations. The pointer adds a broad, delayed tension field rather than a click ripple or magnetic attraction; idle motion stays slow and reduced-motion users receive a static render.
 
 ## Boundary
 
 This directory belongs to Sample 001. Its rendering choices are precedent only for this object—not a template every later sample must inherit.
 
-Possible later mutations (not implemented yet): a tension card, divider, control, loader, or draggable textile panel.
+The public model describes openness, yarn thickness, irregularity, tension, softness, colour drift and idle motion. Quality tiers, pixel density and canvas drawing details stay private to sample 001. No cross-sample material or component framework is implied.
