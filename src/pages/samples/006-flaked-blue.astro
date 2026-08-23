@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PaintField from '../../samples/006-flaked-blue/PaintField';
+import PaintExperience from '../../samples/006-flaked-blue/PaintExperience';
 ---
 <BaseLayout title="006 Flaked Blue — Lumpesammlig" description="Old blue-grey paint reconstructed as a layered, eroding material above undercoat and wood.">
   <main class="paint-page">
@@ -19,7 +20,7 @@ import PaintField from '../../samples/006-flaked-blue/PaintField';
         <p>The photograph records an old wooden surface beside a window. Its composition and exact paint history are unknown, so the reconstruction keeps only what can be observed: layer order, vertical grain, clustered failure and matte light.</p>
       </div>
       <figure>
-        <img src="/samples/006-flaked-blue/source.png" alt="Old blue-grey painted wood beside a window, with cracked and flaking paint exposing pale layers" loading="lazy" />
+        <img src="/samples/006-flaked-blue/source.png" alt="Old blue-grey painted wood beside a window, with cracked and flaking paint exposing pale layers" width="953" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / layer and damage reference</figcaption>
       </figure>
     </section>
@@ -54,12 +55,14 @@ import PaintField from '../../samples/006-flaked-blue/PaintField';
       <p class="execution">This remains a static cutaway rather than a scratch card. It tests whether state history can occupy physical depth without turning erosion into a reward animation or a distressed component style.</p>
     </section>
 
+    <PaintExperience client:visible />
+
     <footer><span>006 / FLAKED BLUE</span><span>erosion → height → layer shadow</span></footer>
   </main>
 </BaseLayout>
 
 <style>
-  .paint-page{background:#dcd8ca;color:#253235}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .paint-page{background:#dcd8ca;color:#253235;overflow-x:clip}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
   .opening,.evidence,.strata,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
   .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}.statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400;color:#41656b}.observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#5c6562}
   .evidence{display:grid;grid-template-columns:.66fr 1.34fr;gap:clamp(34px,7vw,110px);padding-top:100px;padding-bottom:150px;border-top:1px solid #aeb3aa;align-items:start}.evidence-copy{position:sticky;top:40px}.evidence h2,.strata h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child,.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#5c6562}.evidence figure{margin:0}.evidence img{display:block;width:100%;height:auto;filter:saturate(.72) contrast(1.03)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}

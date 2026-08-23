@@ -1,6 +1,7 @@
 .coil-hero{position:relative;min-height:100svh;overflow:hidden;background:#9a7448;color:#f4ead8;isolation:isolate}
 .coil-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:pan-y}
 .coil-hero--fallback{background:repeating-radial-gradient(circle at 53% 49%,#b68d5c 0 23px,#745233 25px 28px,#bc9462 29px 48px,#173252 49px 53px)}
+.coil-canvas--fallback{background:repeating-radial-gradient(circle at 53% 49%,#b68d5c 0 23px,#745233 25px 28px,#bc9462 29px 48px,#173252 49px 53px)}
 .coil-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,20,14,.62),rgba(35,26,17,.18) 48%,transparent 72%),linear-gradient(0deg,rgba(25,18,12,.35),transparent 45%);pointer-events:none}
 .coil-copy{position:relative;z-index:2;padding:clamp(32px,6vw,86px);padding-top:clamp(110px,16vh,180px);width:min(760px,88vw)}
 .coil-copy>p{font-size:10px;letter-spacing:.22em;font-weight:760;margin:0 0 36px}.coil-copy h1{font-size:clamp(88px,16vw,230px);line-height:.69;letter-spacing:-.085em;margin:0 0 48px;font-weight:630}.coil-copy>span{display:block;font-family:Georgia,serif;font-size:clamp(20px,2.6vw,35px);line-height:1.2;width:min(19em,100%);color:rgba(248,238,219,.87)}

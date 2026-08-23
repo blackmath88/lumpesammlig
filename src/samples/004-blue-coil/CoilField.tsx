@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { DEFAULT_COIL_PARAMETERS, type CoilParameters } from './material/parameters';
 import './coil-field.css';
+
+export type CoilQuality = 'micro' | 'small' | 'full';
+type CoilFieldProps = { bare?:boolean; parameters?:CoilParameters; quality?:CoilQuality; interactive?:boolean; className?:string; label?:string };
 
 const vertexShader = `
   attribute vec2 position;
@@ -16,6 +20,8 @@ const fragmentShader = `
   uniform vec2 resolution;
   uniform vec2 pointer;
   uniform float time;
+  uniform vec4 physicalA;
+  uniform vec4 physicalB;
 
   float hash21(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
@@ -37,30 +43,30 @@ const fragmentShader = `
     float r = length(p);
     float a = atan(p.y, p.x);
     float wobble = (noise(vec2(a * 1.4 + 8., r * 5.)) - .5) * .012;
-    wobble += sin(a * 5. + r * 18.) * .0025;
+    wobble = wobble * mix(.2,1.7,physicalA.w) + sin(a * 5. + r * 18.) * .0025;
     float spiral = r + wobble + a * .0018;
-    float spacing = .049;
+    float spacing = mix(.035,.066,physicalA.x);
     float band = spiral / spacing;
     float ringId = floor(band);
     float local = fract(band);
     float d = abs(local - .5) * 2.;
-    float crown = pow(max(0., 1. - d * d), .56);
+    float crown = pow(max(0., 1. - d * d), mix(.88,.42,physicalA.y));
 
     float arc = a * max(r, .025);
     float wrapPhase = arc * 530. + r * 38. + noise(vec2(a * 16., ringId)) * 3.2;
     float wrap = sin(wrapPhase);
     float wrapFine = sin(wrapPhase * 2.03 + 1.1);
     float handmade = noise(vec2(a * 26. + ringId, ringId * 1.7)) - .5;
-    float height = crown * (1. + wrap * .034 + wrapFine * .012 + handmade * .038);
+    float height = crown * (1. + wrap * .034 + wrapFine * .012 + handmade * .038) * mix(.86,1.15,physicalB.z);
 
     float centerLift = smoothstep(.19, 0., r);
     float centerSpiral = sin((r + a * .018) * 150.);
-    height += centerLift * (.33 + centerSpiral * .055);
+    height += centerLift * mix(.08,.48,physicalA.z) * (1. + centerSpiral * .16);
 
-    float blueSequence = step(5.15, mod(ringId + 1., 7.));
+    float blueSequence = step(mix(6.5,2.2,physicalB.x), mod(ringId + 1., 7.));
     blueSequence = max(blueSequence, step(.5, smoothstep(.305, .335, r) * (1. - smoothstep(.365, .395, r))));
     float blueBeat = smoothstep(.1, .5, sin(wrapPhase * .48 + ringId * .7));
-    float blue = blueSequence * blueBeat * smoothstep(.08, .55, crown);
+    float blue = blueSequence * blueBeat * smoothstep(.08, .55, crown) * mix(.15,1.25,physicalB.y);
     blue *= 1. - centerLift * .82;
     return vec3(height, blue, crown);
   }
@@ -73,8 +79,7 @@ const fragmentShader = `
     vec3 normal = normalize(vec3(-hx * 12., -hy * 12., 1.));
 
     vec2 lightShift = (pointer - .5) * vec2(.28, .2);
-    lightShift += vec2(sin(time * .08), cos(time * .07)) * .012;
-    vec3 light = normalize(vec3(-.42 + lightShift.x, .52 - lightShift.y, .86));
+    vec3 light = normalize(vec3(mix(-.72,.12,physicalB.w) + lightShift.x, .52 - lightShift.y, .86));
     float diffuse = max(dot(normal, light), 0.);
     float wrapLight = max(dot(normal, light) * .5 + .5, 0.);
 
@@ -118,14 +123,19 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function CoilField() {
+export default function CoilField({ bare=false, parameters=DEFAULT_COIL_PARAMETERS, quality='full', interactive=true, className='', label='Procedural macro study of concentric natural-fibre coils with indigo bindings' }: CoilFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const parametersRef = useRef(parameters);
+  const requestDrawRef = useRef<() => void>(() => {});
+  parametersRef.current = parameters;
+  useEffect(() => requestDrawRef.current(), [parameters]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'high-performance' });
     if (!gl) {
+      canvas.classList.add('coil-canvas--fallback');
       canvas.closest('.coil-hero')?.classList.add('coil-hero--fallback');
       return;
     }
@@ -148,76 +158,77 @@ export default function CoilField() {
     const resolution = gl.getUniformLocation(program, 'resolution');
     const pointerUniform = gl.getUniformLocation(program, 'pointer');
     const timeUniform = gl.getUniformLocation(program, 'time');
+    const physicalA = gl.getUniformLocation(program, 'physicalA');
+    const physicalB = gl.getUniformLocation(program, 'physicalB');
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = { x: .32, y: .25, tx: .32, ty: .25 };
-    let reduced = motionQuery.matches;
     let frame = 0;
-    let lastRender = 0;
-    const started = performance.now();
+    let visible = false;
+    let pageVisible = document.visibilityState === 'visible';
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const cap = window.innerWidth < 700 ? 1 : 1.35;
+      if (!rect.width || !rect.height) return false;
+      const cap = quality === 'micro' ? 1 : quality === 'small' ? 1.15 : window.innerWidth < 700 ? 1 : 1.35;
       const dpr = Math.min(window.devicePixelRatio || 1, cap);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      const width=Math.max(1,Math.floor(rect.width*dpr)); const height=Math.max(1,Math.floor(rect.height*dpr));
+      if(canvas.width===width&&canvas.height===height)return false;
+      canvas.width=width; canvas.height=height;
       gl.viewport(0, 0, canvas.width, canvas.height);
+      return true;
     };
-    const draw = (now = performance.now()) => {
-      if (!reduced && now - lastRender < 33) {
-        frame = requestAnimationFrame(draw);
-        return;
-      }
-      lastRender = now;
-      pointer.x += (pointer.tx - pointer.x) * .035;
-      pointer.y += (pointer.ty - pointer.y) * .035;
+    const draw = () => {
+      frame=0; const values=parametersRef.current;
       gl.uniform2f(resolution, canvas.width, canvas.height);
       gl.uniform2f(pointerUniform, pointer.x, 1 - pointer.y);
-      gl.uniform1f(timeUniform, (now - started) / 1000);
+      gl.uniform1f(timeUniform, 0);
+      gl.uniform4f(physicalA,values.coilSpacing,values.coilThickness,values.centerLift,values.radialDrift);
+      gl.uniform4f(physicalB,values.bindingFrequency,values.indigoDensity,values.compression,values.lightDirection);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      if (!reduced) frame = requestAnimationFrame(draw);
     };
+    const queueDraw=()=>{if(!frame&&visible&&pageVisible)frame=requestAnimationFrame(draw)};
     const onPointer = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer.tx = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
       pointer.ty = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-      if (reduced) draw();
+      pointer.x=pointer.tx; pointer.y=pointer.ty; queueDraw();
     };
     const onLeave = () => {
       pointer.tx = .32;
       pointer.ty = .25;
+      pointer.x=pointer.tx; pointer.y=pointer.ty; queueDraw();
     };
-    const onMotion = (event: MediaQueryListEvent) => {
-      reduced = event.matches;
-      cancelAnimationFrame(frame);
-      draw();
-    };
-    canvas.addEventListener('pointermove', onPointer, { passive: true });
-    canvas.addEventListener('pointerleave', onLeave);
+    const onMotion=()=>queueDraw();
+    const onVisibility=()=>{pageVisible=document.visibilityState==='visible';if(pageVisible)queueDraw();else{cancelAnimationFrame(frame);frame=0}};
+    const onContextLost=(event:Event)=>{event.preventDefault();cancelAnimationFrame(frame);frame=0};
+    const intersection=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)queueDraw();else{cancelAnimationFrame(frame);frame=0}},{rootMargin:'120px'});
+    if(interactive){canvas.addEventListener('pointermove', onPointer, { passive: true });canvas.addEventListener('pointerleave', onLeave);}
+    canvas.addEventListener('webglcontextlost',onContextLost);document.addEventListener('visibilitychange',onVisibility);
     motionQuery.addEventListener('change', onMotion);
-    const observer = new ResizeObserver(() => {
-      resize();
-      if (reduced) draw();
-    });
-    observer.observe(canvas);
+    let resizeFrame=0; const observer=new ResizeObserver(()=>{if(!resizeFrame)resizeFrame=requestAnimationFrame(()=>{resizeFrame=0;if(resize())queueDraw()})});
+    observer.observe(canvas);intersection.observe(canvas);
     resize();
-    draw();
+    requestDrawRef.current=queueDraw;
     return () => {
       cancelAnimationFrame(frame);
-      observer.disconnect();
+      cancelAnimationFrame(resizeFrame); observer.disconnect(); intersection.disconnect();
       canvas.removeEventListener('pointermove', onPointer);
       canvas.removeEventListener('pointerleave', onLeave);
       motionQuery.removeEventListener('change', onMotion);
+      document.removeEventListener('visibilitychange',onVisibility);canvas.removeEventListener('webglcontextlost',onContextLost);requestDrawRef.current=()=>{};
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vert);
       gl.deleteShader(frag);
     };
-  }, []);
+  }, [interactive,quality]);
+
+  const canvas=<canvas ref={canvasRef} className={`coil-canvas ${className}`} role={label?'img':undefined} aria-label={label||undefined} aria-hidden={label?undefined:true}/>;
+  if(bare)return canvas;
 
   return (
     <section className="coil-hero" aria-labelledby="coil-title">
-      <canvas ref={canvasRef} className="coil-canvas" aria-label="Procedural macro study of concentric natural-fibre coils with indigo bindings" />
+      {canvas}
       <div className="coil-shade" aria-hidden="true" />
       <div className="coil-copy">
         <p>OBJECT 004 / COIL STUDY</p>

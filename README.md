@@ -37,7 +37,7 @@ Astro is the stable, mostly static exhibition shell:
 ~~~text
 src/
   components/
-    SampleLibrary.astro          # static promenade + sample-specific live 001 preview
+    SampleLibrary.astro          # static promenade + low-cost live material previews
   data/
     samples.ts                   # lightweight metadata for real samples only
   layouts/
@@ -65,22 +65,32 @@ src/
     003-soft-green/
       sample.md
       CordField.tsx              # raw WebGL + GLSL island
+      CordExperience.tsx         # knot, suspended panel, scale + material lab
+      material/                  # semantic cord coordinates + named presets
       cord-field.css
     004-blue-coil/
       sample.md
       CoilField.tsx              # concentric raw WebGL + GLSL relief
+      CoilExperience.tsx         # progress, radial steps, containment + lab
+      material/                  # semantic coil coordinates + named presets
       coil-field.css
     006-flaked-blue/
       sample.md
       PaintField.tsx             # layered erosion + height-derived lighting
+      PaintExperience.tsx        # erosion, stratigraphy, integrity + lab
+      material/                  # semantic surface coordinates + named presets
       paint-field.css
     007-blue-printed-paper/
       sample.md
       PaperField.tsx             # absorbed radial print + fibrous paper relief
+      PaperExperience.tsx        # propagation, registration, navigation + lab
+      material/                  # semantic print coordinates + named presets
       paper-field.css
 ~~~
 
-Only each sample's focused interactive islands hydrate (`KnitSurface`, the 001 material experience, `CordField`, `CoilField`, `PaintField`, and `PaperField`). The library, layout and notes are static Astro. React is therefore a local implementation choice, not the site runtime. Inside 001, hero, scale specimens, lab and behaviour-derived components all reuse `KnitMaterial`; this is a sample-local engine, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
+Only each sample's focused interactive islands hydrate. Hero materials load immediately; the deeper experiences and small collection previews hydrate when visible. The renderers draw on demand, cap pixel density by context, pause outside the viewport or in a hidden tab, and provide CSS fallbacks when WebGL is unavailable. The library, layout and notes remain static Astro.
+
+React is therefore a local implementation choice, not the site runtime. Every implemented object keeps its semantic parameters, presets, renderer, scale studies, material lab and behaviour-derived components inside its own sample directory. These are deliberately sample-local engines, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
 
 There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
 

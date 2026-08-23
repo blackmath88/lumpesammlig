@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { DEFAULT_PAPER_PARAMETERS, type PaperParameters } from './material/parameters';
 import './paper-field.css';
+
+export type PaperQuality='micro'|'small'|'full';
+type PaperFieldProps={bare?:boolean;parameters?:PaperParameters;quality?:PaperQuality;interactive?:boolean;className?:string;label?:string};
 
 const vertexShader = `
   attribute vec2 position;
@@ -16,6 +20,8 @@ const fragmentShader = `
   uniform vec2 resolution;
   uniform vec2 pointer;
   uniform float mode;
+  uniform vec4 physicalA;
+  uniform vec4 physicalB;
 
   float hash21(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
@@ -35,7 +41,7 @@ const fragmentShader = `
     float value = 0.;
     float amplitude = .53;
     mat2 turn = mat2(.81, -.59, .59, .81);
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
       value += noise(p) * amplitude;
       p = turn * p * 2.02 + 17.13;
       amplitude *= .48;
@@ -49,7 +55,7 @@ const fragmentShader = `
     float pulp = fbm(p * 27. + vec2(4., 61.));
     float creaseA = exp(-pow(abs(p.y - .33 - sin(p.x * 4.1) * .018) * 115., 1.35));
     float creaseB = exp(-pow(abs(p.x + p.y * .18 - 1.12) * 150., 1.25));
-    return broad * .56 + dent * .19 + pulp * .045 - creaseA * .021 - creaseB * .012;
+    return broad * mix(.16,.82,physicalA.y) + dent * .19 + pulp * mix(.012,.08,physicalA.x) - creaseA * .021 - creaseB * .012;
   }
 
   float radialPrint(vec2 p, vec2 center, float seed, float scale, float turn) {
@@ -70,17 +76,19 @@ const fragmentShader = `
 
   float printField(vec2 p) {
     vec2 drift = vec2(fbm(p * 2.3 + 12.), fbm(p * 2.1 + 49.)) - .5;
-    vec2 q = p + drift * .018;
-    float marks = radialPrint(q, vec2(.28, .79), 2.1, 14.1, .027);
-    marks = max(marks, radialPrint(q, vec2(.72, .71), 7.3, 13.6, -.022));
-    marks = max(marks, radialPrint(q, vec2(.48, .38), 13.7, 14.8, .031));
-    marks = max(marks, radialPrint(q, vec2(.94, .27), 22.4, 13.3, -.026));
-    marks = max(marks, radialPrint(q, vec2(.08, .18), 31.9, 14.5, .02));
+    vec2 q = p + drift * mix(.002,.055,physicalB.z);
+    float radiusScale=mix(.72,1.35,physicalB.y);
+    float marks = radialPrint(q, vec2(.28, .79), 2.1, 14.1*radiusScale, .027);
+    marks = max(marks, radialPrint(q, vec2(.72, .71), 7.3, 13.6*radiusScale, -.022));
+    marks = max(marks, radialPrint(q, vec2(.48, .38), 13.7, 14.8*radiusScale, .031));
+    marks = max(marks, radialPrint(q, vec2(.94, .27), 22.4, 13.3*radiusScale, -.026));
+    marks = max(marks, radialPrint(q, vec2(.08, .18), 31.9, 14.5*radiusScale, .02));
     float absorption = fbm(p * 49. + 6.2);
     float fibreBreak = noise(p * vec2(114., 67.) + 28.);
-    marks *= .78 + absorption * .22;
-    marks *= smoothstep(.08, .23, fibreBreak);
-    return marks;
+    marks *= mix(1.,.64 + absorption*.36,physicalA.w);
+    marks *= smoothstep(mix(.02,.26,physicalB.w), mix(.12,.48,physicalB.w), fibreBreak);
+    marks=smoothstep(mix(.06,.25,physicalB.x),mix(.35,.72,physicalB.x),marks);
+    return marks*physicalA.z;
   }
 
   void main() {
@@ -149,14 +157,17 @@ function debugMode() {
   return 0;
 }
 
-export default function PaperField() {
+export default function PaperField({bare=false,parameters=DEFAULT_PAPER_PARAMETERS,quality='full',interactive=true,className='',label='Procedural macro study of dusty indigo print absorbed into warm fibrous paper'}:PaperFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const parametersRef=useRef(parameters);const requestDrawRef=useRef<()=>void>(()=>{});parametersRef.current=parameters;
+  useEffect(()=>requestDrawRef.current(),[parameters]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'high-performance' });
     if (!gl) {
+      canvas.classList.add('paper-canvas--fallback');
       canvas.closest('.paper-hero')?.classList.add('paper-hero--fallback');
       return;
     }
@@ -182,27 +193,32 @@ export default function PaperField() {
     const resolution = gl.getUniformLocation(program, 'resolution');
     const pointerUniform = gl.getUniformLocation(program, 'pointer');
     const modeUniform = gl.getUniformLocation(program, 'mode');
+    const physicalA=gl.getUniformLocation(program,'physicalA');const physicalB=gl.getUniformLocation(program,'physicalB');
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = { x: .3, y: .26 };
     let frame = 0;
+    let visible=false;let pageVisible=document.visibilityState==='visible';
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const cap = window.innerWidth < 700 ? 1 : 1.3;
+      if(!rect.width||!rect.height)return false;
+      const cap=quality==='micro'?.6:quality==='small'?.75:window.innerWidth<700?.65:.9;
       const dpr = Math.min(window.devicePixelRatio || 1, cap);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      const width=Math.max(1,Math.floor(rect.width*dpr));const height=Math.max(1,Math.floor(rect.height*dpr));if(canvas.width===width&&canvas.height===height)return false;canvas.width=width;canvas.height=height;
       gl.viewport(0, 0, canvas.width, canvas.height);
+      return true;
     };
     const draw = () => {
-      frame = 0;
+      frame = 0;const values=parametersRef.current;
       gl.uniform2f(resolution, canvas.width, canvas.height);
       gl.uniform2f(pointerUniform, pointer.x, 1 - pointer.y);
       gl.uniform1f(modeUniform, debugMode());
+      gl.uniform4f(physicalA,values.pulpRoughness,values.sheetWaviness,values.pigmentDensity,values.absorption);
+      gl.uniform4f(physicalB,values.markSoftness,values.repeatRadius,values.registrationDrift,values.missingCoverage);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     const queueDraw = () => {
-      if (!frame) frame = requestAnimationFrame(draw);
+      if (!frame&&visible&&pageVisible) frame = requestAnimationFrame(draw);
     };
     const onPointer = (event: PointerEvent) => {
       if (motionQuery.matches) return;
@@ -211,28 +227,32 @@ export default function PaperField() {
       pointer.y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
       queueDraw();
     };
-    const observer = new ResizeObserver(() => {
-      resize();
-      queueDraw();
-    });
-    canvas.addEventListener('pointermove', onPointer, { passive: true });
-    observer.observe(canvas);
+    const onVisibility=()=>{pageVisible=document.visibilityState==='visible';if(pageVisible)queueDraw();else{cancelAnimationFrame(frame);frame=0}};
+    const onContextLost=(event:Event)=>{event.preventDefault();cancelAnimationFrame(frame);frame=0};
+    const intersection=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)queueDraw();else{cancelAnimationFrame(frame);frame=0}},{rootMargin:'120px'});
+    if(interactive)canvas.addEventListener('pointermove', onPointer, { passive: true });
+    canvas.addEventListener('webglcontextlost',onContextLost);document.addEventListener('visibilitychange',onVisibility);
+    let resizeFrame=0;const observer=new ResizeObserver(()=>{if(!resizeFrame)resizeFrame=requestAnimationFrame(()=>{resizeFrame=0;if(resize())queueDraw()})});
+    observer.observe(canvas);intersection.observe(canvas);
     resize();
-    draw();
+    requestDrawRef.current=queueDraw;
     return () => {
       cancelAnimationFrame(frame);
-      observer.disconnect();
+      cancelAnimationFrame(resizeFrame);observer.disconnect();intersection.disconnect();
       canvas.removeEventListener('pointermove', onPointer);
+      canvas.removeEventListener('webglcontextlost',onContextLost);document.removeEventListener('visibilitychange',onVisibility);requestDrawRef.current=()=>{};
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vert);
       gl.deleteShader(frag);
     };
-  }, []);
+  }, [interactive,quality]);
+
+  const canvas=<canvas ref={canvasRef} className={`paper-canvas ${className}`} role={label?'img':undefined} aria-label={label||undefined} aria-hidden={label?undefined:true}/>;if(bare)return canvas;
 
   return (
     <section className="paper-hero" aria-labelledby="paper-title">
-      <canvas ref={canvasRef} className="paper-canvas" aria-label="Procedural macro study of dusty indigo print absorbed into warm fibrous paper" />
+      {canvas}
       <div className="paper-shade" aria-hidden="true" />
       <div className="paper-copy">
         <p>OBJECT 007 / MATERIAL ERROR</p>

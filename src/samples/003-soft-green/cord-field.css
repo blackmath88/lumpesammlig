@@ -1,6 +1,7 @@
 .cord-hero{position:relative;min-height:100svh;overflow:hidden;background:#697061;color:#eef0e8;isolation:isolate}
 .cord-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
 .cord-hero--fallback{background:repeating-linear-gradient(108deg,#4e554a 0 7px,#78806f 8px 34px,#969c8b 35px 42px,#596052 43px 50px)}
+.cord-canvas--fallback{background:repeating-linear-gradient(108deg,#4e554a 0 7px,#78806f 8px 34px,#969c8b 35px 42px,#596052 43px 50px)}
 .cord-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,31,26,.62),rgba(34,38,32,.22) 48%,rgba(24,28,23,.04) 75%),linear-gradient(0deg,rgba(25,28,24,.32),transparent 42%);pointer-events:none}
 .cord-copy{position:relative;z-index:2;width:min(820px,88vw);padding:clamp(30px,6vw,86px);padding-top:clamp(110px,17vh,190px);text-shadow:0 2px 28px rgba(20,24,19,.42)}
 .cord-index{font-size:10px;letter-spacing:.22em;font-weight:750;margin:0 0 38px;opacity:.72}

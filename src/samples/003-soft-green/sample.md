@@ -12,6 +12,8 @@ The detail photograph has three simultaneous structures: thick diagonally packed
 
 CordField is a raw WebGL React island. A GLSL pseudo-height function synthesizes macro bands, meso-scale twist and micro-scale aligned noise. Finite differences produce approximate normals; diffuse wrapped lighting then creates colour and depth. Pointer motion changes only the broad light direction.
 
+The same parameterized renderer now appears in the hero, collection preview, knot slider, suspended panel, scale specimens and late workbench. The knot redistributes slack; the panel makes content into carried load rather than adding a cord border.
+
 ## Boundary
 
-The shader belongs to Sample 003. It does not establish WebGL as a default for other samples. The first interface mutation is deliberately limited to a load-bearing tension diagram until the synthetic material has been compared with the real cord on multiple displays.
+The shader belongs to Sample 003. It renders only on load, visible resize, parameter change and pointer light movement; hidden and offscreen canvases stop scheduling work. It does not establish WebGL or a cord component API as defaults for other samples.

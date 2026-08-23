@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CordField from '../../samples/003-soft-green/CordField';
+import CordExperience from '../../samples/003-soft-green/CordExperience';
 ---
 <BaseLayout title="003 Soft Green — Lumpesammlig" description="Soft green macramé cord reconstructed as a procedural, light-responsive material field.">
   <main class="cord-page">
@@ -19,11 +20,11 @@ import CordField from '../../samples/003-soft-green/CordField';
         <p>The label identifies macramé yarn in “Soft Green”, 3.5&nbsp;mm in diameter and 100&nbsp;m long. Cotton and recycled-cotton language is visible; no narrower composition is assumed.</p>
       </div>
       <figure class="source-main">
-        <img src="/samples/003-soft-green/front-2.jpg" alt="Soft Green macramé cord wound around a labelled cylindrical spool" loading="lazy" />
+        <img src="/samples/003-soft-green/front-2.jpg" alt="Soft Green macramé cord wound around a labelled cylindrical spool" width="1152" height="1536" loading="lazy" decoding="async" />
         <figcaption>Real object / front view</figcaption>
       </figure>
       <figure class="source-detail">
-        <img src="/samples/003-soft-green/detail.png" alt="Macro detail of overlapping grey-green macramé cords and their fine fibres" loading="lazy" />
+        <img src="/samples/003-soft-green/detail.png" alt="Macro detail of overlapping grey-green macramé cords and their fine fibres" width="322" height="265" loading="lazy" decoding="async" />
         <figcaption>Reference crop / macro structure</figcaption>
       </figure>
     </section>
@@ -55,12 +56,14 @@ import CordField from '../../samples/003-soft-green/CordField';
       <p class="execution">For now, the interface mutation remains a single structural proposition. Knots, navigation and fray states wait until the material study has been judged against the physical cord.</p>
     </section>
 
+    <CordExperience client:visible />
+
     <footer><span>003 / SOFT GREEN</span><span>height → normal → matte light</span></footer>
   </main>
 </BaseLayout>
 
 <style>
-  .cord-page{background:#e9e8e0;color:#282c27}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.55}
+  .cord-page{background:#e9e8e0;color:#282c27;overflow-x:clip}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.55}
   .opening,.evidence,.scales,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
   .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}
   .statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400}

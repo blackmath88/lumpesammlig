@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PaperField from '../../samples/007-blue-printed-paper/PaperField';
+import PaperExperience from '../../samples/007-blue-printed-paper/PaperExperience';
 ---
 <BaseLayout title="007 Blue Printed Paper — Lumpesammlig" description="Dusty indigo print reconstructed as a radial system whose marks inherit the errors of fibrous paper.">
   <main class="paper-page">
@@ -19,7 +20,7 @@ import PaperField from '../../samples/007-blue-printed-paper/PaperField';
         <p>The photograph remains evidence rather than scenery. The reconstruction keeps the observable hierarchy and surface behaviour, leaving the wood, fastener, tear and exact composition behind.</p>
       </div>
       <figure>
-        <img src="/samples/007-blue-printed-paper/source.png" alt="Dusty blue printed paper inside a wooden cabinet, covered in cream dashes forming overlapping circular fields" loading="lazy" />
+        <img src="/samples/007-blue-printed-paper/source.png" alt="Dusty blue printed paper inside a wooden cabinet, covered in cream dashes forming overlapping circular fields" width="1693" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / print and paper reference</figcaption>
       </figure>
     </section>
@@ -55,12 +56,14 @@ import PaperField from '../../samples/007-blue-printed-paper/PaperField';
       <p class="execution">The records remain rigid and readable. One continuous field passes through all four, slightly weakening ink and borders in the same places. Error becomes shared material evidence—not four separately distressed cards.</p>
     </section>
 
+    <PaperExperience client:visible />
+
     <footer><span>007 / BLUE PRINTED PAPER</span><span>system → absorption → material error</span></footer>
   </main>
 </BaseLayout>
 
 <style>
-  .paper-page{background:#e5decd;color:#26334b}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .paper-page{background:#e5decd;color:#26334b;overflow-x:clip}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
   .opening,.evidence,.grammar,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
   .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}.statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400;color:#3c5682}.observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#62645f}
   .evidence{display:grid;grid-template-columns:.66fr 1.34fr;gap:clamp(34px,7vw,110px);padding-top:100px;padding-bottom:150px;border-top:1px solid #b9b3a5;align-items:start}.evidence-copy{position:sticky;top:40px}.evidence h2,.grammar h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child,.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#62645f}.evidence figure{margin:0}.evidence img{display:block;width:100%;height:auto;filter:saturate(.76) contrast(1.02)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}

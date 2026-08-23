@@ -35,6 +35,7 @@ export default function KnitMaterial({ parameters, quality = 'full', interactive
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let reduced = motionQuery.matches;
     let visible = true;
+    let pageVisible = document.visibilityState === 'visible';
     let raf = 0;
     let animating = false;
     let lastFrame = 0;
@@ -46,9 +47,13 @@ export default function KnitMaterial({ parameters, quality = 'full', interactive
       const rect = canvas.getBoundingClientRect();
       const dprCap = quality === 'full' ? 1.6 : quality === 'small' ? 1.25 : 1;
       const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      const width = Math.max(1, Math.floor(rect.width * dpr));
+      const height = Math.max(1, Math.floor(rect.height * dpr));
+      if (canvas.width === width && canvas.height === height) return false;
+      canvas.width = width;
+      canvas.height = height;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return true;
     };
 
     const mix = (a: number[], b: number[], t: number) => a.map((v, i) => lerp(v, b[i], t));
@@ -156,19 +161,21 @@ export default function KnitMaterial({ parameters, quality = 'full', interactive
     };
 
     const loop = (now: number) => {
-      if (!visible || !active || reduced) { animating = false; return; }
+      if (!visible || !pageVisible || !active || reduced) { animating = false; return; }
       if (now - lastFrame >= frameInterval) { draw(now); lastFrame = now; }
       raf = requestAnimationFrame(loop);
     };
     const startLoop = () => {
-      if (!animating && visible && active && !reduced) { animating = true; raf = requestAnimationFrame(loop); }
+      if (!animating && visible && pageVisible && active && !reduced) { animating = true; raf = requestAnimationFrame(loop); }
     };
     const setPointer = (event: PointerEvent) => { const rect = canvas.getBoundingClientRect(); pointer.tx = clamp((event.clientX - rect.left) / rect.width, 0, 1); pointer.ty = clamp((event.clientY - rect.top) / rect.height, 0, 1); pointer.active = true; };
     const onDown = (event: PointerEvent) => { setPointer(event); pointer.down = true; canvas.setPointerCapture?.(event.pointerId); };
     const onUp = () => { pointer.down = false; };
     const onLeave = () => { pointer.active = false; pointer.down = false; };
     const onMotion = (event: MediaQueryListEvent) => { reduced = event.matches; if (reduced) { cancelAnimationFrame(raf); animating = false; draw(); } else startLoop(); };
-    const resizeObserver = new ResizeObserver(() => { resize(); draw(); });
+    const onVisibility = () => { pageVisible = document.visibilityState === 'visible'; if (pageVisible) { draw(); startLoop(); } else { cancelAnimationFrame(raf); animating = false; } };
+    let resizeFrame = 0;
+    const resizeObserver = new ResizeObserver(() => { if (!resizeFrame) resizeFrame = requestAnimationFrame(() => { resizeFrame = 0; if (resize()) draw(); }); });
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) { draw(); startLoop(); }
@@ -176,9 +183,9 @@ export default function KnitMaterial({ parameters, quality = 'full', interactive
     }, { rootMargin: '120px' });
 
     if (interactive) { canvas.addEventListener('pointermove', setPointer, { passive: true }); canvas.addEventListener('pointerdown', onDown); canvas.addEventListener('pointerup', onUp); canvas.addEventListener('pointercancel', onUp); canvas.addEventListener('pointerleave', onLeave); }
-    motionQuery.addEventListener('change', onMotion); resizeObserver.observe(canvas); intersectionObserver.observe(canvas);
+    motionQuery.addEventListener('change', onMotion); document.addEventListener('visibilitychange', onVisibility); resizeObserver.observe(canvas); intersectionObserver.observe(canvas);
     resize(); draw(); startLoop();
-    return () => { cancelAnimationFrame(raf); resizeObserver.disconnect(); intersectionObserver.disconnect(); motionQuery.removeEventListener('change', onMotion); canvas.removeEventListener('pointermove', setPointer); canvas.removeEventListener('pointerdown', onDown); canvas.removeEventListener('pointerup', onUp); canvas.removeEventListener('pointercancel', onUp); canvas.removeEventListener('pointerleave', onLeave); };
+    return () => { cancelAnimationFrame(raf); cancelAnimationFrame(resizeFrame); resizeObserver.disconnect(); intersectionObserver.disconnect(); motionQuery.removeEventListener('change', onMotion); document.removeEventListener('visibilitychange', onVisibility); canvas.removeEventListener('pointermove', setPointer); canvas.removeEventListener('pointerdown', onDown); canvas.removeEventListener('pointerup', onUp); canvas.removeEventListener('pointercancel', onUp); canvas.removeEventListener('pointerleave', onLeave); };
   }, [active, deformation, interactive, parameters, quality]);
 
   return <canvas ref={canvasRef} className={`knit-material ${className}`} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : true} />;

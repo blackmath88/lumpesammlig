@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { DEFAULT_CORD_PARAMETERS, type CordParameters } from './material/parameters';
 import './cord-field.css';
+
+export type CordQuality = 'micro' | 'small' | 'full';
+type CordFieldProps = { bare?: boolean; parameters?: CordParameters; quality?: CordQuality; interactive?: boolean; className?: string; label?: string };
 
 const vertexShader = `
   attribute vec2 position;
@@ -16,6 +20,8 @@ const fragmentShader = `
   uniform vec2 resolution;
   uniform vec2 pointer;
   uniform float time;
+  uniform vec4 physicalA;
+  uniform vec4 physicalB;
 
   float hash21(vec2 p) {
     p = fract(p * vec2(123.34, 345.45));
@@ -45,17 +51,20 @@ const fragmentShader = `
 
     float broadWarp = (noise(q * vec2(1.8, 3.1) + 4.2) - .5) * .075;
     broadWarp += sin(q.x * 3.1 + noise(q * 1.3) * 2.) * .012;
-    float band = (q.y + broadWarp) / .074;
+    broadWarp *= mix(.4, 1.35, 1. - physicalB.y);
+    float band = (q.y + broadWarp) / mix(.11, .06, physicalA.w);
     float row = floor(band);
-    float crown = cordCrown(band);
+    float crown = pow(cordCrown(band), mix(1.18, .72, physicalA.x));
 
     float across = (fract(band) - .5);
-    float helix = sin(q.x * 58. + across * 15. + row * 2.27 + noise(vec2(q.x * 3., row)) * 1.8);
-    helix += .38 * sin(q.x * 116. + across * 29. - row * 1.71);
+    float twistFrequency = mix(39., 72., physicalA.y);
+    float helix = sin(q.x * twistFrequency + across * 15. + row * 2.27 + noise(vec2(q.x * 3., row)) * 1.8);
+    helix += .38 * sin(q.x * twistFrequency * 2. + across * 29. - row * 1.71);
     float fine = sin(q.x * 430. + across * 52. + noise(q * 46.) * 4.2);
     fine += .42 * sin(q.x * 710. + across * 81.);
     float broken = noise(q * vec2(115., 42.)) - .5;
-    float h = crown * (1. + helix * .024 + fine * .011 + broken * .032);
+    float h = crown * (1. + helix * mix(.012,.036,physicalA.y) + fine * .011 + broken * .032);
+    h *= mix(.82, 1.16, physicalA.z);
 
     float crossCenter = -.04 + sin(q.x * 1.8 + .7) * .055;
     float crossBand = (q.y - crossCenter) / .084;
@@ -64,8 +73,8 @@ const fragmentShader = `
     float crossHelix = sin(q.x * 54. + (fract(crossBand) - .5) * 16. + 1.4) * .028 + sin(q.x * 166.) * .011;
     h = max(h, crossCrown * (1.12 + crossHelix) + crossMask * .05);
 
-    float fuzz = step(.975, hash21(floor(q * vec2(330., 145.)))) * noise(q * 280.);
-    return h + fuzz * .045;
+    float fuzz = step(mix(.992,.94,physicalB.x), hash21(floor(q * vec2(330., 145.)))) * noise(q * 280.);
+    return h + fuzz * mix(.008,.072,physicalB.x);
   }
 
   void main() {
@@ -76,8 +85,7 @@ const fragmentShader = `
     vec3 normal = normalize(vec3(-hx * 11., -hy * 11., 1.));
 
     vec2 lightMotion = (pointer - .5) * vec2(.34, .22);
-    lightMotion += vec2(sin(time * .11), cos(time * .09)) * .018;
-    vec3 light = normalize(vec3(-.38 + lightMotion.x, .46 - lightMotion.y, .82));
+    vec3 light = normalize(vec3(mix(-.72,.12,physicalB.z) + lightMotion.x, .46 - lightMotion.y, .82));
     float diffuse = max(dot(normal, light), 0.);
     float wrap = max(dot(normal, light) * .5 + .5, 0.);
 
@@ -127,14 +135,20 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function CordField() {
+export default function CordField({ bare = false, parameters = DEFAULT_CORD_PARAMETERS, quality = 'full', interactive = true, className = '', label = 'Procedural macro study of densely wound soft green cotton cord' }: CordFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const parametersRef = useRef(parameters);
+  const requestDrawRef = useRef<() => void>(() => {});
+  parametersRef.current = parameters;
+
+  useEffect(() => requestDrawRef.current(), [parameters]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'high-performance' });
     if (!gl) {
+      canvas.classList.add('cord-canvas--fallback');
       canvas.closest('.cord-hero')?.classList.add('cord-hero--fallback');
       return;
     }
@@ -160,80 +174,87 @@ export default function CordField() {
     const resolution = gl.getUniformLocation(program, 'resolution');
     const pointerUniform = gl.getUniformLocation(program, 'pointer');
     const timeUniform = gl.getUniformLocation(program, 'time');
+    const physicalA = gl.getUniformLocation(program, 'physicalA');
+    const physicalB = gl.getUniformLocation(program, 'physicalB');
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = { x: .68, y: .28, tx: .68, ty: .28 };
-    let reduced = motionQuery.matches;
     let frame = 0;
-    let lastRender = 0;
-    const started = performance.now();
+    let visible = false;
+    let pageVisible = document.visibilityState === 'visible';
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const cap = window.innerWidth < 700 ? 1 : 1.35;
+      if (!rect.width || !rect.height) return false;
+      const cap = quality === 'micro' ? 1 : quality === 'small' ? 1.15 : window.innerWidth < 700 ? 1 : 1.35;
       const dpr = Math.min(window.devicePixelRatio || 1, cap);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      const width = Math.max(1, Math.floor(rect.width * dpr));
+      const height = Math.max(1, Math.floor(rect.height * dpr));
+      if (canvas.width === width && canvas.height === height) return false;
+      canvas.width = width; canvas.height = height;
       gl.viewport(0, 0, canvas.width, canvas.height);
+      return true;
     };
-
-    const draw = (now = performance.now()) => {
-      if (!reduced && now - lastRender < 33) {
-        frame = requestAnimationFrame(draw);
-        return;
-      }
-      lastRender = now;
-      pointer.x += (pointer.tx - pointer.x) * .035;
-      pointer.y += (pointer.ty - pointer.y) * .035;
+    const draw = () => {
+      frame = 0;
+      const values = parametersRef.current;
       gl.uniform2f(resolution, canvas.width, canvas.height);
       gl.uniform2f(pointerUniform, pointer.x, 1 - pointer.y);
-      gl.uniform1f(timeUniform, (performance.now() - started) / 1000);
+      gl.uniform1f(timeUniform, 0);
+      gl.uniform4f(physicalA, values.strandThickness, values.twist, values.compression, values.packingDensity);
+      gl.uniform4f(physicalB, values.fuzz, values.tension, values.lightDirection, quality === 'full' ? 1 : 0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      if (!reduced) frame = requestAnimationFrame(draw);
     };
+    const queueDraw = () => { if (!frame && visible && pageVisible) frame = requestAnimationFrame(draw); };
 
     const onPointer = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer.tx = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
       pointer.ty = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-      if (reduced) draw();
+      pointer.x = pointer.tx; pointer.y = pointer.ty; queueDraw();
     };
     const onLeave = () => {
       pointer.tx = .68;
       pointer.ty = .28;
+      pointer.x = pointer.tx; pointer.y = pointer.ty; queueDraw();
     };
-    const onMotion = (event: MediaQueryListEvent) => {
-      reduced = event.matches;
-      cancelAnimationFrame(frame);
-      draw();
-    };
-
-    canvas.addEventListener('pointermove', onPointer, { passive: true });
-    canvas.addEventListener('pointerleave', onLeave);
+    const onMotion = () => queueDraw();
+    const onVisibility = () => { pageVisible = document.visibilityState === 'visible'; if (pageVisible) queueDraw(); else { cancelAnimationFrame(frame); frame = 0; } };
+    const onContextLost = (event: Event) => { event.preventDefault(); cancelAnimationFrame(frame); frame = 0; };
+    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) queueDraw(); else { cancelAnimationFrame(frame); frame = 0; } }, { rootMargin:'120px' });
+    if (interactive) { canvas.addEventListener('pointermove', onPointer, { passive: true }); canvas.addEventListener('pointerleave', onLeave); }
+    canvas.addEventListener('webglcontextlost', onContextLost);
+    document.addEventListener('visibilitychange', onVisibility);
     motionQuery.addEventListener('change', onMotion);
-    const observer = new ResizeObserver(() => {
-      resize();
-      if (reduced) draw();
-    });
-    observer.observe(canvas);
+    let resizeFrame = 0;
+    const observer = new ResizeObserver(() => { if (!resizeFrame) resizeFrame = requestAnimationFrame(() => { resizeFrame = 0; if (resize()) queueDraw(); }); });
+    observer.observe(canvas); intersection.observe(canvas);
     resize();
-    draw();
+    requestDrawRef.current = queueDraw;
 
     return () => {
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(resizeFrame);
       observer.disconnect();
+      intersection.disconnect();
       canvas.removeEventListener('pointermove', onPointer);
       canvas.removeEventListener('pointerleave', onLeave);
       motionQuery.removeEventListener('change', onMotion);
+      document.removeEventListener('visibilitychange', onVisibility);
+      canvas.removeEventListener('webglcontextlost', onContextLost);
+      requestDrawRef.current = () => {};
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vert);
       gl.deleteShader(frag);
     };
-  }, []);
+  }, [interactive, quality]);
+
+  const canvas = <canvas ref={canvasRef} className={`cord-canvas ${className}`} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : true} />;
+  if (bare) return canvas;
 
   return (
     <section className="cord-hero" aria-labelledby="cord-title">
-      <canvas ref={canvasRef} className="cord-canvas" aria-label="Procedural macro study of densely wound soft green cotton cord" />
+      {canvas}
       <div className="cord-veil" aria-hidden="true" />
       <div className="cord-copy">
         <p className="cord-index">LUMPESAMMLIG / OBJECT 003</p>

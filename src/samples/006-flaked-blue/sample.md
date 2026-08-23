@@ -12,8 +12,8 @@ This is material stratigraphy rather than a distressed pattern. Most of the fiel
 
 A fragment shader builds one erosion history from vertically biased coherent fields. Thresholds through that same history decide which layer remains, which edges lift, and where damage reaches wood. A derived height field supplies normals for restrained matte lighting and micro-shadow.
 
-The interface proposition follows the same logic: newer information covers older states, and history becomes legible where the present surface has been lost.
+The same renderer now drives an erosion reveal, revision stratigraphy, connected surface-integrity reading, scale cutaways and a late conservation lab. Newer information covers older states without deleting them; history becomes legible where the present surface has been lost.
 
 ## Technical boundary
 
-One React island owns a raw WebGL 1 canvas. The material is static; pointer input changes only the broad light direction. Pixel ratio is capped more aggressively on mobile, reduced-motion keeps a still high-quality frame, and CSS provides a non-WebGL fallback. The source photograph is evidence below the hero, never its texture.
+Sample-local React islands reuse one raw WebGL 1 renderer. The material renders on demand, stops scheduling work offscreen or while the document is hidden, avoids identical resize allocations, and caps pixel ratio by context. Reduced motion keeps a still high-quality frame, and CSS provides a non-WebGL fallback.

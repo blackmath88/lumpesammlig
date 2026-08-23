@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CoilField from '../../samples/004-blue-coil/CoilField';
+import CoilExperience from '../../samples/004-blue-coil/CoilExperience';
 ---
 <BaseLayout title="004 Blue Coil — Lumpesammlig" description="A coiled basket lid reconstructed as concentric natural-fibre relief with indigo bindings.">
   <main class="coil-page">
@@ -19,7 +20,7 @@ import CoilField from '../../samples/004-blue-coil/CoilField';
         <p>The photograph is treated as evidence: a raised centre, continuous coiling, uneven radial pressure and indigo bindings. Origin and exact fibre species remain deliberately unspecified.</p>
       </div>
       <figure>
-        <img src="/samples/004-blue-coil/source.png" alt="Close view of a natural-fibre coiled basket lid with dark blue binding marks and a raised spiral centre" loading="lazy" />
+        <img src="/samples/004-blue-coil/source.png" alt="Close view of a natural-fibre coiled basket lid with dark blue binding marks and a raised spiral centre" width="953" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / construction reference</figcaption>
       </figure>
     </section>
@@ -54,12 +55,14 @@ import CoilField from '../../samples/004-blue-coil/CoilField';
       <p class="execution">This is only a reading-order proposition, not a finished navigation system. Rotation, draggable rings and ornamental weaving are withheld until a real use proves they clarify rather than imitate the basket.</p>
     </section>
 
+    <CoilExperience client:visible />
+
     <footer><span>004 / BLUE COIL</span><span>radius → relief → matte light</span></footer>
   </main>
 </BaseLayout>
 
 <style>
-  .coil-page{background:#eadbc2;color:#292018}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .coil-page{background:#eadbc2;color:#292018;overflow-x:clip}.label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
   .opening,.evidence,.scales,.verbs,.hypothesis,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
   .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(110px,15vw,210px);align-items:start}.statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-family:Georgia,serif;font-weight:400}.observed{font-family:Georgia,serif;font-size:19px;line-height:1.55;margin:8px 0 0;color:#695744}
   .evidence{display:grid;grid-template-columns:.67fr 1.33fr;gap:clamp(34px,7vw,110px);padding-top:100px;padding-bottom:150px;border-top:1px solid #b8a487;align-items:start}.evidence-copy{position:sticky;top:40px}.evidence h2,.scales h2,.hypothesis h2{font-size:clamp(43px,5.8vw,82px);line-height:.93;letter-spacing:-.06em;margin:20px 0 34px}.evidence-copy>p:last-child,.execution{font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#695744}.evidence figure{margin:0}.evidence img{display:block;width:100%;height:auto;filter:saturate(.78) contrast(1.03)}figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}
