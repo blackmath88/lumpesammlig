@@ -67,14 +67,14 @@ export const samples: Sample[] = [
     technology: ['React island', 'Raw WebGL', 'GLSL']
   },
   {
-    id: 'wordart',
+    id: 'word-art',
     number: '008',
     title: 'WordArt',
-    object: 'A remembered desktop publishing tool from the turn of the millennium: loud type, direct manipulation and effects with absolutely no shame.',
-    material: 'Gradient fill / outline / extrusion / warp / selection handles / instant feedback',
-    translation: 'A browser-native WordArt workbench where expressive typography behaves like a manipulable object rather than styled copy.',
-    route: '/samples/008-wordart',
+    object: 'The Microsoft Word 2000 WordArt gallery: thirty tiles that made every school newsletter a typesetting studio.',
+    material: 'Arched, inflated, extruded letters / gradient fills / thick outlines / drop shadows',
+    translation: 'A parametric SVG generator: the gallery rebuilt as geometric letter placement, not kitsch screenshot.',
+    route: '/samples/008-word-art',
     status: 'live',
-    technology: ['Astro', 'SVG', 'Vanilla JS']
+    technology: ['React island', 'SVG']
   }
 ];
