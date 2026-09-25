@@ -65,5 +65,16 @@ export const samples: Sample[] = [
     route: '/samples/007-blue-printed-paper',
     status: 'study',
     technology: ['React island', 'Raw WebGL', 'GLSL']
+  },
+  {
+    id: 'wordart',
+    number: '008',
+    title: 'WordArt',
+    object: 'A remembered desktop publishing tool from the turn of the millennium: loud type, direct manipulation and effects with absolutely no shame.',
+    material: 'Gradient fill / outline / extrusion / warp / selection handles / instant feedback',
+    translation: 'A browser-native WordArt workbench where expressive typography behaves like a manipulable object rather than styled copy.',
+    route: '/samples/008-wordart',
+    status: 'live',
+    technology: ['Astro', 'SVG', 'Vanilla JS']
   }
 ];
