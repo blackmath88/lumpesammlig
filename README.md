@@ -1,8 +1,8 @@
 # Lumpesammlig
 
-**Real object → observation → material logic → native web experiment → possible component mutations.**
+**Real source → observation → material or interaction logic → native web experiment → possible component mutations.**
 
-Lumpesammlig is a small digital exhibition and front-end R&D repository. It starts with ordinary physical objects, imperfections and mechanisms, then asks what the web becomes when their logic—not an established UI pattern—sets the rules.
+Lumpesammlig is a small digital exhibition and front-end R&D repository. It starts with ordinary physical objects, imperfections, mechanisms and inherited interfaces, then asks what the web becomes when their logic—not an established UI pattern—sets the rules.
 
 This is not a component library, design system, texture collection, or factory for identical case-study pages. The exhibition shell should remain coherent; each sample should remain technically and aesthetically free.
 
@@ -30,6 +30,10 @@ Old blue-grey paint becomes a procedural material stratigraphy. One erosion hist
 
 Dusty indigo decorative paper becomes a procedural print-and-substrate study. Seeded radial systems create cream dashes, while one shared pulp and absorption field gives every mark the same feathering, drift and missing coverage.
 
+### 008 — WordArt
+
+A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. The specimen is implemented in native SVG and vanilla JavaScript and can export its result as a PNG.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -37,9 +41,9 @@ Astro is the stable, mostly static exhibition shell:
 ~~~text
 src/
   components/
-    SampleLibrary.astro          # static promenade + low-cost live material previews
+    SampleLibrary.astro          # static promenade + low-cost previews
   data/
-    samples.ts                   # lightweight metadata for real samples only
+    samples.ts                   # lightweight navigation/catalogue metadata
   layouts/
     BaseLayout.astro
   pages/
@@ -50,6 +54,7 @@ src/
       004-blue-coil.astro
       006-flaked-blue.astro
       007-blue-printed-paper.astro
+      008-wordart.astro
   samples/
     001-waschlumpe/
       sample.md                  # object, observation, translation, boundary
@@ -86,21 +91,23 @@ src/
       PaperExperience.tsx        # propagation, registration, navigation + lab
       material/                  # semantic print coordinates + named presets
       paper-field.css
+    008-wordart/
+      sample.md                  # inherited interface, interaction grammar, mutation
 ~~~
 
-Only each sample's focused interactive islands hydrate. Hero materials load immediately; the deeper experiences and small collection previews hydrate when visible. The renderers draw on demand, cap pixel density by context, pause outside the viewport or in a hidden tab, and provide CSS fallbacks when WebGL is unavailable. The library, layout and notes remain static Astro.
+Only each sample's focused interactive islands hydrate where a framework is useful. Hero materials load immediately; deeper experiences and small collection previews hydrate when visible. The library, layout and notes remain static Astro. Sample 008 demonstrates the opposite boundary: a plain Astro route with SVG and vanilla JavaScript is sufficient.
 
-React is therefore a local implementation choice, not the site runtime. Every implemented object keeps its semantic parameters, presets, renderer, scale studies, material lab and behaviour-derived components inside its own sample directory. These are deliberately sample-local engines, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its object calls for it.
+React is therefore a local implementation choice, not the site runtime. Every implemented object keeps its semantic parameters, presets, renderer, scale studies, material lab and behaviour-derived components inside its own sample directory where those concepts apply. These are deliberately sample-local engines, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its source calls for it.
 
 There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
 
 ## Add a sample
 
-Start only after there is a real object and an observation worth translating.
+Start only after there is a real source and an observation worth translating.
 
 1. Add one metadata record to src/data/samples.ts.
 2. Give the experiment a self-contained directory such as src/samples/002-object-name/.
-3. Add a short sample.md describing the source object, observation, translation and technical boundary.
+3. Add a short sample.md describing the source, observation, translation and technical boundary.
 4. Build the implementation with the smallest technology that fits it.
 5. Add its Astro route under src/pages/samples/.
 6. Give it an individual preview/presence in SampleLibrary.astro; do not assume it should look like Sample 001.
@@ -108,7 +115,7 @@ Start only after there is a real object and an observation worth translating.
 
 Do not add empty placeholder samples, prebuild hypothetical component mutations, force all experiments through React, or extract shared abstractions until at least two real implementations prove the same boundary.
 
-For each object, work in this order: reconstruct the material first, identify its performative behaviour second, and derive interface mutations third. The source photograph is evidence and reference—not the rendered background.
+For each source, work in this order: reconstruct the material or interaction grammar first, identify its performative behaviour second, and derive interface mutations third. Source evidence is reference—not a background texture.
 
 ## Local development (Windows)
 
@@ -153,4 +160,4 @@ Do not add @astrojs/cloudflare while the site remains fully static; that adapter
 
 ## Working principle
 
-Preserve intentional oddness. Shared code is useful only when it supports the exhibition without flattening the samples. The next object should be allowed to invalidate assumptions made by the first.
+Preserve intentional oddness. Shared code is useful only when it supports the exhibition without flattening the samples. The next source should be allowed to invalidate assumptions made by the first.
