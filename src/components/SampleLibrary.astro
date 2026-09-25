@@ -10,12 +10,13 @@ import PaintField from '../samples/006-flaked-blue/PaintField';
 import { DEFAULT_PAINT_PARAMETERS } from '../samples/006-flaked-blue/material/parameters';
 import PaperField from '../samples/007-blue-printed-paper/PaperField';
 import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/material/parameters';
+import WordArtMini from '../samples/008-word-art/WordArtMini';
 ---
 <section class="library" id="library">
   <header class="library-head">
     <p class="eyebrow">THE COLLECTION / {String(samples.length).padStart(3, '0')} OBJECT</p>
     <h2>Real things,<br />still behaving strangely.</h2>
-    <p class="intro">Each entry keeps one material, visual or behavioural truth from a physical object or inherited interface, then lets that truth choose its own native web form.</p>
+    <p class="intro">Each entry keeps one material, visual or behavioural truth from a physical object, then lets that truth choose its own native web form.</p>
   </header>
 
   <div class="promenade">
@@ -34,13 +35,8 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
                 ? <PaintField bare parameters={DEFAULT_PAINT_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
                 : sample.id === 'blue-printed-paper'
                   ? <PaperField bare parameters={DEFAULT_PAPER_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
-                  : sample.id === 'wordart'
-                    ? <div class="wordart-mini">
-                        <span class="mini-toolbar">WORDART GALLERY</span>
-                        <strong>MAKE<br />IT LOUD</strong>
-                        <i class="h h1"></i><i class="h h2"></i><i class="h h3"></i><i class="h h4"></i>
-                        <span class="mini-status">OBJECT SELECTED</span>
-                      </div>
+                  : sample.id === 'word-art'
+                    ? <WordArtMini className="mini-live" client:visible />
                     : <CordField bare parameters={DEFAULT_CORD_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />}
           <span class="enter">enter study ↗</span>
         </div>
@@ -57,7 +53,7 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
     ))}
   </div>
 
-  <p class="open-end"><span>Next</span> The collection waits for another source worth translating. No empty specimen is invented in advance.</p>
+  <p class="open-end"><span>Next</span> The collection waits for another real object. No empty specimen is invented in advance.</p>
 </section>
 
 <style>
@@ -73,12 +69,6 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
   .preview{height:clamp(390px,52vw,700px);position:relative;background:#171a17;overflow:hidden;transform:rotate(-1.15deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
   .sample:hover .preview{transform:rotate(.15deg) scale(.995)}
   .preview :global(.mini-knit-live),.preview :global(.mini-live){position:absolute;inset:0;display:block;width:100%;height:100%;background:#151815}
-  .wordart-mini{position:absolute;inset:0;background:#d8d7cf;border:12px solid #1c4ea9;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .mini-toolbar{position:absolute;left:0;right:0;top:0;height:38px;padding:12px;background:#e9e8e0;border-bottom:1px solid #777;font:800 9px Arial;letter-spacing:.14em;color:#222}
-  .wordart-mini strong{position:relative;font:bold clamp(54px,8vw,110px)/.76 Arial Black,Arial,sans-serif;text-align:center;letter-spacing:-.08em;transform:rotate(-7deg) skewX(-4deg);background:linear-gradient(#fff367 8%,#ff45bd 52%,#6734cc 90%);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:clamp(2px,.35vw,5px) #40216e;filter:drop-shadow(10px 12px 0 #163da4)}
-  .wordart-mini strong:after{content:"";position:absolute;inset:-18px;border:2px dashed #1f5fff}
-  .wordart-mini .h{position:absolute;width:14px;height:14px;background:#fff;border:2px solid #1f5fff}.h1{left:14%;top:27%}.h2{right:14%;top:27%}.h3{left:14%;bottom:24%}.h4{right:14%;bottom:24%}
-  .mini-status{position:absolute;left:0;right:0;bottom:0;background:#e9e8e0;border-top:1px solid #777;padding:8px 12px;font:800 9px Arial;letter-spacing:.12em;color:#222}
   .enter{position:absolute;right:18px;bottom:17px;background:#eeeae3;color:#171917;padding:10px 13px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
   .sample-copy{padding-top:clamp(20px,5vw,70px)}
   h3{font-size:clamp(42px,5vw,74px);line-height:.95;letter-spacing:-.05em;margin:0 0 24px}
