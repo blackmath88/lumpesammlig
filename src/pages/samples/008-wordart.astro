@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="008 — WordArt / Lumpesammlig"
+  description="Make WordArt great again: a browser-native study in expressive, directly manipulable typography."
+>
+  <main class="wordart-page">
+    <nav class="back"><a href="/#library">← collection</a><span>008 / WORDART</span></nav>
+
+    <header class="intro">
+      <p class="kicker">FOUND INTERFACE / C. 2000</p>
+      <h1>Make WordArt<br /><em>great again.</em></h1>
+      <p class="lede">Before every creative interface became a tasteful panel or a prompt box, text could become an object. You grabbed it. Bent it. Gave it depth. Made it completely unreasonable.</p>
+    </header>
+
+    <section class="studio" aria-label="WordArt generator">
+      <div class="window">
+        <div class="titlebar">
+          <span class="appmark">W</span>
+          <strong>WordArt Studio</strong>
+          <div class="window-buttons" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+
+        <div class="toolbar">
+          <label class="text-field">TEXT
+            <input id="copy" value="MAKE IT LOUD" maxlength="32" />
+          </label>
+          <button id="randomize" class="tool-button" type="button">SURPRISE ME</button>
+          <button id="export" class="tool-button primary" type="button">SAVE PNG</button>
+        </div>
+
+        <div class="workspace">
+          <aside class="preset-panel">
+            <p>WORDART GALLERY</p>
+            <div class="presets" id="presets">
+              <button data-preset="chrome" class="preset chrome"><span>WORD</span></button>
+              <button data-preset="rainbow" class="preset rainbow"><span>WORD</span></button>
+              <button data-preset="corporate" class="preset corporate"><span>WORD</span></button>
+              <button data-preset="bubblegum" class="preset bubblegum"><span>WORD</span></button>
+              <button data-preset="lime" class="preset lime"><span>WORD</span></button>
+              <button data-preset="gold" class="preset gold"><span>WORD</span></button>
+              <button data-preset="flame" class="preset flame"><span>WORD</span></button>
+              <button data-preset="ice" class="preset ice"><span>WORD</span></button>
+            </div>
+          </aside>
+
+          <div class="stage-wrap">
+            <div class="stage-note">CLICK A PRESET. THEN RUIN IT YOURSELF.</div>
+            <div class="stage" id="stage">
+              <svg id="art" viewBox="0 0 1000 600" role="img" aria-label="Generated WordArt">
+                <defs>
+                  <linearGradient id="wordFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop id="fillA" offset="0%" stop-color="#fff45c"></stop>
+                    <stop id="fillB" offset="100%" stop-color="#ff25ba"></stop>
+                  </linearGradient>
+                  <filter id="drop" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow id="shadowFilter" dx="12" dy="14" stdDeviation="4" flood-color="#1c2f9d" flood-opacity=".75"></feDropShadow>
+                  </filter>
+                  <path id="straight" d="M75 315 H925"></path>
+                  <path id="arch-up" d="M75 355 Q500 90 925 355"></path>
+                  <path id="arch-down" d="M75 210 Q500 500 925 210"></path>
+                  <path id="wave" d="M75 330 C250 80 360 520 500 300 C650 60 760 500 925 260"></path>
+                  <path id="rise" d="M75 420 L925 175"></path>
+                </defs>
+
+                <rect width="1000" height="600" fill="#f7f5ef"></rect>
+                <g class="grid" opacity=".35">
+                  <path d="M0 100H1000M0 200H1000M0 300H1000M0 400H1000M0 500H1000"></path>
+                  <path d="M100 0V600M200 0V600M300 0V600M400 0V600M500 0V600M600 0V600M700 0V600M800 0V600M900 0V600"></path>
+                </g>
+
+                <g id="artGroup" transform="rotate(-4 500 300)">
+                  <g id="depthGroup"></g>
+                  <text id="topText" class="top-text" text-anchor="middle" filter="url(#drop)" paint-order="stroke fill">
+                    <textPath id="topPath" href="#arch-up" startOffset="50%" textLength="820" lengthAdjust="spacingAndGlyphs">MAKE IT LOUD</textPath>
+                  </text>
+
+                  <g class="selection" aria-hidden="true">
+                    <rect x="92" y="125" width="816" height="315" rx="3"></rect>
+                    <circle cx="92" cy="125" r="9"></circle><circle cx="500" cy="125" r="9"></circle><circle cx="908" cy="125" r="9"></circle>
+                    <circle cx="92" cy="282" r="9"></circle><circle cx="908" cy="282" r="9"></circle>
+                    <circle cx="92" cy="440" r="9"></circle><circle cx="500" cy="440" r="9"></circle><circle cx="908" cy="440" r="9"></circle>
+                    <path d="M500 125V88"></path><circle cx="500" cy="76" r="8" class="rotate-handle"></circle>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <aside class="controls">
+            <div class="control-block">
+              <label for="shape">SHAPE</label>
+              <select id="shape">
+                <option value="straight">Straight</option>
+                <option value="arch-up" selected>Arch up</option>
+                <option value="arch-down">Arch down</option>
+                <option value="wave">Wave</option>
+                <option value="rise">Rise</option>
+              </select>
+            </div>
+            <div class="control-block two">
+              <label>FILL A<input id="colorA" type="color" value="#fff45c" /></label>
+              <label>FILL B<input id="colorB" type="color" value="#ff25ba" /></label>
+            </div>
+            <div class="control-block">
+              <label for="outline">OUTLINE</label>
+              <input id="outline" type="color" value="#42126f" />
+            </div>
+            <div class="control-block">
+              <label for="outlineWidth">OUTLINE WIDTH <output id="outlineWidthOut">8</output></label>
+              <input id="outlineWidth" type="range" min="0" max="18" value="8" />
+            </div>
+            <div class="control-block">
+              <label for="depth">3D DEPTH <output id="depthOut">12</output></label>
+              <input id="depth" type="range" min="0" max="24" value="12" />
+            </div>
+            <div class="control-block">
+              <label for="rotation">ROTATION <output id="rotationOut">-4°</output></label>
+              <input id="rotation" type="range" min="-18" max="18" value="-4" />
+            </div>
+            <div class="control-block">
+              <label for="tracking">TRACKING <output id="trackingOut">0</output></label>
+              <input id="tracking" type="range" min="-8" max="20" value="0" />
+            </div>
+            <label class="check"><input id="shadow" type="checkbox" checked /> dramatic shadow</label>
+          </aside>
+        </div>
+
+        <div class="statusbar"><span>OBJECT SELECTED</span><span>SVG / 1000 × 600</span><span>NO AI REQUIRED</span></div>
+      </div>
+    </section>
+
+    <section class="argument">
+      <p class="kicker">WHAT WAS ACTUALLY GOOD?</p>
+      <div class="argument-grid">
+        <h2>It showed you<br />what you could do.</h2>
+        <div>
+          <p>WordArt was excessive, but its capability was visible. Effects lived in a gallery. Selection looked selected. Parameters invited play. You could discover the tool by touching it.</p>
+          <p>That is the bit worth stealing back: <strong>visible possibility, direct manipulation and reversible bad taste.</strong> A contemporary interface does not have to look like 2001. It can borrow 2001's confidence that the user should be allowed to make the thing themselves.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mutation">
+      <div class="mutation-card loud">
+        <span>UI MUTATION 01</span>
+        <strong>Presets as<br />parameter maps.</strong>
+        <p>Do not hide possibility behind “generate”. Show a bounded landscape of strange starting points.</p>
+      </div>
+      <div class="mutation-card handles">
+        <span>UI MUTATION 02</span>
+        <div class="fake-object">SELECT ME<i></i><i></i><i></i><i></i></div>
+        <strong>State can be visible.</strong>
+        <p>The object itself can carry the affordance instead of delegating everything to chrome.</p>
+      </div>
+      <div class="mutation-card slider-card">
+        <span>UI MUTATION 03</span>
+        <strong>Bad taste<br />is a sandbox.</strong>
+        <input type="range" min="0" max="100" value="88" aria-label="Bad taste" />
+        <p>Expressive controls make a system legible because the consequences are impossible to miss.</p>
+      </div>
+    </section>
+
+    <footer class="foot"><a href="/#library">← back to collection</a><span>LUMPESAMMLIG / 008</span></footer>
+  </main>
+
+  <script is:inline>
+    const ns = 'http://www.w3.org/2000/svg';
+    const el = (id) => document.getElementById(id);
+    const controls = {
+      copy: el('copy'), shape: el('shape'), colorA: el('colorA'), colorB: el('colorB'),
+      outline: el('outline'), outlineWidth: el('outlineWidth'), depth: el('depth'),
+      rotation: el('rotation'), tracking: el('tracking'), shadow: el('shadow')
+    };
+
+    const presets = {
+      chrome: { a:'#f7fbff', b:'#536879', o:'#0b1826', depth:14, rot:-3, track:0, shape:'arch-up', shadow:true },
+      rainbow: { a:'#fff200', b:'#ff00bf', o:'#4420a8', depth:11, rot:2, track:1, shape:'wave', shadow:true },
+      corporate: { a:'#8fe8ff', b:'#0751c9', o:'#052a71', depth:8, rot:0, track:2, shape:'straight', shadow:true },
+      bubblegum: { a:'#fff0fb', b:'#ff4aad', o:'#a6006f', depth:7, rot:-5, track:3, shape:'arch-down', shadow:true },
+      lime: { a:'#f1ff54', b:'#28cf45', o:'#005e38', depth:18, rot:5, track:1, shape:'rise', shadow:true },
+      gold: { a:'#fff6a0', b:'#b56d00', o:'#4a2600', depth:16, rot:-2, track:0, shape:'arch-up', shadow:true },
+      flame: { a:'#fff15a', b:'#ff4218', o:'#781000', depth:10, rot:4, track:-1, shape:'wave', shadow:true },
+      ice: { a:'#ffffff', b:'#7ae7ff', o:'#006699', depth:6, rot:0, track:4, shape:'straight', shadow:false }
+    };
+
+    function syncOutputs() {
+      el('outlineWidthOut').textContent = controls.outlineWidth.value;
+      el('depthOut').textContent = controls.depth.value;
+      el('rotationOut').textContent = controls.rotation.value + '°';
+      el('trackingOut').textContent = controls.tracking.value;
+    }
+
+    function rebuildDepth() {
+      const group = el('depthGroup');
+      group.replaceChildren();
+      const amount = Number(controls.depth.value);
+      for (let i = amount; i > 0; i -= 2) {
+        const text = document.createElementNS(ns, 'text');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('class', 'depth-text');
+        text.setAttribute('transform', 'translate(' + i + ' ' + i + ')');
+        const path = document.createElementNS(ns, 'textPath');
+        path.setAttribute('href', '#' + controls.shape.value);
+        path.setAttribute('startOffset', '50%');
+        path.setAttribute('textLength', '820');
+        path.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+        path.textContent = controls.copy.value || ' ';
+        text.appendChild(path);
+        group.appendChild(text);
+      }
+    }
+
+    function render() {
+      const value = controls.copy.value || ' ';
+      document.querySelectorAll('#art textPath').forEach((node) => node.textContent = value);
+      el('topPath').setAttribute('href', '#' + controls.shape.value);
+      el('fillA').setAttribute('stop-color', controls.colorA.value);
+      el('fillB').setAttribute('stop-color', controls.colorB.value);
+      el('topText').style.stroke = controls.outline.value;
+      el('topText').style.strokeWidth = controls.outlineWidth.value + 'px';
+      el('topText').style.letterSpacing = controls.tracking.value + 'px';
+      el('topText').style.filter = controls.shadow.checked ? 'url(#drop)' : 'none';
+      el('artGroup').setAttribute('transform', 'rotate(' + controls.rotation.value + ' 500 300)');
+      rebuildDepth();
+      document.querySelectorAll('.depth-text').forEach((node) => {
+        node.style.fill = controls.outline.value;
+        node.style.stroke = controls.outline.value;
+        node.style.strokeWidth = Math.max(1, Number(controls.outlineWidth.value) * .6) + 'px';
+        node.style.letterSpacing = controls.tracking.value + 'px';
+      });
+      syncOutputs();
+    }
+
+    function applyPreset(name) {
+      const p = presets[name];
+      controls.colorA.value = p.a; controls.colorB.value = p.b; controls.outline.value = p.o;
+      controls.depth.value = p.depth; controls.rotation.value = p.rot; controls.tracking.value = p.track;
+      controls.shape.value = p.shape; controls.shadow.checked = p.shadow;
+      render();
+    }
+
+    Object.values(controls).forEach((node) => node.addEventListener('input', render));
+    el('presets').addEventListener('click', (event) => {
+      const button = event.target.closest('[data-preset]');
+      if (button) applyPreset(button.dataset.preset);
+    });
+    el('randomize').addEventListener('click', () => {
+      const names = Object.keys(presets);
+      applyPreset(names[Math.floor(Math.random() * names.length)]);
+      controls.rotation.value = Math.floor(Math.random() * 19) - 9;
+      controls.depth.value = 4 + Math.floor(Math.random() * 17);
+      render();
+    });
+    el('export').addEventListener('click', () => {
+      const svg = el('art').cloneNode(true);
+      svg.querySelector('.selection')?.remove();
+      const source = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1600; canvas.height = 960;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        const a = document.createElement('a');
+        a.download = 'wordart.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+      img.src = url;
+    });
+    render();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){margin:0;background:#d9d6cb;color:#111;font-family:Arial,Helvetica,sans-serif}
+  :global(*){box-sizing:border-box}
+  .wordart-page{min-height:100vh;background:#d9d6cb}
+  .back{height:48px;background:#151715;color:#f3f1e9;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,56px);font:700 10px/1 Arial;letter-spacing:.16em}
+  .back a{color:inherit;text-decoration:none}
+  .intro{background:#151715;color:#f4f0e6;padding:clamp(72px,10vw,140px) clamp(20px,6vw,90px) clamp(78px,12vw,170px);position:relative;overflow:hidden}
+  .intro:after{content:"W";position:absolute;right:-.08em;bottom:-.32em;font:bold clamp(330px,52vw,780px)/1 Arial;color:#ff32b3;opacity:.13;transform:rotate(-12deg)}
+  .kicker{font:800 10px/1 Arial;letter-spacing:.22em;margin:0 0 28px;opacity:.64}
+  h1{font-size:clamp(62px,11vw,168px);line-height:.78;letter-spacing:-.075em;margin:0;max-width:1200px;position:relative;z-index:1}
+  h1 em{font-family:"Times New Roman",serif;font-weight:400;color:#f6df45;text-shadow:8px 8px 0 #b3268f,-2px -2px 0 #fff;font-style:italic}
+  .lede{font-size:clamp(18px,2vw,27px);line-height:1.42;max-width:700px;margin:58px 0 0 40%;position:relative;z-index:1;color:#c9c9c0}
+  .studio{padding:clamp(30px,6vw,80px);background:#c8c7bd}
+  .window{max-width:1500px;margin:auto;border:2px solid #353535;background:#ecebe4;box-shadow:14px 18px 0 rgba(0,0,0,.18)}
+  .titlebar{height:38px;background:linear-gradient(90deg,#103a9c,#2e7ada);color:white;display:flex;align-items:center;gap:10px;padding:0 8px;font-size:12px}
+  .appmark{display:grid;place-items:center;width:22px;height:22px;background:#fff;color:#1b4aac;font-family:serif;font-weight:bold}
+  .window-buttons{margin-left:auto;display:flex;gap:5px}.window-buttons i{width:23px;height:20px;background:#d9d9d2;border:1px solid white;border-right-color:#777;border-bottom-color:#777}
+  .toolbar{display:flex;gap:12px;align-items:end;padding:10px;background:#dddcd4;border-bottom:1px solid #777}
+  .text-field{flex:1;font:700 9px/1 Arial;letter-spacing:.12em}.text-field input{display:block;width:100%;margin-top:5px;padding:9px;border:2px inset #fff;background:white;font:700 15px Arial}
+  .tool-button{min-height:38px;padding:0 14px;border:2px outset #fff;background:#dddcd4;font:700 10px Arial}.tool-button:active{border-style:inset}.tool-button.primary{background:#f1ed74}
+  .workspace{display:grid;grid-template-columns:180px 1fr 210px;min-height:650px}
+  .preset-panel,.controls{background:#d6d5cd;padding:12px;border-right:1px solid #888}.controls{border-right:0;border-left:1px solid #888}
+  .preset-panel>p{font:700 9px Arial;letter-spacing:.14em;margin:4px 2px 10px}
+  .presets{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .preset{height:60px;background:#fff;border:2px outset #fff;overflow:hidden}.preset span{font:bold 18px/1 Arial;display:block;transform:scaleX(.9)}
+  .chrome span{background:linear-gradient(#fff,#78899c,#fff,#243849);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:1px #16293f}
+  .rainbow span{background:linear-gradient(#fff900,#ff2ca8,#7a2cff);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:1px #34238f}
+  .corporate span{color:#3b9cff;text-shadow:2px 2px 0 #073c92}.bubblegum span{color:#ff8bce;-webkit-text-stroke:1px #a0086d}.lime span{color:#8ef14d;text-shadow:3px 3px 0 #066441}
+  .gold span{background:linear-gradient(#fff4a3,#b06a00);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:1px #503000}.flame span{color:#ff6527;text-shadow:2px 2px 0 #6f1000}.ice span{color:#dffcff;-webkit-text-stroke:1px #007caa}
+  .stage-wrap{min-width:0;background:#9b9b96;padding:32px clamp(12px,3vw,36px);position:relative}
+  .stage-note{font:700 9px Arial;letter-spacing:.14em;color:#303030;margin-bottom:8px}
+  .stage{background:#f7f5ef;box-shadow:0 2px 13px rgba(0,0,0,.36);aspect-ratio:5/3;display:flex}
+  #art{width:100%;height:auto;display:block}.grid path{stroke:#ddd9cf;stroke-width:1}.top-text{font-family:Arial Black,Impact,sans-serif;font-size:120px;font-weight:900;fill:url(#wordFill);stroke:#42126f;stroke-width:8px;stroke-linejoin:round}
+  .depth-text{font-family:Arial Black,Impact,sans-serif;font-size:120px;font-weight:900;fill:#42126f;stroke:#42126f;stroke-linejoin:round}
+  .selection rect,.selection path{fill:none;stroke:#1f5fff;stroke-width:2;stroke-dasharray:7 5;vector-effect:non-scaling-stroke}.selection circle{fill:#fff;stroke:#1f5fff;stroke-width:2;vector-effect:non-scaling-stroke}.selection .rotate-handle{fill:#f8ff67}
+  .control-block{padding:12px 0;border-bottom:1px solid #aaa}.control-block label,.control-block>label{display:block;font:700 9px Arial;letter-spacing:.09em}.control-block input[type="range"],.control-block select{width:100%;margin-top:8px}.control-block input[type="color"]{display:block;width:100%;height:34px;margin-top:6px;padding:0;border:2px inset #fff}.control-block.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .check{display:flex;gap:8px;align-items:center;margin-top:16px;font:700 10px Arial;text-transform:uppercase}
+  .statusbar{display:flex;justify-content:space-between;gap:12px;padding:6px 9px;border-top:1px solid #777;background:#d6d5cd;font:700 9px Arial;letter-spacing:.08em}
+  .argument{padding:clamp(90px,13vw,180px) clamp(20px,6vw,90px);background:#f0ede5}
+  .argument-grid{display:grid;grid-template-columns:1.05fr .75fr;gap:clamp(40px,9vw,160px);align-items:start}
+  .argument h2{font-size:clamp(58px,8vw,118px);line-height:.88;letter-spacing:-.065em;margin:0}.argument-grid div{font-size:clamp(18px,1.8vw,25px);line-height:1.55;padding-top:10px}.argument-grid p{margin:0 0 1.4em}
+  .mutation{display:grid;grid-template-columns:repeat(3,1fr);background:#151715;padding:1px;gap:1px}
+  .mutation-card{min-height:500px;background:#ece9df;padding:32px;display:flex;flex-direction:column}.mutation-card>span{font:800 9px Arial;letter-spacing:.16em}.mutation-card strong{font-size:clamp(38px,4vw,64px);line-height:.9;letter-spacing:-.05em;margin:auto 0 22px}.mutation-card p{font-size:15px;line-height:1.5;max-width:360px}
+  .loud{background:#f4dd42}.loud strong{color:#ff1ea8;text-shadow:4px 4px 0 #432aab}
+  .handles{background:#e8edf8}.fake-object{position:relative;border:2px dashed #245cff;margin:auto 20px;padding:28px 18px;font:bold 36px Arial;text-align:center;color:#245cff}.fake-object i{position:absolute;width:12px;height:12px;background:#fff;border:2px solid #245cff}.fake-object i:nth-child(1){left:-7px;top:-7px}.fake-object i:nth-child(2){right:-7px;top:-7px}.fake-object i:nth-child(3){left:-7px;bottom:-7px}.fake-object i:nth-child(4){right:-7px;bottom:-7px}
+  .slider-card{background:#ff8fc8}.slider-card input{width:100%;margin:auto 0 40px}
+  .foot{background:#151715;color:#eee9df;display:flex;justify-content:space-between;padding:28px clamp(20px,6vw,90px);font:700 10px Arial;letter-spacing:.12em}.foot a{color:inherit;text-decoration:none}
+  @media(max-width:1000px){.workspace{grid-template-columns:140px 1fr}.controls{grid-column:1/-1;border-left:0;border-top:1px solid #888;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.control-block{border-bottom:0}.argument-grid{grid-template-columns:1fr}.lede{margin-left:20%}.mutation{grid-template-columns:1fr}}
+  @media(max-width:700px){.toolbar{flex-wrap:wrap}.text-field{flex-basis:100%}.workspace{grid-template-columns:1fr}.preset-panel{border-right:0;border-bottom:1px solid #888}.presets{grid-template-columns:repeat(4,1fr)}.stage-wrap{padding:22px 8px}.controls{grid-template-columns:1fr 1fr}.statusbar span:nth-child(2){display:none}.lede{margin-left:0}.intro{padding-bottom:100px}.mutation-card{min-height:360px}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
