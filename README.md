@@ -1,10 +1,29 @@
 # Lumpesammlig
 
-**Real source → observation → material or interaction logic → native web experiment → possible component mutations.**
+**Encounter → situated reading → distinction → transformation → experiment.**
 
-Lumpesammlig is a small digital exhibition and front-end R&D repository. It starts with ordinary physical objects, imperfections, mechanisms and inherited interfaces, then asks what the web becomes when their logic—not an established UI pattern—sets the rules.
+Lumpesammlig is a small digital exhibition and front-end R&D repository for translating real encounters into new propositions about interaction.
 
-This is not a component library, design system, texture collection, or factory for identical case-study pages. The exhibition shell should remain coherent; each sample should remain technically and aesthetically free.
+The sources can be physical objects, materials, inherited interfaces, behaviours, conversations, rituals, mechanisms, fragments of language or other things that become interesting because something about their occurrence resists the obvious category.
+
+The important rule is: **do not jump from appearance to UI.** Read the source on its own terms first. Ask what domain it belongs to, what function it performs, what distinguishes it from its peers, what behaviours and tensions make it specific, and what became visible only through the surrounding conversation.
+
+Those questions are lenses, not a mandatory funnel.
+
+The project deliberately separates:
+- **evidence** — what was actually encountered;
+- **reading** — provisional interpretations of what matters;
+- **transformation** — semantic movement into another domain;
+- **experiment** — one executable interpretation;
+- **reflection** — what implementation teaches us back.
+
+The repository is deterministic where determinism is useful: provenance, files, builds, validation and reproducibility. It is intentionally non-deterministic where semantic transformation matters. Language models are used not to fill a component schema, but to compare, reframe, find distinctions, cross domains and propose transformations that deterministic rules cannot derive.
+
+See:
+- [Conceptual Spine](docs/CONCEPT.md)
+- [Architecture for Planned Non-Determinism](docs/ARCHITECTURE.md)
+
+This is not a component library, design system, style-transfer gallery or prompt-to-website factory. The exhibition shell should remain coherent; each sample should remain technically and aesthetically free.
 
 ## Current samples
 
@@ -39,6 +58,9 @@ A remembered turn-of-the-millennium desktop publishing interface becomes an inte
 Astro is the stable, mostly static exhibition shell:
 
 ~~~text
+docs/
+  CONCEPT.md                     # conceptual spine
+  ARCHITECTURE.md                # evidence / model / experiment architecture
 src/
   components/
     SampleLibrary.astro          # static promenade + low-cost previews
@@ -49,73 +71,54 @@ src/
   pages/
     index.astro                  # current experiment → collection
     samples/
-      001-waschlumpe.astro       # dedicated exhibition route
+      001-waschlumpe.astro
       003-soft-green.astro
       004-blue-coil.astro
       006-flaked-blue.astro
       007-blue-printed-paper.astro
       008-wordart.astro
   samples/
-    001-waschlumpe/
-      sample.md                  # object, observation, translation, boundary
-      KnitSurface.tsx            # immersive hero using the shared 001 engine
-      MaterialLab.tsx            # exhibition composition + late inspection lab
-      material/
-        KnitMaterial.tsx         # shared renderer and deformation field
-        parameters.ts            # semantic material coordinates
-        presets.ts               # named material readings
-      components/                # object-specific interface mutations
-      knit-surface.css
-      material-lab.css           # bespoke 001 presentation
-    003-soft-green/
-      sample.md
-      CordField.tsx              # raw WebGL + GLSL island
-      CordExperience.tsx         # knot, suspended panel, scale + material lab
-      material/                  # semantic cord coordinates + named presets
-      cord-field.css
-    004-blue-coil/
-      sample.md
-      CoilField.tsx              # concentric raw WebGL + GLSL relief
-      CoilExperience.tsx         # progress, radial steps, containment + lab
-      material/                  # semantic coil coordinates + named presets
-      coil-field.css
-    006-flaked-blue/
-      sample.md
-      PaintField.tsx             # layered erosion + height-derived lighting
-      PaintExperience.tsx        # erosion, stratigraphy, integrity + lab
-      material/                  # semantic surface coordinates + named presets
-      paint-field.css
-    007-blue-printed-paper/
-      sample.md
-      PaperField.tsx             # absorbed radial print + fibrous paper relief
-      PaperExperience.tsx        # propagation, registration, navigation + lab
-      material/                  # semantic print coordinates + named presets
-      paper-field.css
-    008-wordart/
-      sample.md                  # inherited interface, interaction grammar, mutation
+    ...
 ~~~
 
 Only each sample's focused interactive islands hydrate where a framework is useful. Hero materials load immediately; deeper experiences and small collection previews hydrate when visible. The library, layout and notes remain static Astro. Sample 008 demonstrates the opposite boundary: a plain Astro route with SVG and vanilla JavaScript is sufficient.
 
-React is therefore a local implementation choice, not the site runtime. Every implemented object keeps its semantic parameters, presets, renderer, scale studies, material lab and behaviour-derived components inside its own sample directory where those concepts apply. These are deliberately sample-local engines, not a universal material API. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, or another focused dependency if its source calls for it.
+React is therefore a local implementation choice, not the site runtime. A later sample may use plain Astro/CSS, vanilla JavaScript, SVG, Canvas, Three.js, WebGL/WebGPU, sound, a state machine, a tiny game, or another focused technology if its transformation calls for it.
 
-There is deliberately no universal Sample page component. src/data/samples.ts is navigation/catalogue metadata, not an implementation contract.
+There is deliberately no universal Sample page component and no universal semantic schema. `src/data/samples.ts` is navigation/catalogue metadata, not an interpretation contract.
+
+For richer future encounters, a sample may optionally grow into:
+
+~~~text
+src/samples/<sample>/
+  encounter/
+    media/
+    conversation/
+    references/
+  readings/
+  experiments/
+  reflection.md
+~~~
+
+Do not migrate existing samples merely to satisfy this shape. Let future encounters prove which structures deserve repetition.
 
 ## Add a sample
 
-Start only after there is a real source and an observation worth translating.
+Start only after there is a real encounter worth reading.
 
-1. Add one metadata record to src/data/samples.ts.
-2. Give the experiment a self-contained directory such as src/samples/002-object-name/.
-3. Add a short sample.md describing the source, observation, translation and technical boundary.
-4. Build the implementation with the smallest technology that fits it.
-5. Add its Astro route under src/pages/samples/.
-6. Give it an individual preview/presence in SampleLibrary.astro; do not assume it should look like Sample 001.
-7. Verify keyboard access, reduced motion where relevant, small screens, runtime errors and production build output.
+1. Preserve the relevant evidence. A photograph may be part of the encounter, but so can conversation, context, references or memory.
+2. Read the source before designing from it.
+3. Allow several competing interpretations when the source supports them.
+4. Reject transformations that merely imitate surface appearance.
+5. Build one or more experiments with the smallest technology that can test the selected proposition.
+6. Keep enough grounding that the experiment can answer: **what in the encounter gave us permission to make this move?**
+7. Give the experiment an individual presence in the collection.
+8. Verify keyboard access, reduced motion where relevant, small screens, runtime errors and production build output.
+9. Reflect on what the executable version changed in the original reading.
 
-Do not add empty placeholder samples, prebuild hypothetical component mutations, force all experiments through React, or extract shared abstractions until at least two real implementations prove the same boundary.
+These are orientations, not mandatory form fields. Different encounters should produce different artefacts.
 
-For each source, work in this order: reconstruct the material or interaction grammar first, identify its performative behaviour second, and derive interface mutations third. Source evidence is reference—not a background texture.
+Do not add empty placeholder samples, prebuild hypothetical component mutations, force all experiments through React, or extract shared abstractions until repeated work proves the same technical boundary.
 
 ## Local development (Windows)
 
@@ -160,4 +163,8 @@ Do not add @astrojs/cloudflare while the site remains fully static; that adapter
 
 ## Working principle
 
-Preserve intentional oddness. Shared code is useful only when it supports the exhibition without flattening the samples. The next source should be allowed to invalidate assumptions made by the first.
+Preserve intentional oddness.
+
+Structure should protect evidence and make experiments executable. It should not decide what an encounter means.
+
+The next source should be allowed to invalidate assumptions made by the first.
