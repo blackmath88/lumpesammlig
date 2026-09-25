@@ -25,10 +25,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         <div class="toolbar">
           <label class="text-field">TEXT
-            <input id="copy" value="MAKE IT LOUD" maxlength="32" />
+            <input id="copy" data-param="text" value="MAKE IT LOUD" maxlength="48" />
           </label>
           <button id="randomize" class="tool-button" type="button">SURPRISE ME</button>
-          <button id="export" class="tool-button primary" type="button">SAVE PNG</button>
+          <label class="tool-button file-button">OPEN SVG<input id="open" type="file" accept=".svg,image/svg+xml" /></label>
+          <button id="share" class="tool-button" type="button">COPY LINK</button>
+          <button id="exportSvg" class="tool-button primary" type="button">SAVE SVG</button>
+          <button id="exportPng" class="tool-button" type="button">SAVE PNG</button>
         </div>
 
         <div class="workspace">
@@ -44,94 +47,105 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               <button data-preset="flame" class="preset flame"><span>WORD</span></button>
               <button data-preset="ice" class="preset ice"><span>WORD</span></button>
             </div>
+            <p class="gallery-now">NOW</p>
+            <div class="presets">
+              <button data-preset="glass" class="preset glass"><span>word</span></button>
+              <button data-preset="acid" class="preset acid"><span>WORD</span></button>
+              <button data-preset="riso" class="preset riso"><span>WORD</span></button>
+              <button data-preset="brutal" class="preset brutal"><span>WORD</span></button>
+            </div>
           </aside>
 
           <div class="stage-wrap">
-            <div class="stage-note">CLICK A PRESET. THEN RUIN IT YOURSELF.</div>
+            <div class="stage-note">CLICK A PRESET. THEN RUIN IT YOURSELF. DROP A SAVED SVG TO KEEP EDITING.</div>
             <div class="stage" id="stage">
-              <svg id="art" viewBox="0 0 1000 600" role="img" aria-label="Generated WordArt">
-                <defs>
-                  <linearGradient id="wordFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop id="fillA" offset="0%" stop-color="#fff45c"></stop>
-                    <stop id="fillB" offset="100%" stop-color="#ff25ba"></stop>
-                  </linearGradient>
-                  <filter id="drop" x="-30%" y="-30%" width="160%" height="160%">
-                    <feDropShadow id="shadowFilter" dx="12" dy="14" stdDeviation="4" flood-color="#1c2f9d" flood-opacity=".75"></feDropShadow>
-                  </filter>
-                  <path id="straight" d="M75 315 H925"></path>
-                  <path id="arch-up" d="M75 355 Q500 90 925 355"></path>
-                  <path id="arch-down" d="M75 210 Q500 500 925 210"></path>
-                  <path id="wave" d="M75 330 C250 80 360 520 500 300 C650 60 760 500 925 260"></path>
-                  <path id="rise" d="M75 420 L925 175"></path>
-                </defs>
-
-                <rect width="1000" height="600" fill="#f7f5ef"></rect>
-                <g class="grid" opacity=".35">
-                  <path d="M0 100H1000M0 200H1000M0 300H1000M0 400H1000M0 500H1000"></path>
-                  <path d="M100 0V600M200 0V600M300 0V600M400 0V600M500 0V600M600 0V600M700 0V600M800 0V600M900 0V600"></path>
-                </g>
-
-                <g id="artGroup" transform="rotate(-4 500 300)">
-                  <g id="depthGroup"></g>
-                  <text id="topText" class="top-text" text-anchor="middle" filter="url(#drop)" paint-order="stroke fill">
-                    <textPath id="topPath" href="#arch-up" startOffset="50%" textLength="820" lengthAdjust="spacingAndGlyphs">MAKE IT LOUD</textPath>
-                  </text>
-
-                  <g class="selection" aria-hidden="true">
-                    <rect x="92" y="125" width="816" height="315" rx="3"></rect>
-                    <circle cx="92" cy="125" r="9"></circle><circle cx="500" cy="125" r="9"></circle><circle cx="908" cy="125" r="9"></circle>
-                    <circle cx="92" cy="282" r="9"></circle><circle cx="908" cy="282" r="9"></circle>
-                    <circle cx="92" cy="440" r="9"></circle><circle cx="500" cy="440" r="9"></circle><circle cx="908" cy="440" r="9"></circle>
-                    <path d="M500 125V88"></path><circle cx="500" cy="76" r="8" class="rotate-handle"></circle>
-                  </g>
+              <div id="art" class="art"></div>
+              <svg class="selection-layer" viewBox="0 0 1000 600" aria-hidden="true">
+                <g id="selection" class="selection" transform="rotate(-4 500 300)">
+                  <rect x="92" y="125" width="816" height="315" rx="3"></rect>
+                  <circle cx="92" cy="125" r="9"></circle><circle cx="500" cy="125" r="9"></circle><circle cx="908" cy="125" r="9"></circle>
+                  <circle cx="92" cy="282" r="9"></circle><circle cx="908" cy="282" r="9"></circle>
+                  <circle cx="92" cy="440" r="9"></circle><circle cx="500" cy="440" r="9"></circle><circle cx="908" cy="440" r="9"></circle>
+                  <path d="M500 125V88"></path><circle cx="500" cy="76" r="8" class="rotate-handle"></circle>
                 </g>
               </svg>
             </div>
           </div>
 
           <aside class="controls">
-            <div class="control-block">
-              <label for="shape">SHAPE</label>
-              <select id="shape">
-                <option value="straight">Straight</option>
-                <option value="arch-up" selected>Arch up</option>
-                <option value="arch-down">Arch down</option>
-                <option value="wave">Wave</option>
-                <option value="rise">Rise</option>
-              </select>
+            <div class="control-block two">
+              <label>SHAPE
+                <select data-param="shape">
+                  <option value="straight">Straight</option>
+                  <option value="arch-up">Arch up</option>
+                  <option value="arch-down">Arch down</option>
+                  <option value="wave">Wave</option>
+                  <option value="rise">Rise</option>
+                </select>
+              </label>
+              <label>FONT
+                <select data-param="font">
+                  <option value="impact">Impact</option>
+                  <option value="grotesk">Grotesk</option>
+                  <option value="serif">Serif italic</option>
+                  <option value="mono">Mono</option>
+                </select>
+              </label>
             </div>
             <div class="control-block two">
-              <label>FILL A<input id="colorA" type="color" value="#fff45c" /></label>
-              <label>FILL B<input id="colorB" type="color" value="#ff25ba" /></label>
+              <label>FILL A<input data-param="fillA" type="color" /></label>
+              <label>FILL B<input data-param="fillB" type="color" /></label>
             </div>
             <div class="control-block">
-              <label for="outline">OUTLINE</label>
-              <input id="outline" type="color" value="#42126f" />
+              <label>GRADIENT ANGLE <output data-out="gradientAngle"></output>
+                <input data-param="gradientAngle" type="range" min="0" max="180" step="15" /></label>
+            </div>
+            <div class="control-block two">
+              <label>OUTLINE<input data-param="outline" type="color" /></label>
+              <label>WIDTH <output data-out="outlineWidth"></output>
+                <input data-param="outlineWidth" type="range" min="0" max="18" /></label>
+            </div>
+            <div class="control-block two">
+              <label>3D DEPTH <output data-out="depth"></output>
+                <input data-param="depth" type="range" min="0" max="24" /></label>
+              <label>DEPTH COLOR<input data-param="depthColor" type="color" /></label>
             </div>
             <div class="control-block">
-              <label for="outlineWidth">OUTLINE WIDTH <output id="outlineWidthOut">8</output></label>
-              <input id="outlineWidth" type="range" min="0" max="18" value="8" />
+              <label>DEPTH STYLE
+                <select data-param="depthStyle">
+                  <option value="extrude">Extrude (stacked)</option>
+                  <option value="offset">Offset (misregistered print)</option>
+                </select>
+              </label>
             </div>
             <div class="control-block">
-              <label for="depth">3D DEPTH <output id="depthOut">12</output></label>
-              <input id="depth" type="range" min="0" max="24" value="12" />
+              <label>ROTATION <output data-out="rotation"></output>
+                <input data-param="rotation" type="range" min="-18" max="18" /></label>
             </div>
             <div class="control-block">
-              <label for="rotation">ROTATION <output id="rotationOut">-4°</output></label>
-              <input id="rotation" type="range" min="-18" max="18" value="-4" />
+              <label>TRACKING <output data-out="tracking"></output>
+                <input data-param="tracking" type="range" min="-8" max="20" /></label>
             </div>
             <div class="control-block">
-              <label for="tracking">TRACKING <output id="trackingOut">0</output></label>
-              <input id="tracking" type="range" min="-8" max="20" value="0" />
+              <label class="check"><input data-param="shadow" type="checkbox" /> dramatic shadow</label>
+              <div class="two">
+                <label>COLOR<input data-param="shadowColor" type="color" /></label>
+                <label>BLUR <output data-out="shadowBlur"></output>
+                  <input data-param="shadowBlur" type="range" min="0" max="30" /></label>
+              </div>
+              <label>OFFSET <output data-out="shadowOffset"></output>
+                <input data-param="shadowOffset" type="range" min="0" max="30" /></label>
             </div>
-            <label class="check"><input id="shadow" type="checkbox" checked /> dramatic shadow</label>
+            <div class="control-block two">
+              <label>BACKGROUND<input id="backgroundColor" type="color" /></label>
+              <label class="check"><input id="transparent" type="checkbox" /> none</label>
+            </div>
           </aside>
         </div>
 
-        <div class="statusbar"><span>OBJECT SELECTED</span><span>SVG / 1000 × 600</span><span>NO AI REQUIRED</span></div>
+        <div class="statusbar"><span id="status">OBJECT SELECTED</span><span id="size">SVG / 1000 × 600</span><span>NO AI REQUIRED</span></div>
       </div>
     </section>
-
     <section class="argument">
       <p class="kicker">WHAT WAS ACTUALLY GOOD?</p>
       <div class="argument-grid">
@@ -139,6 +153,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <div>
           <p>WordArt was excessive, but its capability was visible. Effects lived in a gallery. Selection looked selected. Parameters invited play. You could discover the tool by touching it.</p>
           <p>That is the bit worth stealing back: <strong>visible possibility, direct manipulation and reversible bad taste.</strong> A contemporary interface does not have to look like 2001. It can borrow 2001's confidence that the user should be allowed to make the thing themselves.</p>
+          <p>And it can keep the result alive. Every saved SVG carries its own recipe. Drop it back onto the stage and it becomes editable again, a few kilobytes that stay exact, where a prompt would only give you another roll of the dice.</p>
         </div>
       </div>
     </section>
@@ -166,114 +181,136 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <footer class="foot"><a href="/#library">← back to collection</a><span>LUMPESAMMLIG / 008</span></footer>
   </main>
 
-  <script is:inline>
-    const ns = 'http://www.w3.org/2000/svg';
-    const el = (id) => document.getElementById(id);
-    const controls = {
-      copy: el('copy'), shape: el('shape'), colorA: el('colorA'), colorB: el('colorB'),
-      outline: el('outline'), outlineWidth: el('outlineWidth'), depth: el('depth'),
-      rotation: el('rotation'), tracking: el('tracking'), shadow: el('shadow')
-    };
+  <script>
+    import { PRESETS, normalize, renderWordArt, readRecipe, toQuery, fromQuery } from '../../samples/008-wordart/engine.js';
 
-    const presets = {
-      chrome: { a:'#f7fbff', b:'#536879', o:'#0b1826', depth:14, rot:-3, track:0, shape:'arch-up', shadow:true },
-      rainbow: { a:'#fff200', b:'#ff00bf', o:'#4420a8', depth:11, rot:2, track:1, shape:'wave', shadow:true },
-      corporate: { a:'#8fe8ff', b:'#0751c9', o:'#052a71', depth:8, rot:0, track:2, shape:'straight', shadow:true },
-      bubblegum: { a:'#fff0fb', b:'#ff4aad', o:'#a6006f', depth:7, rot:-5, track:3, shape:'arch-down', shadow:true },
-      lime: { a:'#f1ff54', b:'#28cf45', o:'#005e38', depth:18, rot:5, track:1, shape:'rise', shadow:true },
-      gold: { a:'#fff6a0', b:'#b56d00', o:'#4a2600', depth:16, rot:-2, track:0, shape:'arch-up', shadow:true },
-      flame: { a:'#fff15a', b:'#ff4218', o:'#781000', depth:10, rot:4, track:-1, shape:'wave', shadow:true },
-      ice: { a:'#ffffff', b:'#7ae7ff', o:'#006699', depth:6, rot:0, track:4, shape:'straight', shadow:false }
-    };
+    type Params = ReturnType<typeof normalize>;
 
-    function syncOutputs() {
-      el('outlineWidthOut').textContent = controls.outlineWidth.value;
-      el('depthOut').textContent = controls.depth.value;
-      el('rotationOut').textContent = controls.rotation.value + '°';
-      el('trackingOut').textContent = controls.tracking.value;
+    const el = (id: string) => document.getElementById(id) as HTMLElement;
+    const inputs = [...document.querySelectorAll<HTMLInputElement>('[data-param]')];
+    const background = el('backgroundColor') as HTMLInputElement;
+    const transparent = el('transparent') as HTMLInputElement;
+    const degrees = new Set(['rotation', 'gradientAngle']);
+    let params = normalize(location.hash.length > 1 ? fromQuery(location.hash) : {});
+    let current = '';
+
+    function readControls() {
+      const raw: Record<string, string | boolean> = {};
+      for (const input of inputs) {
+        raw[input.dataset.param as string] = input.type === 'checkbox' ? input.checked : input.value;
+      }
+      raw.background = transparent.checked ? 'none' : background.value;
+      return normalize(raw);
     }
 
-    function rebuildDepth() {
-      const group = el('depthGroup');
-      group.replaceChildren();
-      const amount = Number(controls.depth.value);
-      for (let i = amount; i > 0; i -= 2) {
-        const text = document.createElementNS(ns, 'text');
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('class', 'depth-text');
-        text.setAttribute('transform', 'translate(' + i + ' ' + i + ')');
-        const path = document.createElementNS(ns, 'textPath');
-        path.setAttribute('href', '#' + controls.shape.value);
-        path.setAttribute('startOffset', '50%');
-        path.setAttribute('textLength', '820');
-        path.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-        path.textContent = controls.copy.value || ' ';
-        text.appendChild(path);
-        group.appendChild(text);
+    function writeControls(p: Params) {
+      for (const input of inputs) {
+        const value = p[input.dataset.param as keyof Params];
+        if (input.type === 'checkbox') input.checked = Boolean(value);
+        else input.value = String(value);
       }
+      transparent.checked = p.background === 'none';
+      if (p.background !== 'none') background.value = p.background;
+    }
+
+    function status(message: string) {
+      el('status').textContent = message;
     }
 
     function render() {
-      const value = controls.copy.value || ' ';
-      document.querySelectorAll('#art textPath').forEach((node) => node.textContent = value);
-      el('topPath').setAttribute('href', '#' + controls.shape.value);
-      el('fillA').setAttribute('stop-color', controls.colorA.value);
-      el('fillB').setAttribute('stop-color', controls.colorB.value);
-      el('topText').style.stroke = controls.outline.value;
-      el('topText').style.strokeWidth = controls.outlineWidth.value + 'px';
-      el('topText').style.letterSpacing = controls.tracking.value + 'px';
-      el('topText').style.filter = controls.shadow.checked ? 'url(#drop)' : 'none';
-      el('artGroup').setAttribute('transform', 'rotate(' + controls.rotation.value + ' 500 300)');
-      rebuildDepth();
-      document.querySelectorAll('.depth-text').forEach((node) => {
-        node.style.fill = controls.outline.value;
-        node.style.stroke = controls.outline.value;
-        node.style.strokeWidth = Math.max(1, Number(controls.outlineWidth.value) * .6) + 'px';
-        node.style.letterSpacing = controls.tracking.value + 'px';
-      });
-      syncOutputs();
+      current = renderWordArt(params, { id: 'stage-art' });
+      el('art').innerHTML = current;
+      el('selection').setAttribute('transform', `rotate(${params.rotation} 500 300)`);
+      el('stage').classList.toggle('transparent', params.background === 'none');
+      for (const out of document.querySelectorAll('[data-out]')) {
+        const key = out.getAttribute('data-out') as keyof Params;
+        out.textContent = params[key] + (degrees.has(key) ? '°' : '');
+      }
+      const bytes = new Blob([exportSvg()]).size;
+      el('size').textContent = `SVG / 1000 × 600 / ${(bytes / 1024).toFixed(1)} KB`;
+      history.replaceState(null, '', '#' + toQuery(params));
     }
 
-    function applyPreset(name) {
-      const p = presets[name];
-      controls.colorA.value = p.a; controls.colorB.value = p.b; controls.outline.value = p.o;
-      controls.depth.value = p.depth; controls.rotation.value = p.rot; controls.tracking.value = p.track;
-      controls.shape.value = p.shape; controls.shadow.checked = p.shadow;
+    function set(next: Partial<Params>, message = 'OBJECT SELECTED') {
+      params = normalize({ ...params, ...next });
+      writeControls(params);
       render();
+      status(message);
     }
 
-    Object.values(controls).forEach((node) => node.addEventListener('input', render));
-    el('presets').addEventListener('click', (event) => {
-      const button = event.target.closest('[data-preset]');
-      if (button) applyPreset(button.dataset.preset);
+    const exportSvg = () => '<?xml version="1.0" encoding="UTF-8"?>\n' + renderWordArt(params);
+    const fileName = (ext: string) => (params.text.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'wordart') + '.' + ext;
+
+    function download(href: string, name: string) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.download = name;
+      a.click();
+    }
+
+    async function open(file?: File | null) {
+      if (!file) return;
+      const recipe = readRecipe(await file.text());
+      if (recipe) set(recipe, 'RECIPE LOADED — KEEP EDITING');
+      else status('NO WORDART RECIPE IN THAT FILE');
+    }
+
+    for (const input of [...inputs, background, transparent]) {
+      input.addEventListener('input', () => { params = readControls(); render(); });
+    }
+
+    el('presets').parentElement?.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLElement>('[data-preset]');
+      const name = button?.dataset.preset as keyof typeof PRESETS | undefined;
+      if (name) set(PRESETS[name], 'PRESET ' + name.toUpperCase());
     });
+
     el('randomize').addEventListener('click', () => {
-      const names = Object.keys(presets);
-      applyPreset(names[Math.floor(Math.random() * names.length)]);
-      controls.rotation.value = Math.floor(Math.random() * 19) - 9;
-      controls.depth.value = 4 + Math.floor(Math.random() * 17);
-      render();
+      const names = Object.keys(PRESETS);
+      const name = names[Math.floor(Math.random() * names.length)] as keyof typeof PRESETS;
+      set({ ...PRESETS[name], rotation: Math.floor(Math.random() * 19) - 9, depth: 4 + Math.floor(Math.random() * 17) }, 'SURPRISE: ' + name.toUpperCase());
     });
-    el('export').addEventListener('click', () => {
-      const svg = el('art').cloneNode(true);
-      svg.querySelector('.selection')?.remove();
-      const source = new XMLSerializer().serializeToString(svg);
-      const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
+
+    el('exportSvg').addEventListener('click', () => {
+      const url = URL.createObjectURL(new Blob([exportSvg()], { type: 'image/svg+xml;charset=utf-8' }));
+      download(url, fileName('svg'));
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      status('SAVED SVG — THE RECIPE TRAVELS INSIDE IT');
+    });
+
+    el('exportPng').addEventListener('click', () => {
+      const url = URL.createObjectURL(new Blob([renderWordArt(params, { metadata: false })], { type: 'image/svg+xml;charset=utf-8' }));
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        canvas.width = 1600; canvas.height = 960;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.width = 2000; canvas.height = 1200;
+        canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
         URL.revokeObjectURL(url);
-        const a = document.createElement('a');
-        a.download = 'wordart.png';
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+        download(canvas.toDataURL('image/png'), fileName('png'));
+        status('SAVED PNG (2×)');
       };
       img.src = url;
     });
+
+    el('share').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        status('LINK COPIED — IT REOPENS THIS EXACT WORDART');
+      } catch {
+        status('COPY THE ADDRESS BAR — IT HOLDS THE RECIPE');
+      }
+    });
+
+    el('open').addEventListener('change', (event) => open((event.target as HTMLInputElement).files?.[0]));
+    el('stage').addEventListener('dragover', (event) => { event.preventDefault(); el('stage').classList.add('dropping'); });
+    el('stage').addEventListener('dragleave', () => el('stage').classList.remove('dropping'));
+    el('stage').addEventListener('drop', (event) => {
+      event.preventDefault();
+      el('stage').classList.remove('dropping');
+      open(event.dataTransfer?.files?.[0]);
+    });
+
+    writeControls(params);
     render();
   </script>
 </BaseLayout>
@@ -298,6 +335,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .toolbar{display:flex;gap:12px;align-items:end;padding:10px;background:#dddcd4;border-bottom:1px solid #777}
   .text-field{flex:1;font:700 9px/1 Arial;letter-spacing:.12em}.text-field input{display:block;width:100%;margin-top:5px;padding:9px;border:2px inset #fff;background:white;font:700 15px Arial}
   .tool-button{min-height:38px;padding:0 14px;border:2px outset #fff;background:#dddcd4;font:700 10px Arial}.tool-button:active{border-style:inset}.tool-button.primary{background:#f1ed74}
+  .file-button{display:inline-flex;align-items:center;cursor:pointer}.file-button input{position:absolute;width:1px;height:1px;opacity:0}.file-button:focus-within{outline:2px solid #1f5fff}
   .workspace{display:grid;grid-template-columns:180px 1fr 210px;min-height:650px}
   .preset-panel,.controls{background:#d6d5cd;padding:12px;border-right:1px solid #888}.controls{border-right:0;border-left:1px solid #888}
   .preset-panel>p{font:700 9px Arial;letter-spacing:.14em;margin:4px 2px 10px}
@@ -307,13 +345,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .rainbow span{background:linear-gradient(#fff900,#ff2ca8,#7a2cff);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:1px #34238f}
   .corporate span{color:#3b9cff;text-shadow:2px 2px 0 #073c92}.bubblegum span{color:#ff8bce;-webkit-text-stroke:1px #a0086d}.lime span{color:#8ef14d;text-shadow:3px 3px 0 #066441}
   .gold span{background:linear-gradient(#fff4a3,#b06a00);-webkit-background-clip:text;color:transparent;-webkit-text-stroke:1px #503000}.flame span{color:#ff6527;text-shadow:2px 2px 0 #6f1000}.ice span{color:#dffcff;-webkit-text-stroke:1px #007caa}
+  .preset-panel>p.gallery-now{margin-top:18px}
+  .glass{background:#12163a}.glass span{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:800;color:#fff;text-shadow:0 0 10px #7d6bff}
+  .acid{background:#0b0b0b}.acid span{font-family:'Helvetica Neue',Arial,sans-serif;background:linear-gradient(90deg,#d8ff3c,#39ff9e);-webkit-background-clip:text;color:transparent;filter:drop-shadow(2px 2px 0 #ff3cac)}
+  .riso{background:#f4efe4}.riso span{font-family:'Helvetica Neue',Arial,sans-serif;color:#ff4fa3;text-shadow:3px 3px 0 #2b59ff}
+  .brutal{background:#fff}.brutal span{font-family:'Courier New',monospace;color:#111;text-shadow:3px 3px 0 #c8ff00}
   .stage-wrap{min-width:0;background:#9b9b96;padding:32px clamp(12px,3vw,36px);position:relative}
   .stage-note{font:700 9px Arial;letter-spacing:.14em;color:#303030;margin-bottom:8px}
   .stage{background:#f7f5ef;box-shadow:0 2px 13px rgba(0,0,0,.36);aspect-ratio:5/3;display:flex}
-  #art{width:100%;height:auto;display:block}.grid path{stroke:#ddd9cf;stroke-width:1}.top-text{font-family:Arial Black,Impact,sans-serif;font-size:120px;font-weight:900;fill:url(#wordFill);stroke:#42126f;stroke-width:8px;stroke-linejoin:round}
-  .depth-text{font-family:Arial Black,Impact,sans-serif;font-size:120px;font-weight:900;fill:#42126f;stroke:#42126f;stroke-linejoin:round}
+  .stage{position:relative;overflow:hidden}.stage.transparent{background:repeating-conic-gradient(#e4e2da 0 25%,#f7f5ef 0 50%) 0 0/24px 24px}.stage.dropping{outline:4px dashed #1f5fff;outline-offset:-10px}
+  .art{width:100%}.art :global(svg){width:100%;height:auto;display:block}
+  .selection-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   .selection rect,.selection path{fill:none;stroke:#1f5fff;stroke-width:2;stroke-dasharray:7 5;vector-effect:non-scaling-stroke}.selection circle{fill:#fff;stroke:#1f5fff;stroke-width:2;vector-effect:non-scaling-stroke}.selection .rotate-handle{fill:#f8ff67}
-  .control-block{padding:12px 0;border-bottom:1px solid #aaa}.control-block label,.control-block>label{display:block;font:700 9px Arial;letter-spacing:.09em}.control-block input[type="range"],.control-block select{width:100%;margin-top:8px}.control-block input[type="color"]{display:block;width:100%;height:34px;margin-top:6px;padding:0;border:2px inset #fff}.control-block.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .control-block{padding:12px 0;border-bottom:1px solid #aaa}.control-block label,.control-block>label{display:block;font:700 9px Arial;letter-spacing:.09em}.control-block input[type="range"],.control-block select{width:100%;margin-top:8px}.control-block input[type="color"]{display:block;width:100%;height:34px;margin-top:6px;padding:0;border:2px inset #fff}.control-block.two,.control-block .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.control-block .two{margin:8px 0}
+  .control-block .check{margin-top:0}.control-block.two .check{align-self:end;height:34px}
   .check{display:flex;gap:8px;align-items:center;margin-top:16px;font:700 10px Arial;text-transform:uppercase}
   .statusbar{display:flex;justify-content:space-between;gap:12px;padding:6px 9px;border-top:1px solid #777;background:#d6d5cd;font:700 9px Arial;letter-spacing:.08em}
   .argument{padding:clamp(90px,13vw,180px) clamp(20px,6vw,90px);background:#f0ede5}

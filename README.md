@@ -51,7 +51,7 @@ Dusty indigo decorative paper becomes a procedural print-and-substrate study. Se
 
 ### 008 — WordArt
 
-A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. The specimen is implemented in native SVG and vanilla JavaScript and can export its result as a PNG.
+A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. A dependency-free engine renders a small parameter set to standalone SVG. Exported SVGs carry their recipe in `<metadata>` and can be reopened for editing, the URL hash holds the same recipe as a shareable link, and a *Now* preset row pushes the same parameters into contemporary styles. The argument: exact, cheap control instead of fuzzy prompting.
 
 ## Architecture
 
