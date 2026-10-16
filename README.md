@@ -1,6 +1,16 @@
+<!-- BEGIN public-repo-header -->
+<div align="center">
+
 # Lumpesammlig
 
 **Encounter → situated reading → distinction → transformation → experiment.**
+
+<a href="https://github.com/blackmath88/lumpesammlig"><img alt="Primary language: TypeScript" src="https://img.shields.io/badge/language-TypeScript-526078?style=flat"></a>
+<a href="https://github.com/blackmath88/lumpesammlig/tree/main/docs"><img alt="Documentation" src="https://img.shields.io/badge/docs-guide-16796f?style=flat"></a>
+<a href="https://github.com/blackmath88/lumpesammlig/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/blackmath88/lumpesammlig?style=flat&amp;color=737373"></a>
+
+</div>
+<!-- END public-repo-header -->
 
 Lumpesammlig is a small digital exhibition and front-end R&D repository for translating real encounters into new propositions about interaction.
 
