@@ -1,0 +1,347 @@
+.p2s {
+  --turquoise: #3ea0cc;
+  --turquoise-deep: #2a7f9f;
+  --rose: #cf6f93;
+  --coral: #e1865c;
+  --olive: #6c8a3f;
+  --brown: #684628;
+  --ink: #1b1e1d;
+  --paper: #e9e6df;
+  --line: rgba(27, 30, 29, 0.22);
+}
+
+/* Comparison ------------------------------------------------------------ */
+
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(10px, 1.6vw, 22px);
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.treatment {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.treatment h3 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.treatment h3 span {
+  display: inline-block;
+  min-width: 1.6em;
+  color: var(--turquoise-deep);
+}
+
+.treatment p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #5b605c;
+  min-height: 3.6em;
+}
+
+.treatment figure {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.treatment figcaption {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.treatment canvas {
+  display: block;
+  max-width: 100%;
+  box-shadow: 0 0 0 1px rgba(27, 30, 29, 0.18);
+}
+
+.treatment[data-treatment='custom'] {
+  padding-left: clamp(10px, 1.6vw, 22px);
+  border-left: 1px solid var(--line);
+}
+
+.comparison-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.comparison-controls fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.comparison-controls legend {
+  float: left;
+  margin-right: 10px;
+  padding: 0;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  line-height: 20px;
+}
+
+.comparison-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 20px;
+}
+
+.comparison-controls input {
+  margin: 0;
+  accent-color: var(--turquoise-deep);
+}
+
+.comparison-fallback {
+  display: none;
+  padding: 18px 0;
+  font-size: 14px;
+  color: #5b605c;
+}
+
+[data-comparison][data-state='unavailable'] .comparison-fallback {
+  display: block;
+}
+
+[data-comparison][data-state='unavailable'] .comparison {
+  display: none;
+}
+
+/* Specimen -------------------------------------------------------------- */
+
+.specimen {
+  position: relative;
+  max-width: 560px;
+  padding: 26px 26px 22px;
+  background-color: #f2efe6;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(104, 70, 40, 0.35), 0 18px 40px -28px rgba(27, 30, 29, 0.5);
+}
+
+.specimen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.specimen-head canvas {
+  display: block;
+}
+
+.specimen-head small {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.specimen form {
+  display: flex;
+  gap: 8px;
+}
+
+.specimen input[name='item'] {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid rgba(104, 70, 40, 0.45);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.specimen button {
+  padding: 9px 13px;
+  border: 1px solid var(--turquoise-deep);
+  background: var(--turquoise);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.specimen .seam {
+  display: block;
+  width: 100%;
+  margin: 14px 0 6px;
+}
+
+.specimen ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.specimen li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 6px 8px;
+}
+
+.specimen li + li {
+  border-top: 1px dashed rgba(104, 70, 40, 0.3);
+}
+
+.specimen li canvas[data-border] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.item-check {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.item-check input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.item-check canvas {
+  display: block;
+  flex: none;
+  position: relative;
+  z-index: 1;
+}
+
+.item-check input:focus-visible + canvas {
+  outline: 3px solid var(--turquoise-deep);
+  outline-offset: 3px;
+}
+
+.specimen li[data-done='true'] [data-text] {
+  text-decoration: line-through;
+  text-decoration-color: var(--olive);
+  text-decoration-thickness: 2px;
+  color: #5b605c;
+}
+
+.done-tag {
+  display: none;
+  margin-left: 8px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.specimen li[data-done='true'] .done-tag {
+  display: inline;
+}
+
+.specimen .item-remove {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.item-remove canvas {
+  display: block;
+}
+
+.specimen .item-remove:hover,
+.specimen .item-remove:focus-visible {
+  border-color: var(--coral);
+}
+
+.specimen-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #5b605c;
+}
+
+.specimen-status button {
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--turquoise-deep);
+}
+
+.specimen button:focus-visible,
+.specimen input[name='item']:focus-visible {
+  outline: 3px solid var(--turquoise-deep);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .comparison {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .treatment[data-treatment='custom'] {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .comparison {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .treatment p {
+    min-height: 0;
+  }
+  .specimen {
+    padding: 18px 14px 16px;
+  }
+  .specimen form {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p2s * {
+    transition: none !important;
+  }
+}
