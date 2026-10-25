@@ -284,11 +284,11 @@ export class StitchRenderer {
     const dpr = Math.min(2, devicePixelRatio || 1, 2200 / Math.max(1, cssWidth));
     const w = Math.max(1, Math.round(cssWidth * dpr));
     const h = Math.max(1, Math.round(cssHeight * dpr));
-    if (w === this.canvas.width && h === this.canvas.height && dpr === this.dpr) return;
-    this.canvas.width = w;
-    this.canvas.height = h;
     this.width = cssWidth;
     this.height = cssHeight;
+    if (w === this.canvas.width && h === this.canvas.height && dpr === this.dpr && this.drawn >= 0) return;
+    this.canvas.width = w;
+    this.canvas.height = h;
     this.dpr = dpr;
     this.drawn = -1;
   }
@@ -325,8 +325,8 @@ export class StitchRenderer {
 export function renderPreview(canvas: HTMLCanvasElement): boolean {
   const renderer = StitchRenderer.create(canvas);
   if (!renderer) return false;
-  const rect = canvas.getBoundingClientRect();
-  renderer.resize(rect.width || 320, rect.height || 400, Math.min(1.5, window.devicePixelRatio || 1));
+  // clientWidth/Height ignore the library's slight rotation; a bounding box would stretch the stitches.
+  renderer.resize(canvas.clientWidth || 320, canvas.clientHeight || 400, Math.min(1.5, window.devicePixelRatio || 1));
   renderer.render('preview', renderer.total);
   return true;
 }

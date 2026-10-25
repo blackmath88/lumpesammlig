@@ -45,13 +45,12 @@ export function mountStitchedCare(root: HTMLElement): () => void {
 
   const describe = () => {
     const label = view === 'whole' ? 'Whole hanger' : 'Close detail of the central rose';
-    canvas.setAttribute(
-      'aria-label',
-      `${label}: ${format.format(count)} of ${format.format(total)} stitches completed.`
-    );
-    output.textContent = `${format.format(count)} / ${format.format(total)}`;
+    const described = `${label}: ${format.format(count)} of ${format.format(total)} stitches completed.`;
+    if (canvas.getAttribute('aria-label') !== described) canvas.setAttribute('aria-label', described);
+    const counted = `${format.format(count)} / ${format.format(total)}`;
+    if (output.textContent !== counted) output.textContent = counted;
     if (status) {
-      status.textContent =
+      const state =
         count === total
           ? 'Finished state'
           : count === 0
@@ -59,6 +58,8 @@ export function mountStitchedCare(root: HTMLElement): () => void {
             : playing
               ? 'Accumulating'
               : 'Paused mid-work';
+      // Only touch the live region when the text actually changes.
+      if (status.textContent !== state) status.textContent = state;
     }
   };
 
@@ -83,7 +84,6 @@ export function mountStitchedCare(root: HTMLElement): () => void {
     playing = false;
     cancelAnimationFrame(frame);
     frame = 0;
-    play.setAttribute('aria-pressed', 'false');
     play.textContent = 'Play reveal';
     describe();
   };
@@ -107,7 +107,6 @@ export function mountStitchedCare(root: HTMLElement): () => void {
   const start = () => {
     if (count >= total) setCount(0);
     playing = true;
-    play.setAttribute('aria-pressed', 'true');
     play.textContent = 'Pause';
     last = performance.now();
     frame = requestAnimationFrame(tick);

@@ -201,9 +201,9 @@ function perimeterParameter(i: number): number {
   if (Math.abs(x) > END_CENTRE_X) {
     const ex = Math.sign(x) * END_CENTRE_X;
     const angle = Math.atan2(y - centreLine(ex), x - ex); // -π..π
-    if (x > 0) return HALF_LENGTH + angle + Math.PI / 2; // right cap, sweeping over the top then down
+    if (x > 0) return 2 * HALF_LENGTH + angle; // right cap: after the top run, before the bottom run
     const a = angle < -Math.PI / 2 ? angle + Math.PI * 2 : angle; // left cap, π/2..3π/2
-    return 3 * HALF_LENGTH + Math.PI + (a - Math.PI / 2);
+    return 4 * HALF_LENGTH + (a - Math.PI / 2); // left cap: after the bottom run
   }
   return above ? x + HALF_LENGTH : 3 * HALF_LENGTH - x;
 }
