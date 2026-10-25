@@ -1,3 +1,4 @@
+import { withBase } from '../../data/site';
 import { useEffect, useRef } from 'react';
 import { DEFAULT_PAPER_PARAMETERS, type PaperParameters } from './material/parameters';
 import './paper-field.css';
@@ -260,7 +261,7 @@ export default function PaperField({bare=false,parameters=DEFAULT_PAPER_PARAMETE
         <span>A strict radial system becomes particular when every mark must pass through the same imperfect sheet.</span>
       </div>
       <div className="paper-legend"><b>LIGHT REVEALS THE SHEET</b><span>Move slowly. The print stays registered; only matte light crosses its shallow relief.</span></div>
-      <a className="paper-back" href="/#library">Collection ↙</a>
+      <a className="paper-back" href={withBase("/#library")}>Collection ↙</a>
     </section>
   );
 }

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import CoilField from '../../samples/004-blue-coil/CoilField';
 import CoilExperience from '../../samples/004-blue-coil/CoilExperience';
 ---
@@ -20,7 +21,7 @@ import CoilExperience from '../../samples/004-blue-coil/CoilExperience';
         <p>The photograph is treated as evidence: a raised centre, continuous coiling, uneven radial pressure and indigo bindings. Origin and exact fibre species remain deliberately unspecified.</p>
       </div>
       <figure>
-        <img src="/samples/004-blue-coil/source.png" alt="Close view of a natural-fibre coiled basket lid with dark blue binding marks and a raised spiral centre" width="953" height="1270" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/004-blue-coil/source.png")} alt="Close view of a natural-fibre coiled basket lid with dark blue binding marks and a raised spiral centre" width="953" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / construction reference</figcaption>
       </figure>
     </section>
