@@ -98,5 +98,16 @@ export const samples: Sample[] = [
     route: '/samples/010-pixels-to-stitches',
     status: 'study',
     technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
+  },
+  {
+    id: 'thread-icons',
+    number: '011',
+    title: 'Thread Icons',
+    object: 'A contemporary embroidered icon set for digital interfaces: six familiar icons made of thread, with a streetwear-patch attitude.',
+    material: 'Satin fills following each shape / fanned stitches on curves / cord outlines / layered regions / knots',
+    translation: 'Build-time SVG stitch vocabulary, six icons at 24, 32 and 48 px on light and dark surfaces, in a working toolbar.',
+    route: '/samples/011-thread-icons',
+    status: 'study',
+    technology: ['Astro', 'SVG', 'Vanilla TS']
   }
 ];
