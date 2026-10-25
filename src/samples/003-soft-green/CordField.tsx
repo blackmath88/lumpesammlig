@@ -1,3 +1,4 @@
+import { withBase } from '../../data/site';
 import { useEffect, useRef } from 'react';
 import { DEFAULT_CORD_PARAMETERS, type CordParameters } from './material/parameters';
 import './cord-field.css';
@@ -265,7 +266,7 @@ export default function CordField({ bare = false, parameters = DEFAULT_CORD_PARA
         <span>3.5 MM / 100 M</span>
         <p>Move slowly. Only the light changes; the wound material stays under load.</p>
       </div>
-      <a className="cord-back" href="/#library">Collection ↙</a>
+      <a className="cord-back" href={withBase("/#library")}>Collection ↙</a>
     </section>
   );
 }

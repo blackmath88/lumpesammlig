@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 ---
 
 <BaseLayout
@@ -7,7 +8,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   description="Make WordArt great again: a browser-native study in expressive, directly manipulable typography."
 >
   <main class="wordart-page">
-    <nav class="back"><a href="/#library">← collection</a><span>008 / WORDART</span></nav>
+    <nav class="back"><a href={withBase("/#library")}>← collection</a><span>008 / WORDART</span></nav>
 
     <header class="intro">
       <p class="kicker">FOUND INTERFACE / C. 2000</p>
@@ -163,7 +164,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
     </section>
 
-    <footer class="foot"><a href="/#library">← back to collection</a><span>LUMPESAMMLIG / 008</span></footer>
+    <footer class="foot"><a href={withBase("/#library")}>← back to collection</a><span>LUMPESAMMLIG / 008</span></footer>
   </main>
 
   <script is:inline>

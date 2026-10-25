@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import '../../samples/009-stitched-care/stitched-care.css';
 ---
 <BaseLayout title="009 Stitched Care — Lumpesammlig" description="An embroidered clothes hanger becomes a stitch-by-stitch study: care made visible as accumulated, discrete decisions on one regular grid.">
   <main class="care-page">
-    <nav class="back"><a href="/#library">← collection</a><span>009 / STITCHED CARE</span></nav>
+    <nav class="back"><a href={withBase("/#library")}>← collection</a><span>009 / STITCHED CARE</span></nav>
 
     <section class="stitch-study" data-stitch-study data-view="whole" data-state="pending" aria-labelledby="study-heading">
       <h1 id="study-heading" class="visually-hidden">Stitched Care: an embroidered hanger cover rendered stitch by stitch</h1>
@@ -58,7 +59,7 @@ import '../../samples/009-stitched-care/stitched-care.css';
         <p>The bed sheet and the book are incidental surroundings and play no part in the study.</p>
       </div>
       <figure>
-        <img src="/samples/009-stitched-care/source.jpg" alt="An embroidered clothes-hanger cover lying on a white sheet: turquoise needlepoint with a central pink rose, small white flowers, coral flowers, green leaves, brown curled motifs and a brown stitched edge, with a twisted metal hook" width="1200" height="1600" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/009-stitched-care/source.jpg")} alt="An embroidered clothes-hanger cover lying on a white sheet: turquoise needlepoint with a central pink rose, small white flowers, coral flowers, green leaves, brown curled motifs and a brown stitched edge, with a twisted metal hook" width="1200" height="1600" loading="lazy" decoding="async" />
         <figcaption>Real object / photograph kept as evidence; the stitch study above is synthesised, not sampled from it</figcaption>
       </figure>
     </section>

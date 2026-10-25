@@ -1,5 +1,6 @@
 ---
 import { samples } from '../data/samples';
+import { withBase } from '../data/site';
 import KnitMaterial from '../samples/001-waschlumpe/material/KnitMaterial';
 import { DEFAULT_KNIT_PARAMETERS } from '../samples/001-waschlumpe/material/parameters';
 import CordField from '../samples/003-soft-green/CordField';
@@ -20,7 +21,7 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
 
   <div class="promenade">
     {samples.map((sample) => (
-      <a class="sample" href={sample.route} data-sample={sample.id}>
+      <a class="sample" href={withBase(sample.route)} data-sample={sample.id}>
         <div class="sample-index">
           <span>{sample.number}</span>
           <span>{sample.status}</span>

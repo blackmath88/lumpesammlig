@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import PaperField from '../../samples/007-blue-printed-paper/PaperField';
 import PaperExperience from '../../samples/007-blue-printed-paper/PaperExperience';
 ---
@@ -20,7 +21,7 @@ import PaperExperience from '../../samples/007-blue-printed-paper/PaperExperienc
         <p>The photograph remains evidence rather than scenery. The reconstruction keeps the observable hierarchy and surface behaviour, leaving the wood, fastener, tear and exact composition behind.</p>
       </div>
       <figure>
-        <img src="/samples/007-blue-printed-paper/source.png" alt="Dusty blue printed paper inside a wooden cabinet, covered in cream dashes forming overlapping circular fields" width="1693" height="1270" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/007-blue-printed-paper/source.png")} alt="Dusty blue printed paper inside a wooden cabinet, covered in cream dashes forming overlapping circular fields" width="1693" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / print and paper reference</figcaption>
       </figure>
     </section>

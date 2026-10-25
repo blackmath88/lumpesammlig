@@ -156,25 +156,13 @@ npm run preview
 
 dist\ is generated and should not be committed.
 
-## Cloudflare deployment
+## Deployment
 
-The project is a static Astro build. Cloudflare Pages is the chosen initial path because it needs no runtime adapter or Worker:
+The site deploys to GitHub Pages as a project site at https://blackmath88.github.io/lumpesammlig/ through `.github/workflows/deploy.yml`, which runs on every push to `main` (Pages source: GitHub Actions).
 
-- Framework preset: Astro
-- Build command: npm run build
-- Build output directory: dist
-- Production branch: your repository's production branch (commonly main)
+Because the site lives under `/lumpesammlig/`, `astro.config.mjs` sets `site` and `base`, and every root-relative link or asset path in the shell and the samples goes through `withBase()` from `src/data/site.ts`. New samples should do the same for their own links and evidence images.
 
-Connect the Git repository in **Cloudflare Dashboard → Workers & Pages → Create application → Pages → Import an existing Git repository**. Cloudflare installs dependencies and deploys dist.
-
-For a manual Pages upload after creating the Pages project:
-
-~~~powershell
-npm run build
-npx wrangler pages deploy dist --project-name YOUR_PROJECT_NAME
-~~~
-
-Do not add @astrojs/cloudflare while the site remains fully static; that adapter is for server rendering. If the deployment model later changes to Workers Static Assets, use a current wrangler.jsonc with assets.directory set to ./dist, not deprecated Workers Sites configuration.
+`wrangler.jsonc` remains for an optional manual Cloudflare Workers upload (`npm run deploy`), which is not part of the automated path.
 
 ## Working principle
 

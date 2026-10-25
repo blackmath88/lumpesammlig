@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import PaintField from '../../samples/006-flaked-blue/PaintField';
 import PaintExperience from '../../samples/006-flaked-blue/PaintExperience';
 ---
@@ -20,7 +21,7 @@ import PaintExperience from '../../samples/006-flaked-blue/PaintExperience';
         <p>The photograph records an old wooden surface beside a window. Its composition and exact paint history are unknown, so the reconstruction keeps only what can be observed: layer order, vertical grain, clustered failure and matte light.</p>
       </div>
       <figure>
-        <img src="/samples/006-flaked-blue/source.png" alt="Old blue-grey painted wood beside a window, with cracked and flaking paint exposing pale layers" width="953" height="1270" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/006-flaked-blue/source.png")} alt="Old blue-grey painted wood beside a window, with cracked and flaking paint exposing pale layers" width="953" height="1270" loading="lazy" decoding="async" />
         <figcaption>Real object / layer and damage reference</figcaption>
       </figure>
     </section>
