@@ -76,5 +76,16 @@ export const samples: Sample[] = [
     route: '/samples/008-wordart',
     status: 'live',
     technology: ['Astro', 'SVG', 'Vanilla JS']
+  },
+  {
+    id: 'stitched-care',
+    number: '009',
+    title: 'Stitched Care',
+    object: 'An embroidered needlepoint cover fitted to a curved clothes hanger: a humble support that received thousands of deliberate stitches.',
+    material: 'Turquoise stitch field / rose, coral, pale flowers / olive leaves / brown curls / brown edging along the silhouette',
+    translation: 'One shaped stitch grid rendered at two distances, revealed as a count of accumulated decisions.',
+    route: '/samples/009-stitched-care',
+    status: 'study',
+    technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
   }
 ];

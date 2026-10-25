@@ -63,6 +63,10 @@ Dusty indigo decorative paper becomes a procedural print-and-substrate study. Se
 
 A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. The specimen is implemented in native SVG and vanilla JavaScript and can export its result as a PNG.
 
+### 009 — Stitched Care
+
+An embroidered cover on a curved clothes hanger becomes a stitch-by-stitch study. One deterministic grid describes the shaped silhouette, the turquoise field, the rose, flowers, leaves, curls and the brown edging; a local Canvas 2D renderer draws the same model as a whole hanger and as a close detail where individual stitches resolve. A labelled "Stitches completed" control reveals the work as a count of accumulated decisions. The finished textile is the default state; nothing autoplays.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -87,6 +91,7 @@ src/
       006-flaked-blue.astro
       007-blue-printed-paper.astro
       008-wordart.astro
+      009-stitched-care.astro
   samples/
     ...
 ~~~
