@@ -67,6 +67,10 @@ A remembered turn-of-the-millennium desktop publishing interface becomes an inte
 
 An embroidered cover on a curved clothes hanger becomes a stitch-by-stitch study. One deterministic grid describes the shaped silhouette, the turquoise field, the rose, flowers, leaves, curls and the brown edging; a local Canvas 2D renderer draws the same model as a whole hanger and as a close detail where individual stitches resolve. A labelled "Stitches completed" control reveals the work as a count of accumulated decisions. The finished textile is the default state; nothing autoplays.
 
+### 011 — Thread Icons
+
+Embroidery as a contemporary digital medium rather than a traditional motif. Six familiar interface icons (chat, lightning, headphones, folder, cloud upload, cursor) are built from a sample-local SVG stitch vocabulary in which threads follow each shape: satin fills clipped to regions, fanned stitches around curves, cord outlines along contours, layered regions with contact shadows, and knots. Everything is generated at build time into one sprite; the page shows all six at 24, 32 and 48 px on light and dark surfaces, an enlarged construction view, and a native-button toolbar with selected, notification and simulated-upload states.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -92,6 +96,7 @@ src/
       007-blue-printed-paper.astro
       008-wordart.astro
       009-stitched-care.astro
+      011-thread-icons.astro
   samples/
     ...
 ~~~

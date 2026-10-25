@@ -11,6 +11,7 @@ import PaintField from '../samples/006-flaked-blue/PaintField';
 import { DEFAULT_PAINT_PARAMETERS } from '../samples/006-flaked-blue/material/parameters';
 import PaperField from '../samples/007-blue-printed-paper/PaperField';
 import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/material/parameters';
+import { previewMarkup as threadIconsPreview } from '../samples/011-thread-icons/icons';
 ---
 <section class="library" id="library">
   <header class="library-head">
@@ -35,6 +36,8 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
                 ? <PaintField bare parameters={DEFAULT_PAINT_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
                 : sample.id === 'blue-printed-paper'
                   ? <PaperField bare parameters={DEFAULT_PAPER_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
+                  : sample.id === 'thread-icons'
+                    ? <div class="thread-mini" set:html={threadIconsPreview()} />
                   : sample.id === 'stitched-care'
                     ? <canvas class="stitch-mini" data-stitch-preview aria-hidden="true"></canvas>
                   : sample.id === 'wordart'
@@ -76,6 +79,8 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
   .preview{height:clamp(390px,52vw,700px);position:relative;background:#171a17;overflow:hidden;transform:rotate(-1.15deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
   .sample:hover .preview{transform:rotate(.15deg) scale(.995)}
   .preview :global(.mini-knit-live),.preview :global(.mini-live){position:absolute;inset:0;display:block;width:100%;height:100%;background:#151815}
+  .thread-mini{position:absolute;inset:0;display:grid;place-items:center;background:#15171c}
+  .thread-mini :global(.ti-preview){width:82%;height:auto;overflow:visible}
   .stitch-mini{position:absolute;inset:0;display:block;width:100%;height:100%;background:#1b1e1d}
   .wordart-mini{position:absolute;inset:0;background:#d8d7cf;border:12px solid #1c4ea9;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .mini-toolbar{position:absolute;left:0;right:0;top:0;height:38px;padding:12px;background:#e9e8e0;border-bottom:1px solid #777;font:800 9px Arial;letter-spacing:.14em;color:#222}
