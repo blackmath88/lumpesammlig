@@ -67,6 +67,10 @@ A remembered turn-of-the-millennium desktop publishing interface becomes an inte
 
 An embroidered cover on a curved clothes hanger becomes a stitch-by-stitch study. One deterministic grid describes the shaped silhouette, the turquoise field, the rose, flowers, leaves, curls and the brown edging; a local Canvas 2D renderer draws the same model as a whole hanger and as a close detail where individual stitches resolve. A labelled "Stitches completed" control reveals the work as a count of accumulated decisions. The finished textile is the default state; nothing autoplays.
 
+### 010 — Pixels to Stitches
+
+The question raised by the hanger: pixels and stitches share a chart, so why does embroidery read as warmer and handmade? A still comparison renders the same heart, checkmark and leaf-and-bud chart as flat pixels, flat directional stitches, stitches with thread volume, stitches on visible fabric, and stitches with controlled variation, at 1× and enlarged, with single qualities switchable. A small working list then uses the same Canvas 2D vocabulary for a stitched checkmark that fills and unpicks with real state changes, a satin selection border, a seam and one stitched label, on top of native controls. The note records the references consulted and what went back to Interface Atlas.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -92,6 +96,7 @@ src/
       007-blue-printed-paper.astro
       008-wordart.astro
       009-stitched-care.astro
+      010-pixels-to-stitches.astro
   samples/
     ...
 ~~~

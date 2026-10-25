@@ -50,6 +50,11 @@ Before calling an interaction transformation complete, ask:
 
 If the first answer is no or the second is yes, revisit the transformation or honestly describe the result as a material/visual study. Do not attach an abstract story after the fact to justify a generic interface.
 
+These questions test behavioural transformations. They must not disqualify an explicitly requested material or perceptual experiment, where appearance and tactile suggestion are the subject. For such a study ask instead, as context-sensitive questions rather than a new template:
+- Which observable qualities produce the intended material impression?
+- Does that impression survive at actual UI size?
+- Can it coexist with legibility, clear states and responsive interaction?
+
 Material reconstructions, essays, unresolved encounters and beautiful failures remain legitimate collection entries. Do not force every encounter into a useful UI component.
 
 ## Implement the proposition, not a universal template
@@ -61,6 +66,10 @@ Keep evidence, interpretation and experiment distinguishable. Preserve competing
 Maintain a coherent collection shell while allowing individual samples their own form. Do not require identical heroes, headings, mutation cards, renderers or numbers of principles. Do not extract a shared transformation engine or renderer without demonstrated repetition.
 
 For implementation changes, run the repository's applicable checks (currently `npm run check` and `npm run build`), inspect actual browser output, and verify relevant keyboard, mobile, reduced-motion and fallback behaviour. Report what was actually checked; documentation-only edits do not need a runtime build.
+
+## Research through the library
+
+When a sample needs outside technique, run the loop explicitly and record it in the sample's note: look up Interface Atlas (blackmath88/interface-lib, catalogue in `catalog/entries.json`; note the commit consulted) → research a bounded number of primary sources → make a small technical trial → build the experiment → reflect → feed verified, useful knowledge back to the Atlas on a branch and PR, following its schema and evidence rules. Link stable Atlas IDs and canonical URLs. Do not pad the catalogue with generic links or invent licence, compatibility or audit claims.
 
 ## Reflect and hand off
 

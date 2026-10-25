@@ -17,6 +17,12 @@ Not visible, and therefore not asserted: maker, age, origin, sentimental history
 
 The photograph is kept as evidence at `public/samples/009-stitched-care/source.jpg` (downscaled, metadata stripped). It is never used as a texture.
 
+## Clarified intent (recorded 2026-10-25)
+
+> The hanger prompted an interest in embroidery as a digital interface language. The user sees a relationship to pixels, but experiences embroidery as warmer and more handmade. The investigation concerns the material and perceptual qualities of stitches and their application to working UI.
+
+The hanger was the initial encounter, not the required shape or metaphor. The earlier reading below stands as this sample's material study; the material and perceptual investigation continues in sample 010.
+
 ## Three readings
 
 1. **Disproportionate care.** A hanger is a hidden, humble support. This one received thousands of deliberate stitches. Attention exceeds function; the excess is the point.

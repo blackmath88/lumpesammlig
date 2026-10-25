@@ -87,5 +87,16 @@ export const samples: Sample[] = [
     route: '/samples/009-stitched-care',
     status: 'study',
     technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
+  },
+  {
+    id: 'pixels-to-stitches',
+    number: '010',
+    title: 'Pixels to Stitches',
+    object: 'A question raised by the embroidered hanger: pixels and stitches share a chart, yet embroidery reads as warmer and handmade.',
+    material: 'Charted marks / thread direction / volume and matte light / visible evenweave / controlled variation',
+    translation: 'A still five-treatment comparison at interface size, then a small working list with stitched states.',
+    route: '/samples/010-pixels-to-stitches',
+    status: 'study',
+    technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
   }
 ];
