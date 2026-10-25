@@ -35,6 +35,8 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
                 ? <PaintField bare parameters={DEFAULT_PAINT_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
                 : sample.id === 'blue-printed-paper'
                   ? <PaperField bare parameters={DEFAULT_PAPER_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
+                  : sample.id === 'pixels-to-stitches'
+                    ? <canvas class="stitch-mini" data-p2s-preview aria-hidden="true"></canvas>
                   : sample.id === 'stitched-care'
                     ? <canvas class="stitch-mini" data-stitch-preview aria-hidden="true"></canvas>
                   : sample.id === 'wordart'
@@ -96,13 +98,16 @@ import { DEFAULT_PAPER_PARAMETERS } from '../samples/007-blue-printed-paper/mate
 
 <script>
   import { renderPreview } from '../samples/009-stitched-care/renderer';
-  const previews = document.querySelectorAll<HTMLCanvasElement>('[data-stitch-preview]');
+  import { renderPreview as renderStitchPreview } from '../samples/010-pixels-to-stitches/comparison';
+  const previews = document.querySelectorAll<HTMLCanvasElement>('[data-stitch-preview], [data-p2s-preview]');
   if (previews.length) {
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
         observer.unobserve(entry.target);
-        renderPreview(entry.target as HTMLCanvasElement);
+        const canvas = entry.target as HTMLCanvasElement;
+        if (canvas.hasAttribute('data-p2s-preview')) renderStitchPreview(canvas);
+        else renderPreview(canvas);
       }
     }, { rootMargin: '200px' });
     for (const canvas of previews) observer.observe(canvas);
