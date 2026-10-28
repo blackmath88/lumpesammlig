@@ -1,0 +1,178 @@
+.stitch-study {
+  --field: #3ea0cc;
+  --rose: #cf6f93;
+  --coral: #e1865c;
+  --olive: #6c8a3f;
+  --brown: #684628;
+  --ink: #1b1e1d;
+  --paper: #e9e6df;
+  --line: rgba(27, 30, 29, 0.22);
+  background: var(--ink);
+  color: #ece9e1;
+  padding: clamp(18px, 3vw, 40px) clamp(16px, 4vw, 64px) clamp(26px, 4vw, 56px);
+}
+
+.stitch-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 244 / 77;
+  min-height: 190px;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.stitch-study[data-view='detail'] .stitch-stage {
+  aspect-ratio: 16 / 9;
+  max-height: 720px;
+}
+
+.stitch-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stitch-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.stitch-fallback svg {
+  width: min(90%, 760px);
+  height: auto;
+}
+
+.stitch-study[data-state='unavailable'] .stitch-fallback {
+  display: flex;
+}
+
+.stitch-study[data-state='unavailable'] canvas {
+  visibility: hidden;
+}
+
+.stitch-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px clamp(18px, 4vw, 56px);
+  align-items: end;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(236, 233, 225, 0.22);
+}
+
+.stitch-range {
+  display: grid;
+  gap: 9px;
+}
+
+.stitch-range > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.stitch-range output {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.stitch-range input {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--field);
+}
+
+.stitch-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stitch-buttons button,
+.stitch-views button {
+  padding: 10px 14px;
+  border: 1px solid rgba(236, 233, 225, 0.5);
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.stitch-buttons button[aria-pressed='true'],
+.stitch-views button[aria-pressed='true'] {
+  background: #ece9e1;
+  color: var(--ink);
+  border-color: #ece9e1;
+}
+
+.stitch-buttons button:disabled,
+.stitch-views button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.stitch-views {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.stitch-views > span {
+  margin-right: 10px;
+  opacity: 0.7;
+}
+
+.stitch-status {
+  margin-left: auto;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.stitch-study button:focus-visible,
+.stitch-study input:focus-visible {
+  outline: 3px solid var(--field);
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .stitch-stage {
+    aspect-ratio: auto;
+    height: 220px;
+  }
+  .stitch-study[data-view='detail'] .stitch-stage {
+    aspect-ratio: auto;
+    height: 300px;
+  }
+  .stitch-controls {
+    grid-template-columns: 1fr;
+  }
+  .stitch-status {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stitch-study * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
+import '../../samples/009-stitched-care/stitched-care.css';
+---
+<BaseLayout title="009 Stitched Care — Lumpesammlig" description="An embroidered clothes hanger becomes a stitch-by-stitch study: care made visible as accumulated, discrete decisions on one regular grid.">
+  <main class="care-page">
+    <nav class="back"><a href={withBase("/#library")}>← collection</a><span>009 / STITCHED CARE</span></nav>
+
+    <section class="stitch-study" data-stitch-study data-view="whole" data-state="pending" aria-labelledby="study-heading">
+      <h1 id="study-heading" class="visually-hidden">Stitched Care: an embroidered hanger cover rendered stitch by stitch</h1>
+      <div class="stitch-stage" data-stitch-stage>
+        <canvas data-stitch-canvas role="img" aria-label="Embroidered hanger cover, finished state.">
+          An embroidered clothes-hanger cover: a turquoise stitched field with a central pink rose, pale and coral flowers, olive leaves, brown curls and a brown stitched edge following the curved silhouette of the hanger.
+        </canvas>
+        <div class="stitch-fallback" data-stitch-fallback>
+          <svg viewBox="0 0 488 150" aria-hidden="true">
+            <path d="M244 56 C244 30 250 16 262 12 C276 8 286 22 282 34 C280 40 272 42 266 38" fill="none" stroke="#8f7340" stroke-width="5" stroke-linecap="round" />
+            <path d="M36 128 C110 60 170 46 244 46 C318 46 378 60 452 128 C462 138 452 146 440 142 C370 110 310 94 244 94 C178 94 118 110 48 142 C36 146 26 138 36 128 Z" fill="#3ea0cc" stroke="#684628" stroke-width="7" stroke-linejoin="round" />
+            <circle cx="244" cy="70" r="15" fill="#cf6f93" /><circle cx="250" cy="66" r="5" fill="#70224a" />
+            <circle cx="200" cy="66" r="6" fill="#edf0ee" /><circle cx="288" cy="74" r="6" fill="#edf0ee" />
+            <ellipse cx="150" cy="78" rx="10" ry="6" fill="#e1865c" /><ellipse cx="338" cy="78" rx="10" ry="6" fill="#e1865c" />
+            <circle cx="100" cy="94" r="8" fill="none" stroke="#7d5230" stroke-width="4" stroke-dasharray="30 14" /><circle cx="388" cy="94" r="8" fill="none" stroke="#7d5230" stroke-width="4" stroke-dasharray="30 14" />
+          </svg>
+          <p>The live stitch renderer is unavailable in this browser. The finished cover is a turquoise field carrying a central rose, pale and coral flowers, olive leaves and brown curls, bordered in brown along the hanger's curve.</p>
+        </div>
+      </div>
+
+      <div class="stitch-controls">
+        <label class="stitch-range">
+          <span>Stitches completed <output data-stitch-count aria-live="off">finished</output></span>
+          <input type="range" min="0" max="1" step="1" value="1" data-stitch-range />
+        </label>
+        <div class="stitch-buttons">
+          <button type="button" data-stitch-play>Play reveal</button>
+          <button type="button" data-stitch-reset>Show finished</button>
+        </div>
+        <div class="stitch-views" role="group" aria-label="View">
+          <span>View</span>
+          <button type="button" data-stitch-view="whole" aria-pressed="true">Whole hanger</button>
+          <button type="button" data-stitch-view="detail" aria-pressed="false">Close detail</button>
+          <span class="stitch-status" data-stitch-status aria-live="polite">Finished state</span>
+        </div>
+      </div>
+      <noscript><p class="stitch-noscript">This study needs JavaScript to render its stitches. The static description above stands in for it.</p></noscript>
+    </section>
+
+    <section class="opening">
+      <p class="label">009 / MATERIAL READING</p>
+      <p class="statement">Nothing here is drawn. <em>Everything is decided, one stitch at a time.</em></p>
+      <p class="observed">A curved clothes hanger wears a dense needlepoint cover: a saturated turquoise field, one rose, pale and coral flowers, olive leaves, brown curls, and a brown border that follows the hanger's own outline. Every stitch stays individually visible.</p>
+    </section>
+
+    <section class="evidence" aria-labelledby="source-heading">
+      <div class="evidence-copy">
+        <p class="label">SOURCE EVIDENCE</p>
+        <h2 id="source-heading">A support object,<br />thoroughly attended to.</h2>
+        <p>The photograph is evidence, not texture. Visible: a slanted, regular stitch grid covering both the field and the motifs; a brown stitched perimeter; a twisted metal hook; a bent, shaped body with rounded ends. Not visible, and not invented here: who made it, when, where, or in exactly which stitch.</p>
+        <p>The bed sheet and the book are incidental surroundings and play no part in the study.</p>
+      </div>
+      <figure>
+        <img src={withBase("/samples/009-stitched-care/source.jpg")} alt="An embroidered clothes-hanger cover lying on a white sheet: turquoise needlepoint with a central pink rose, small white flowers, coral flowers, green leaves, brown curled motifs and a brown stitched edge, with a twisted metal hook" width="1200" height="1600" loading="lazy" decoding="async" />
+        <figcaption>Real object / photograph kept as evidence; the stitch study above is synthesised, not sampled from it</figcaption>
+      </figure>
+    </section>
+
+    <section class="readings" aria-labelledby="readings-heading">
+      <header>
+        <p class="label">THREE READINGS</p>
+        <h2 id="readings-heading">What might matter<br />about this thing.</h2>
+      </header>
+      <ol>
+        <li><span>01</span><strong>Disproportionate care</strong><p>A hanger is a humble, hidden support. This one received thousands of deliberate stitches. Attention exceeds function, and that excess is the object's point.</p></li>
+        <li><span>02</span><strong>A grid carries an organic image</strong><p>The rose, the leaves and the curls are not drawn over the field. They are the same slanted stitches in other colours. Softness emerges from many small, discrete decisions on one regular structure.</p></li>
+        <li><span>03</span><strong>Ornament follows a working boundary</strong><p>The pattern does not occupy a convenient rectangle. Its border is the hanger's own outline, and the motifs are composed along the curve of the arms.</p></li>
+      </ol>
+    </section>
+
+    <section class="hypothesis" aria-labelledby="hypothesis-heading">
+      <p class="label">CHOSEN PROPOSITION</p>
+      <h2 id="hypothesis-heading">Care becomes visible as accumulated stitches on one shaped grid.</h2>
+      <p class="execution">The study joins the first and second readings and keeps the third as a constraint. The whole hanger and the close detail are one model at two distances. The reveal lets a visitor see the work as a count of decisions rather than as a finished picture. It is an exploratory view of accumulated effort, not a reconstruction of how this particular cover was actually made: the sequence shown here (motifs, then field, then border) is the study's own ordering.</p>
+    </section>
+
+    <section class="reflection" aria-labelledby="reflection-heading">
+      <header>
+        <p class="label">REFLECTION</p>
+        <h2 id="reflection-heading">What the executable<br />version taught back.</h2>
+      </header>
+      <div class="reflection-grid">
+        <div><strong>Revealed</strong><p>Once every motif had to be stated as colour choices on cells, the rose stopped being a shape and became a banding rule. The grid did more of the organic work than expected; the stitch body and its shadow did the rest.</p></div>
+        <div><strong>Simplified</strong><p>One stitch slant everywhere, one braid rhythm for the edge, a smooth arch instead of the hanger's slight notch at the hook, and a single light direction. Both faces of the cover collapse into one.</p></div>
+        <div><strong>Speculative</strong><p>The reveal order, the exact stitch count, the gauge of the canvas and the colour of the support beneath the cover are the study's assumptions. The photograph confirms none of them.</p></div>
+      </div>
+    </section>
+
+    <footer><span>009 / STITCHED CARE</span><span>support → attention → accumulated decisions</span></footer>
+  </main>
+</BaseLayout>
+
+<script>
+  import { mountStitchedCare } from '../../samples/009-stitched-care/stitched-care';
+  const root = document.querySelector<HTMLElement>('[data-stitch-study]');
+  if (root) mountStitchedCare(root);
+</script>
+
+<style>
+  .care-page{background:#e9e6df;color:#1b1e1d;overflow-x:clip}
+  .label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .back{display:flex;justify-content:space-between;gap:16px;max-width:1420px;margin:auto;padding:22px clamp(22px,6vw,88px) 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .back a{text-decoration:none;opacity:.75}.back a:hover,.back a:focus-visible{opacity:1}.back span{opacity:.55}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .stitch-noscript{margin:14px 0 0;font-size:13px;opacity:.75}
+  .opening,.evidence,.readings,.hypothesis,.reflection,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
+  .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(80px,11vw,150px);padding-bottom:clamp(90px,12vw,170px);align-items:start}
+  .statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-style:normal;font-weight:400;color:#2a7f9f}
+  .observed{font-size:18px;line-height:1.55;margin:8px 0 0;color:#5b605c}
+  .evidence{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(34px,7vw,110px);padding-top:90px;padding-bottom:130px;border-top:1px solid #c3bfb4;align-items:start}
+  .evidence-copy{position:sticky;top:40px}
+  .evidence h2,.readings h2,.hypothesis h2,.reflection h2{font-size:clamp(40px,5.4vw,78px);line-height:.93;letter-spacing:-.06em;margin:20px 0 30px;font-weight:620}
+  .evidence-copy p:not(.label),.execution{font-size:17px;line-height:1.55;color:#5b605c;margin:0 0 18px}
+  .evidence figure{margin:0;max-width:640px}.evidence img{display:block;width:100%;height:auto}
+  figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}
+  .readings{display:grid;grid-template-columns:.8fr 1.2fr;gap:8vw;padding-top:110px;padding-bottom:130px;border-top:1px solid #c3bfb4}
+  .readings ol{list-style:none;padding:0;margin:0;border-top:1px solid #c3bfb4}
+  .readings li{display:grid;grid-template-columns:62px .62fr 1fr;gap:24px;padding:25px 0;border-bottom:1px solid #cfcbc0}
+  .readings li span{font-size:9px;letter-spacing:.18em;color:#2a7f9f}.readings li strong{font-size:21px;letter-spacing:-.02em}.readings li p{margin:0;color:#5b605c;line-height:1.5}
+  .hypothesis{padding-top:100px;padding-bottom:120px;border-top:1px solid #c3bfb4}.hypothesis h2{max-width:1100px}.execution{max-width:760px}
+  .reflection{padding-top:100px;padding-bottom:130px;border-top:1px solid #c3bfb4}
+  .reflection header{display:grid;grid-template-columns:.8fr 1.2fr;gap:8vw}
+  .reflection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);margin-top:50px;border-top:1px solid #c3bfb4}
+  .reflection-grid div{padding-top:20px}.reflection-grid strong{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;color:#2a7f9f}.reflection-grid p{margin:0;color:#5b605c;line-height:1.5;font-size:15px}
+  footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #c3bfb4;padding-top:22px;padding-bottom:55px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.58}
+  @media(max-width:900px){.opening{grid-template-columns:1fr}.evidence{grid-template-columns:1fr}.evidence-copy{position:static}.readings{grid-template-columns:1fr}.reflection header{grid-template-columns:1fr}.reflection-grid{grid-template-columns:1fr}}
+  @media(max-width:620px){.readings li{grid-template-columns:52px 1fr}.readings li p{grid-column:2}footer{flex-direction:column}}
+</style>

@@ -1,3 +1,4 @@
+import { withBase } from '../../data/site';
 import { useEffect, useRef } from 'react';
 import { DEFAULT_COIL_PARAMETERS, type CoilParameters } from './material/parameters';
 import './coil-field.css';
@@ -236,7 +237,7 @@ export default function CoilField({ bare=false, parameters=DEFAULT_COIL_PARAMETE
         <span>Wrapped fibre accumulates around a centre. Indigo interrupts the repetition.</span>
       </div>
       <div className="coil-note"><b>MOVE SLOWLY</b><span>The material stays still. Only its broad light direction changes.</span></div>
-      <a className="coil-back" href="/#library">Collection ↙</a>
+      <a className="coil-back" href={withBase("/#library")}>Collection ↙</a>
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { withBase } from '../../data/site';
 import { useEffect, useRef } from 'react';
 import { DEFAULT_PAINT_PARAMETERS, type PaintParameters } from './material/parameters';
 import './paint-field.css';
@@ -268,7 +269,7 @@ export default function PaintField({bare=false,parameters=DEFAULT_PAINT_PARAMETE
         <span>A surface does not disappear at once. It cracks, lifts, and leaves its earlier layers visible.</span>
       </div>
       <div className="paint-legend"><b>LIGHT REVEALS HEIGHT</b><span>Move slowly. Only the broad light changes; the damage remains accumulated.</span></div>
-      <a className="paint-back" href="/#library">Collection ↙</a>
+      <a className="paint-back" href={withBase("/#library")}>Collection ↙</a>
     </section>
   );
 }

@@ -1,6 +1,16 @@
+<!-- BEGIN public-repo-header -->
+<div align="center">
+
 # Lumpesammlig
 
 **Encounter → situated reading → distinction → transformation → experiment.**
+
+<a href="https://github.com/blackmath88/lumpesammlig"><img alt="Primary language: TypeScript" src="https://img.shields.io/badge/language-TypeScript-526078?style=flat"></a>
+<a href="https://github.com/blackmath88/lumpesammlig/tree/main/docs"><img alt="Documentation" src="https://img.shields.io/badge/docs-guide-16796f?style=flat"></a>
+<a href="https://github.com/blackmath88/lumpesammlig/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/blackmath88/lumpesammlig?style=flat&amp;color=737373"></a>
+
+</div>
+<!-- END public-repo-header -->
 
 Lumpesammlig is a small digital exhibition and front-end R&D repository for translating real encounters into new propositions about interaction.
 
@@ -51,7 +61,19 @@ Dusty indigo decorative paper becomes a procedural print-and-substrate study. Se
 
 ### 008 — WordArt
 
-A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. The specimen is implemented in native SVG and vanilla JavaScript and can export its result as a PNG.
+A remembered turn-of-the-millennium desktop publishing interface becomes an interaction study rather than a retro skin. Editable text, preset galleries, warp, gradient, outline, extrusion, shadow and selection handles reconstruct the important behaviour: typography as a directly manipulable object. A dependency-free engine renders a small parameter set to standalone SVG. Exported SVGs carry their recipe in `<metadata>` and can be reopened for editing, the URL hash holds the same recipe as a shareable link, and a *Now* preset row pushes the same parameters into contemporary styles. The argument: exact, cheap control instead of fuzzy prompting.
+
+### 009 — Stitched Care
+
+An embroidered cover on a curved clothes hanger becomes a stitch-by-stitch study. One deterministic grid describes the shaped silhouette, the turquoise field, the rose, flowers, leaves, curls and the brown edging; a local Canvas 2D renderer draws the same model as a whole hanger and as a close detail where individual stitches resolve. A labelled "Stitches completed" control reveals the work as a count of accumulated decisions. The finished textile is the default state; nothing autoplays.
+
+### 010 — Pixels to Stitches
+
+The question raised by the hanger: pixels and stitches share a chart, so why does embroidery read as warmer and handmade? A still comparison renders the same heart, checkmark and leaf-and-bud chart as flat pixels, flat directional stitches, stitches with thread volume, stitches on visible fabric, and stitches with controlled variation, at 1× and enlarged, with single qualities switchable. A small working list then uses the same Canvas 2D vocabulary for a stitched checkmark that fills and unpicks with real state changes, a satin selection border, a seam and one stitched label, on top of native controls. The note records the references consulted and what went back to Interface Atlas.
+
+### 011 — Thread Icons
+
+Embroidery as a contemporary digital medium rather than a traditional motif. Six familiar interface icons (chat, lightning, headphones, folder, cloud upload, cursor) are built from a sample-local SVG stitch vocabulary in which threads follow each shape: satin fills clipped to regions, fanned stitches around curves, cord outlines along contours, layered regions with contact shadows, and knots. Everything is generated at build time into one sprite; the page shows all six at 24, 32 and 48 px on light and dark surfaces, an enlarged construction view, and a native-button toolbar with selected, notification and simulated-upload states.
 
 ## Architecture
 
@@ -77,6 +99,9 @@ src/
       006-flaked-blue.astro
       007-blue-printed-paper.astro
       008-wordart.astro
+      009-stitched-care.astro
+      010-pixels-to-stitches.astro
+      011-thread-icons.astro
   samples/
     ...
 ~~~
@@ -141,25 +166,13 @@ npm run preview
 
 dist\ is generated and should not be committed.
 
-## Cloudflare deployment
+## Deployment
 
-The project is a static Astro build. Cloudflare Pages is the chosen initial path because it needs no runtime adapter or Worker:
+The site deploys to GitHub Pages as a project site at https://blackmath88.github.io/lumpesammlig/ through `.github/workflows/deploy.yml`, which runs on every push to `main` (Pages source: GitHub Actions).
 
-- Framework preset: Astro
-- Build command: npm run build
-- Build output directory: dist
-- Production branch: your repository's production branch (commonly main)
+Because the site lives under `/lumpesammlig/`, `astro.config.mjs` sets `site` and `base`, and every root-relative link or asset path in the shell and the samples goes through `withBase()` from `src/data/site.ts`. New samples should do the same for their own links and evidence images.
 
-Connect the Git repository in **Cloudflare Dashboard → Workers & Pages → Create application → Pages → Import an existing Git repository**. Cloudflare installs dependencies and deploys dist.
-
-For a manual Pages upload after creating the Pages project:
-
-~~~powershell
-npm run build
-npx wrangler pages deploy dist --project-name YOUR_PROJECT_NAME
-~~~
-
-Do not add @astrojs/cloudflare while the site remains fully static; that adapter is for server rendering. If the deployment model later changes to Workers Static Assets, use a current wrangler.jsonc with assets.directory set to ./dist, not deprecated Workers Sites configuration.
+`wrangler.jsonc` remains for an optional manual Cloudflare Workers upload (`npm run deploy`), which is not part of the automated path.
 
 ## Working principle
 

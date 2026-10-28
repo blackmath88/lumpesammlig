@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+import { records } from "../../samples/012-impossible-index/records";
+import "../../samples/012-impossible-index/index.css";
+---
+
+<BaseLayout
+  title="012 — The Impossible Index / Lumpesammlig"
+  description="Prior classification made visible through a movable working index."
+>
+  <main class="index-study">
+    <nav>
+      <a href={withBase("/#library")}>← Collection</a>
+      <span>Lumpesammlig / 012</span>
+      <a href={withBase("/samples/013-switchboard")}>Next study ↗</a>
+    </nav>
+    <header>
+      <p class="eyebrow">012 / Classification as an interaction</p>
+      <h1>
+        The impossible
+        <br />
+        <em>index.</em>
+      </h1>
+      <div class="intro">
+        <p>
+          A question takes seconds.
+          <br />
+          The classification came before it.
+        </p>
+        <p class="annotation">
+          Eight synthetic records. Four drawers.
+          <br />A fixed index, waiting for a question.
+          <br />
+          No browsing. No generated answers.
+        </p>
+      </div>
+    </header>
+    <section class="workbench" aria-labelledby="bench-title">
+      <div class="bench-label">
+        <h2 id="bench-title">Ask the archive</h2>
+        <span>01 / Prior work → present question</span>
+      </div>
+      <form id="index-query">
+        <label for="query">A short query · up to four distinct words</label>
+        <div class="query-line">
+          <input
+            id="query"
+            autocomplete="off"
+            placeholder="refresh expired oauth token"
+            aria-describedby="query-help"
+          />
+          <button type="submit">Order the index ↗</button>
+        </div>
+        <p id="query-help">
+          Exact controlled-term matching. One point per term; ties use accession
+          number. No relevance claims.
+        </p>
+        <p id="query-error" role="alert"></p>
+      </form>
+      <div class="examples">
+        <span>Try a question</span>
+        <button data-query="refresh expired oauth token">
+          refresh expired oauth token
+        </button>
+        <button data-query="static assets path">static assets path</button>
+        <button data-query="portable discussion">portable discussion</button>
+        <button id="reset-index">Return to accession order</button>
+      </div>
+      <div class="archive-head">
+        <p id="index-status" role="status">
+          08 records / accession order / no question asked
+        </p>
+        <span class="annotation">Open any card to inspect prior work ↓</span>
+      </div>
+      <div class="drawers" role="group" aria-label="Classification drawers">
+        <button data-drawer="All" aria-pressed="true">
+          All drawers <span>08</span>
+        </button>
+        {["Identity", "Hosting", "Community", "Indexing"].map((drawer, i) => (
+          <button data-drawer={drawer} aria-pressed="false">
+            0{i + 1} / {drawer} <span>02</span>
+          </button>
+        ))}
+      </div>
+      <div id="index-cards" class="index-cards">
+        {records.map((record) => (
+          <article class="index-card" data-record={record.id}>
+            <div class="card-top">
+              <span>
+                {record.id} / {record.drawer}
+              </span>
+              <span class="rank">Unranked</span>
+            </div>
+            <h3>{record.title}</h3>
+            <p class="match-note">Classification existed before your query.</p>
+            <details>
+              <summary>Inspect original record + classification</summary>
+              <p>{record.note}</p>
+              <dl>
+                <dt>Controlled terms</dt>
+                <dd class="term-crossrefs">
+                  {record.terms.map((term) => (
+                    <button
+                      data-term={term}
+                      title={`Reorder by classification term: ${term}`}
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </dd>
+                <dt>Record type</dt>
+                <dd>{record.kind}</dd>
+                <dt>Qualification</dt>
+                <dd>{record.caveat}</dd>
+                <dt>Evidence</dt>
+                <dd>Synthetic fixture; no external evidence attached.</dd>
+              </dl>
+            </details>
+          </article>
+        ))}
+      </div>
+      <p id="index-empty" hidden>
+        No indexed match in this drawer. A gap in this fixture is not proof that
+        no solution exists.
+      </p>
+      <details id="unmatched-drawer" hidden>
+        <summary id="unmatched-label">Unmatched records</summary>
+        <div id="unmatched-cards" class="index-cards"></div>
+      </details>
+      <noscript>
+        <p>
+          The complete classified archive is available above. Enable JavaScript
+          to reorder it against a question.
+        </p>
+      </noscript>
+    </section>
+    <footer>
+      <div>
+        <p class="eyebrow">The encounter</p>
+        <h2>
+          Someone already
+          <br />
+          made the distinction.
+        </h2>
+      </div>
+      <div>
+        <p>
+          A library catalogue makes accumulated classification available before
+          a question. The catalogue is a record of decisions made before a visitor arrives. Its categories, cross-references and omissions are part of the encounter.
+        </p>
+        <p>
+          This specimen makes the labour inspectable. The query moves the cards;
+          it does not write them. A drawer exposes a classification, and each
+          card keeps its original qualification.
+        </p>
+        <p class="annotation">
+          A lexical toy, not a better search engine. The source survives in
+          preclassification, recoverable records and explicit gaps. Physical
+          resistance and collective maintenance remain untranslated.
+        </p>
+        <a href="https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript">
+          Encounter reference ↗
+        </a>{" "}
+        ·{" "}
+        <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/012-impossible-index/sample.md">
+          Readings & reflection ↗
+        </a>
+      </div>
+    </footer>
+  </main>
+  <script>
+    import "../../samples/012-impossible-index/index";
+  </script>
+</BaseLayout>

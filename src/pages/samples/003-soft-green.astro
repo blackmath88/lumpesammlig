@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import CordField from '../../samples/003-soft-green/CordField';
 import CordExperience from '../../samples/003-soft-green/CordExperience';
 ---
@@ -20,11 +21,11 @@ import CordExperience from '../../samples/003-soft-green/CordExperience';
         <p>The label identifies macramé yarn in “Soft Green”, 3.5&nbsp;mm in diameter and 100&nbsp;m long. Cotton and recycled-cotton language is visible; no narrower composition is assumed.</p>
       </div>
       <figure class="source-main">
-        <img src="/samples/003-soft-green/front-2.jpg" alt="Soft Green macramé cord wound around a labelled cylindrical spool" width="1152" height="1536" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/003-soft-green/front-2.jpg")} alt="Soft Green macramé cord wound around a labelled cylindrical spool" width="1152" height="1536" loading="lazy" decoding="async" />
         <figcaption>Real object / front view</figcaption>
       </figure>
       <figure class="source-detail">
-        <img src="/samples/003-soft-green/detail.png" alt="Macro detail of overlapping grey-green macramé cords and their fine fibres" width="322" height="265" loading="lazy" decoding="async" />
+        <img src={withBase("/samples/003-soft-green/detail.png")} alt="Macro detail of overlapping grey-green macramé cords and their fine fibres" width="322" height="265" loading="lazy" decoding="async" />
         <figcaption>Reference crop / macro structure</figcaption>
       </figure>
     </section>

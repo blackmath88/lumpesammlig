@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
 import KnitSurface from '../../samples/001-waschlumpe/KnitSurface';
 import MaterialLab from '../../samples/001-waschlumpe/MaterialLab';
 ---
@@ -7,7 +8,7 @@ import MaterialLab from '../../samples/001-waschlumpe/MaterialLab';
   <main>
     <KnitSurface collectionHref="#material-reading" client:load />
     <article class="sample-notes" id="material-reading">
-      <a href="/">← Collection</a>
+      <a href={withBase("/")}>← Collection</a>
       <p class="tag">02 / OBJECT + MATERIAL READING</p>
       <h2>From loose cotton knit to responsive surface.</h2>
       <div class="cols">

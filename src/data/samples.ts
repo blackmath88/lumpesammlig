@@ -67,14 +67,69 @@ export const samples: Sample[] = [
     technology: ['React island', 'Raw WebGL', 'GLSL']
   },
   {
-    id: 'word-art',
+    id: 'wordart',
     number: '008',
     title: 'WordArt',
-    object: 'The Microsoft Word 2000 WordArt gallery: thirty tiles that made every school newsletter a typesetting studio.',
-    material: 'Arched, inflated, extruded letters / gradient fills / thick outlines / drop shadows',
-    translation: 'A parametric SVG generator: the gallery rebuilt as geometric letter placement, not kitsch screenshot.',
-    route: '/samples/008-word-art',
+    object: 'A remembered desktop publishing tool from the turn of the millennium: loud type, direct manipulation and effects with absolutely no shame.',
+    material: 'Gradient fill / outline / extrusion / warp / selection handles / instant feedback',
+    translation: 'A browser-native WordArt workbench where expressive typography behaves like a manipulable object rather than styled copy.',
+    route: '/samples/008-wordart',
     status: 'live',
-    technology: ['React island', 'SVG']
-  }
+    technology: ['Astro', 'SVG', 'Vanilla JS']
+  },
+  {
+    id: 'stitched-care',
+    number: '009',
+    title: 'Stitched Care',
+    object: 'An embroidered needlepoint cover fitted to a curved clothes hanger: a humble support that received thousands of deliberate stitches.',
+    material: 'Turquoise stitch field / rose, coral, pale flowers / olive leaves / brown curls / brown edging along the silhouette',
+    translation: 'One shaped stitch grid rendered at two distances, revealed as a count of accumulated decisions.',
+    route: '/samples/009-stitched-care',
+    status: 'study',
+    technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
+  },
+  {
+    id: 'pixels-to-stitches',
+    number: '010',
+    title: 'Pixels to Stitches',
+    object: 'A question raised by the embroidered hanger: pixels and stitches share a chart, yet embroidery reads as warmer and handmade.',
+    material: 'Charted marks / thread direction / volume and matte light / visible evenweave / controlled variation',
+    translation: 'A still five-treatment comparison at interface size, then a small working list with stitched states.',
+    route: '/samples/010-pixels-to-stitches',
+    status: 'study',
+    technology: ['Astro', 'Canvas 2D', 'Vanilla TS']
+  },
+  {
+    id: 'thread-icons',
+    number: '011',
+    title: 'Thread Icons',
+    object: 'A contemporary embroidered icon set for digital interfaces: six familiar icons made of thread, with a streetwear-patch attitude.',
+    material: 'Satin fills following each shape / fanned stitches on curves / cord outlines / layered regions / knots',
+    translation: 'Build-time SVG stitch vocabulary, six icons at 24, 32 and 48 px on light and dark surfaces, in a working toolbar.',
+    route: '/samples/011-thread-icons',
+    status: 'study',
+    technology: ['Astro', 'SVG', 'Vanilla TS']
+  },
+  {
+    id: 'impossible-index',
+    number: '012',
+    title: 'The Impossible Index',
+    object: 'A card catalogue encountered through the problem of rediscovering already-solved software issues.',
+    material: 'Preclassified records / paper index / provenance / ranking',
+    translation: 'A short query reorders a finite pre-indexed collection and exposes why each card matched.',
+    route: '/samples/012-impossible-index',
+    status: 'study',
+    technology: ['Astro', 'Vanilla TS', 'SVG-free semantic cards']
+  },
+  {
+    id: 'switchboard',
+    number: '013',
+    title: 'The Switchboard',
+    object: 'A telephone switchboard read as temporary connections between independent voices.',
+    material: 'Endpoints / connections / routing / operator authority',
+    translation: 'Topic lenses reroute a visible conversation without rewriting its attributed source contributions.',
+    route: '/samples/013-switchboard',
+    status: 'study',
+    technology: ['Astro', 'SVG', 'Vanilla TS']
+  },
 ];

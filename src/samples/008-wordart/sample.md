@@ -44,3 +44,20 @@ Use WordArt as a counterexample to AI-slop UI:
 Astro + native SVG + vanilla JavaScript.
 
 No canvas rendering dependency and no React island are required. SVG keeps the typography inspectable, scalable and serializable for export.
+
+`engine.js` is a pure function from a small, explicit parameter set to a standalone SVG string: no DOM, no dependencies. The editor, file export and share links all call it. `normalize()` is the whole schema: anything that comes in from a URL, a file or a tool call is coerced into it or falls back to a default.
+
+## Reflection: control, not prompting
+
+Implementation made the argument sharper. The question stopped being "what could WordArt do" and became **what WordArt can do that a generative model cannot**: offer exact, cheap, repeatable control over a result.
+
+- A prompt describes an outcome and hopes. A parameter *is* the outcome. "Slightly less depth" is one slider step, not another round of re-rolling.
+- A rendered WordArt is about 2–4 KB of SVG. It costs nothing to produce, re-render or change, and it is deterministic.
+- **The file keeps its adaptability.** Every exported SVG carries its recipe as JSON in `<metadata>`. Drop it back onto the stage and every control returns. The URL hash holds the same recipe in readable form, so a link is also an editable document.
+- Presets remain points in the parameter space. The *Now* row (glass glow, acid, riso misregistration, brutalist offset) does not add a new mechanism. It reuses the same parameters, which shows that the old interaction grammar carries contemporary styles without a style-transfer model.
+
+Open threads, deliberately left outside the specimen:
+
+- **Other hosts.** Because the renderer is a pure function, it could be exposed as a tool (for example an MCP server) so a chat or another site gets a controllable WordArt instead of an image prompt. That belongs in a separate package, not in the exhibition.
+- **Email signatures** are a real use case, but mail clients strip SVG. That would need a PNG plus a link back to the editable recipe.
+- Text remains live `<text>`, so rendering depends on the fonts installed where the file is opened. Fitting is estimated per font instead of `textLength`, because browsers disagree about `textLength` along a path.

@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
+import '../../samples/010-pixels-to-stitches/pixels-to-stitches.css';
+
+const treatments = [
+  { key: 'A', title: 'Flat pixels', text: 'One square per chart cell. The shared logic of pixels and stitches, with nothing else.' },
+  { key: 'B', title: 'Flat stitches', text: 'The same cells as slanted, rounded marks. Only direction has changed.' },
+  { key: 'C', title: 'Thread volume', text: 'A contact shadow, a matte highlight and, when large, a few fibre strands.' },
+  { key: 'D', title: 'Visible fabric', text: 'An evenweave ground between the marks instead of a flat colour.' },
+  { key: 'E', title: 'Controlled variation', text: 'Small deterministic differences in angle, length, width and tone.' }
+];
+---
+<BaseLayout title="010 Pixels to Stitches — Lumpesammlig" description="Pixels and embroidery share a chart. A material study asks which qualities make stitches read as thread at interface size, then puts them to work in a small list.">
+  <main class="p2s-page p2s">
+    <nav class="back"><a href={withBase('/#library')}>← collection</a><span>010 / PIXELS TO STITCHES</span></nav>
+
+    <section class="opening">
+      <p class="label">010 / MATERIAL STUDY</p>
+      <p class="statement">A pixel and a stitch share a chart. <em>Only one of them feels handmade.</em></p>
+      <p class="observed">The embroidered hanger of sample 009 prompted the question. This study separates the qualities a stitch adds to a pixel, tests whether they survive at the size icons are actually used, and then puts them to work in a small list that you can operate.</p>
+    </section>
+
+    <section class="comparison-section" data-comparison data-state="pending" aria-labelledby="comparison-heading">
+      <header class="section-head">
+        <p class="label">01 / STILL COMPARISON</p>
+        <h2 id="comparison-heading">Same chart, same colours,<br />five treatments.</h2>
+        <p>Each panel adds one quality to the one before it. The sequence is for looking, not proof: use the last panel to switch qualities off individually while the others hold. The 1× row is the size the icons would be used at; the enlargement explains the construction and should not be mistaken for the normal view.</p>
+      </header>
+
+      <div class="comparison">
+        {treatments.map((t) => (
+          <article class="treatment" data-treatment={t.key}>
+            <h3><span>{t.key}</span>{t.title}</h3>
+            <p>{t.text}</p>
+            <figure>
+              <canvas data-row aria-label={`${t.title}: heart, checkmark and leaf-and-bud motif at 1×`} role="img"></canvas>
+              <figcaption>1× as used</figcaption>
+            </figure>
+            <figure>
+              <canvas data-enlarged aria-label={`${t.title}: enlarged construction`} role="img"></canvas>
+              <figcaption>enlarged</figcaption>
+            </figure>
+          </article>
+        ))}
+        <article class="treatment" data-treatment="custom">
+          <h3><span>F</span>Your mix</h3>
+          <p>Switch single qualities off below while the rest stay on.</p>
+          <figure>
+            <canvas data-row aria-label="Your mix: heart, checkmark and leaf-and-bud motif at 1×" role="img"></canvas>
+            <figcaption>1× as used</figcaption>
+          </figure>
+          <figure>
+            <canvas data-enlarged aria-label="Your mix: enlarged construction" role="img"></canvas>
+            <figcaption>enlarged</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <div class="comparison-controls">
+        <fieldset>
+          <legend>Enlarge</legend>
+          <label><input type="radio" name="enlarge" value="heart" checked /> Heart</label>
+          <label><input type="radio" name="enlarge" value="check" /> Checkmark</label>
+          <label><input type="radio" name="enlarge" value="motif" /> Leaf and bud</label>
+        </fieldset>
+        <fieldset>
+          <legend>Your mix</legend>
+          <label><input type="checkbox" data-quality="directional" checked /> Direction</label>
+          <label><input type="checkbox" data-quality="volume" checked /> Volume and light</label>
+          <label><input type="checkbox" data-quality="fabric" checked /> Fabric</label>
+          <label><input type="checkbox" data-quality="variation" checked /> Variation</label>
+        </fieldset>
+      </div>
+      <p class="comparison-fallback">The live comparison needs a Canvas 2D context. In words: the pixel version is flat squares on a flat ground; the stitched versions replace each square with a slanted, rounded mark, then add a contact shadow and matte highlight, then a visible evenweave fabric between marks, then small deterministic differences between marks.</p>
+    </section>
+
+    <section class="specimen-section" aria-labelledby="specimen-heading">
+      <div class="specimen-copy">
+        <p class="label">02 / WORKING SPECIMEN</p>
+        <h2 id="specimen-heading">A list you can use.</h2>
+        <p>Native controls do the work. Embroidery appears only where a state is shown: a stitched checkmark that fills when you complete an item and unpicks when you reopen it, a satin border on the item you are on, a running-stitch seam under the form, and one stitched label. Reading text stays plain. State changes are immediate; the stitching follows them and never stands in for progress.</p>
+      </div>
+      <div class="specimen" data-specimen data-state="pending">
+        <div class="specimen-head">
+          <h3 class="visually-hidden">To do</h3>
+          <canvas data-lettering aria-hidden="true"></canvas>
+          <small>stitched label / experimental</small>
+        </div>
+        <form>
+          <label class="visually-hidden" for="new-item">New item</label>
+          <input id="new-item" name="item" type="text" autocomplete="off" maxlength="60" placeholder="Add something to do" />
+          <button type="submit">Add</button>
+        </form>
+        <canvas class="seam" data-seam aria-hidden="true"></canvas>
+        <ul data-items></ul>
+        <p class="specimen-status"><span data-status aria-live="polite"></span><button type="button" data-undo hidden>Undo</button></p>
+        <template>
+          <li>
+            <canvas data-border aria-hidden="true"></canvas>
+            <label class="item-check">
+              <input type="checkbox" />
+              <canvas data-box aria-hidden="true"></canvas>
+              <span data-text></span><span class="done-tag" aria-hidden="true">done</span>
+            </label>
+            <button type="button" class="item-remove" data-remove><canvas data-remove-icon aria-hidden="true"></canvas></button>
+          </li>
+        </template>
+      </div>
+    </section>
+
+    <section class="evidence" aria-labelledby="source-heading">
+      <div class="evidence-copy">
+        <p class="label">SOURCE EVIDENCE</p>
+        <h2 id="source-heading">What the photograph<br />actually shows.</h2>
+        <p>Observed in sample 009's photograph: a regular grid of slanted marks, all leaning the same way; each mark rounded at its ends and slightly domed; a dark gap at the crossings where the ground shows; motifs built from the same marks in other colours; a braided brown border. The exact stitch technique is not asserted. The figure sits beside the study rather than inside it: the photograph is evidence, not a texture.</p>
+        <p class="clarification">Clarified intent, recorded with the encounter: the hanger prompted an interest in embroidery as a digital interface language. The user sees a relationship to pixels, but experiences embroidery as warmer and more handmade. The investigation concerns the material and perceptual qualities of stitches and their application to working UI.</p>
+      </div>
+      <figure>
+        <img src={withBase('/samples/009-stitched-care/source.jpg')} alt="An embroidered clothes-hanger cover: turquoise needlepoint with a central pink rose, small white flowers, coral flowers, green leaves, brown curled motifs and a brown stitched edge" width="1200" height="1600" loading="lazy" decoding="async" />
+        <figcaption>Sample 009's photograph, reused as evidence</figcaption>
+      </figure>
+    </section>
+
+    <section class="findings" aria-labelledby="findings-heading">
+      <header>
+        <p class="label">03 / WHAT WE THINK WE SEE</p>
+        <h2 id="findings-heading">Hypotheses, not conclusions.</h2>
+      </header>
+      <ol>
+        <li><span>Observed</span><p>Tent stitch covers one canvas crossing with a diagonal mark; the three common ways of working it look the same from the front. Aida and needlepoint canvas are counted grids, so a chart cell is literally a pixel of the fabric.</p></li>
+        <li><span>Hypothesis</span><p>Direction is the first thing that separates a stitch from a pixel; volume is what makes it read as thread rather than a flat dash. Fabric between marks does more for warmth than any colour choice. Variation contributes least on its own and only helps once the other three are present.</p></li>
+        <li><span>Supported</span><p>Rendering research on yarn-level knit models reaches qualitative, not exact, agreement with photographs, and depends on the individual maker. The same limit applies here: the comparison can show which qualities matter, not that any treatment is "correct".</p></li>
+        <li><span>Needs you</span><p>Whether any of this feels warmer or more handmade is a perceptual judgement that no screenshot settles. Look at the 1× row first; the enlargement is there to explain, not to persuade.</p></li>
+      </ol>
+      <p class="record-link">The sample's note records the references consulted, the rendering approaches weighed and the reflection: <code>src/samples/010-pixels-to-stitches/sample.md</code>.</p>
+    </section>
+
+    <footer><span>010 / PIXELS TO STITCHES</span><span>chart → mark → thread → fabric → interface</span></footer>
+  </main>
+</BaseLayout>
+
+<script>
+  import { mountComparison } from '../../samples/010-pixels-to-stitches/comparison';
+  import { mountSpecimen } from '../../samples/010-pixels-to-stitches/specimen';
+  const comparison = document.querySelector<HTMLElement>('[data-comparison]');
+  const specimen = document.querySelector<HTMLElement>('[data-specimen]');
+  if (comparison) mountComparison(comparison);
+  if (specimen) mountSpecimen(specimen);
+</script>
+
+<style>
+  .p2s-page{background:#e9e6df;color:#1b1e1d;overflow-x:clip}
+  .label{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  .back{display:flex;justify-content:space-between;gap:16px;max-width:1420px;margin:auto;padding:22px clamp(22px,6vw,88px) 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .back a{text-decoration:none;opacity:.75}.back a:hover,.back a:focus-visible{opacity:1}.back span{opacity:.55}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .opening,.comparison-section,.specimen-section,.evidence,.findings,footer{max-width:1420px;margin:auto;padding-left:clamp(22px,6vw,88px);padding-right:clamp(22px,6vw,88px)}
+  .opening{display:grid;grid-template-columns:.32fr 1.25fr .52fr;gap:clamp(28px,5vw,86px);padding-top:clamp(60px,8vw,110px);padding-bottom:clamp(60px,8vw,110px);align-items:start}
+  .statement{font-size:clamp(38px,5.5vw,78px);line-height:.98;letter-spacing:-.055em;margin:0}.statement em{font-style:normal;font-weight:400;color:#2a7f9f}
+  .observed{font-size:18px;line-height:1.55;margin:8px 0 0;color:#5b605c}
+  .section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:end;margin-bottom:34px}
+  .section-head .label{grid-column:1/-1}
+  .section-head p:not(.label){margin:0;font-size:16px;line-height:1.55;color:#5b605c}
+  .comparison-section,.specimen-section,.evidence,.findings{padding-top:70px;padding-bottom:90px;border-top:1px solid #c3bfb4}
+  .comparison-section h2,.specimen-section h2,.evidence h2,.findings h2{font-size:clamp(34px,4.6vw,66px);line-height:.95;letter-spacing:-.055em;margin:14px 0 0;font-weight:620}
+  .specimen-section{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,6vw,96px);align-items:start}
+  .specimen-copy p:not(.label){font-size:16px;line-height:1.55;color:#5b605c;margin:22px 0 0}
+  .evidence{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,7vw,110px);align-items:start}
+  .evidence-copy{position:sticky;top:40px}
+  .evidence-copy p:not(.label){font-size:16px;line-height:1.55;color:#5b605c;margin:22px 0 0}
+  .clarification{padding:14px 16px;border-left:3px solid #3ea0cc;background:rgba(62,160,204,.08)}
+  .evidence figure{margin:0;max-width:520px}.evidence img{display:block;width:100%;height:auto}
+  figcaption{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.52}
+  .findings header{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;margin-bottom:30px}
+  .findings ol{list-style:none;padding:0;margin:0;border-top:1px solid #c3bfb4}
+  .findings li{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid #cfcbc0}
+  .findings li span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#2a7f9f;padding-top:4px}
+  .findings li p{margin:0;color:#5b605c;line-height:1.5;font-size:15px;max-width:820px}
+  .record-link{margin:24px 0 0;font-size:13px;color:#5b605c}.record-link code{font-size:12px}
+  footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #c3bfb4;padding-top:22px;padding-bottom:55px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.58}
+  @media(max-width:900px){.opening{grid-template-columns:1fr}.section-head,.specimen-section,.evidence,.findings header{grid-template-columns:1fr}.evidence-copy{position:static}}
+  @media(max-width:620px){.findings li{grid-template-columns:1fr;gap:6px}footer{flex-direction:column}}
+</style>

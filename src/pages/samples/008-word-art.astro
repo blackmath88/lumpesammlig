@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import WordArtStudio from '../../samples/008-word-art/WordArtStudio';
 import WordArtRender from '../../samples/008-word-art/WordArtRender';
 import { DEFAULT_WORDART_PARAMETERS } from '../../samples/008-word-art/material/parameters';
-import '../samples/008-word-art/word-art-studio.css';
+import '../../samples/008-word-art/word-art-studio.css';
+import { withBase } from '../../data/site';
 ---
 
 <BaseLayout title="008 WordArt — Lumpesammlig">
@@ -14,7 +15,8 @@ import '../samples/008-word-art/word-art-studio.css';
     </h1>
 
     <article class="sample-notes" id="material-reading">
-      <a href="/">← Collection</a>
+      <a href={withBase('/')}>← Collection</a>
+      <p><a href={withBase('/samples/008-wordart')}>Open the WordArt workbench →</a></p>
       <p class="tag">02 / OBJECT + MATERIAL READING</p>
       <h2>From a 2000s school newsletter to a native web generator.</h2>
       <div class="cols">
