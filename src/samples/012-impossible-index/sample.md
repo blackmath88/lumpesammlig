@@ -1,7 +1,9 @@
 # 012 — The Impossible Index
 
 ## Encounter
-A public software problem may have been solved many times, but the answers live in code, issues, blog posts and discussions. The immediate encounter was CJ's observation in [Syntax #1050](https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript): a few search words once surfaced collective answers, while an agent can spend significant effort rediscovering them. The physical card catalogue imagery chosen for [Postack Underflow](https://github.com/blackmath88/postack-underflow) is a visual reference, not licensed production media.
+The encounter is the library card catalogue as a material and organisational system. Cards, drawers, accession order and cross-references encode distinctions made long before a visitor asks a question. The object is neither a search box nor a pile of books: it is a prior act of classification, made available for later navigation.
+
+The study asks what happens when that pre-existing structure becomes manipulable in a digital medium. The encounter stands independently of any product or software-search problem.
 
 ## Situated reading
 A card catalogue does not search books by reading each book on demand. It makes *prior classification* available as a spatial, inspectable object. Cards are imperfect and may be out of date. Their useful quality is not wood or brass: it is that the retrieval work happened before the question.
@@ -17,11 +19,8 @@ Build a small deterministic index of clearly labeled illustrative problems. A fo
 ## What this tests
 Can the visitor experience the difference between *pre-indexed retrieval* and agent exploration, and recognize that an index is useful but fallible? A simple lexical scoring prototype is not evidence of search superiority.
 
-## Provenance
-- [Postack problem framing](https://github.com/blackmath88/postack-underflow/blob/main/docs/PROBLEM.md)
-- [GitHub Atlas](https://github.com/blackmath88/github-atlas)
-- [Colors style studies](https://github.com/blackmath88/colors) — object + typography + framing; print white, blue, violet, rose
-- [Lumpesammlig method](../../../docs/ARCHITECTURE.md)
+## Provenance and later applications
+The source is the card-catalogue mechanism, interpreted through the Lumpesammlig method. A separate discussion of repeated software-problem rediscovery ([Syntax #1050](https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript)) and [Postack Underflow](https://github.com/blackmath88/postack-underflow) motivated a potential **later application**; neither defines the artifact's meaning. [GitHub Atlas](https://github.com/blackmath88/github-atlas) is a related navigation experiment. [Colors](https://github.com/blackmath88/colors) informed specimen framing. These are documented genealogical links, not prerequisites for understanding this study.
 
 ## Initial review questions (from the first prototype)
 Assess whether classification is perceptible without relying on the card-catalogue costume. Test short queries, zero matches, keyboard, reduced motion and mobile.
