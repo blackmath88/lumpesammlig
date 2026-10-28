@@ -1,0 +1,284 @@
+body:has(.index-study) {
+  background: #f5f3ec;
+  color: #252a30;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.index-study {
+  max-width: 1440px;
+  margin: auto;
+  padding: 24px clamp(20px, 5vw, 76px) 80px;
+}
+.index-study * {
+  box-sizing: border-box;
+}
+.index-study a {
+  color: inherit;
+}
+.index-study nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #4a6288;
+  font: 11px monospace;
+  text-transform: uppercase;
+}
+.index-study header {
+  padding: 55px 0 50px;
+}
+.index-study .eyebrow {
+  font: 11px monospace;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #4a6288;
+}
+.index-study h1 {
+  font-size: clamp(64px, 9.8vw, 144px);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  margin: 30px 0 40px;
+}
+.index-study h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: #4a6288;
+}
+.index-study .intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  align-items: end;
+}
+.index-study .intro > p:first-child {
+  font-size: clamp(20px, 2.3vw, 32px);
+  line-height: 1.3;
+  margin: 0;
+}
+.index-study .annotation {
+  font: 12px/1.6 monospace;
+}
+.index-study .bench-label,
+.index-study .archive-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.index-study .bench-label {
+  border-top: 3px solid #4a6288;
+}
+.index-study h2 {
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.index-study .bench-label span,
+.index-study label,
+.index-study #query-help,
+.index-study #index-status,
+.index-study .examples {
+  font: 11px/1.6 monospace;
+}
+.index-study .query-line {
+  display: flex;
+  margin-top: 12px;
+}
+.index-study input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid #4a6288;
+  padding: 18px;
+  font:
+    clamp(17px, 2vw, 27px) Georgia,
+    serif;
+  color: #252a30;
+}
+.index-study button {
+  font: 12px/1.4 monospace;
+  border: 1px solid #4a6288;
+  background: transparent;
+  color: inherit;
+  padding: 12px 16px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.index-study .query-line button {
+  background: #4a6288;
+  color: #f5f3ec;
+  min-width: 175px;
+}
+.index-study .examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 38px;
+}
+.index-study .examples button {
+  border: 0;
+  border-bottom: 1px solid #aab2be;
+  padding: 6px;
+}
+.index-study #query-error {
+  color: #9b2245;
+  font: 13px monospace;
+}
+.index-study .drawers {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #4a6288;
+  margin: 12px 0 28px;
+  gap: 4px;
+}
+.index-study .drawers button {
+  border-bottom: 0;
+}
+.index-study .drawers span {
+  margin-left: 14px;
+  opacity: 0.65;
+}
+.index-study button[aria-pressed="true"] {
+  background: #4a6288;
+  color: #f5f3ec;
+}
+.index-study .index-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.index-study .index-card {
+  border: 1px solid #aab2be;
+  border-top: 4px solid #4a6288;
+  padding: 20px 24px;
+  background: #faf9f4;
+  min-width: 0;
+}
+.index-study .index-card.matched {
+  border-top-color: #252a30;
+}
+.index-study .card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font: 10px/1.5 monospace;
+  color: #4a6288;
+  text-transform: uppercase;
+}
+.index-study h3 {
+  font:
+    400 clamp(23px, 2.5vw, 34px)/1.15 Georgia,
+    serif;
+  max-width: 440px;
+  margin: 24px 0;
+}
+.index-study .match-note {
+  font: 12px/1.6 monospace;
+  min-height: 38px;
+}
+.index-study details {
+  border-top: 1px solid #aab2be;
+  padding-top: 14px;
+  font:
+    14px/1.6 Arial,
+    sans-serif;
+}
+.index-study summary {
+  cursor: pointer;
+  font: 12px/1.5 monospace;
+  min-height: 32px;
+}
+.index-study dt {
+  font: 11px monospace;
+  text-transform: uppercase;
+  color: #4a6288;
+  margin-top: 16px;
+}
+.index-study dd {
+  margin: 6px 0;
+  overflow-wrap: anywhere;
+}
+.index-study #unmatched-drawer {
+  margin-top: 26px;
+}
+.index-study #unmatched-drawer > summary {
+  margin-bottom: 18px;
+}
+.index-study #index-empty {
+  border-left: 4px solid #ee4f7e;
+  padding: 20px;
+  font:
+    22px/1.4 Georgia,
+    serif;
+}
+.index-study footer {
+  border-top: 1px solid #4a6288;
+  margin-top: 70px;
+  padding-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.index-study footer h2 {
+  font-size: 36px;
+}
+.index-study footer p {
+  line-height: 1.7;
+}
+.index-study :focus-visible {
+  outline: 3px solid #a36bff;
+  outline-offset: 4px;
+}
+.index-study [hidden] {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .index-study nav {
+    flex-wrap: wrap;
+  }
+  .index-study .intro {
+    display: block;
+  }
+  .index-study .query-line {
+    display: block;
+  }
+  .index-study .query-line button {
+    width: 100%;
+  }
+  .index-study .index-cards,
+  .index-study footer {
+    grid-template-columns: 1fr;
+  }
+  .index-study .archive-head,
+  .index-study .bench-label {
+    display: block;
+  }
+  .index-study .index-card {
+    padding: 20px;
+  }
+  .index-study header {
+    padding-top: 35px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .index-study * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.index-study .term-crossrefs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.index-study .term-crossrefs button {
+  padding: 6px 10px;
+  min-height: 36px;
+  font-size: 11px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(.index-study) { scroll-behavior: auto; }
+}

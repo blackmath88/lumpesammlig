@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+import {
+  contributions,
+  connections,
+} from "../../samples/013-switchboard/records";
+import "../../samples/013-switchboard/switchboard.css";
+---
+
+<BaseLayout
+  title="013 — The Switchboard / Lumpesammlig"
+  description="Temporary connections between independent voices; the operator controls a view, not its sources."
+>
+  <main class="switch-study">
+    <nav>
+      <a href={withBase("/#library")}>← Collection</a>
+      <span>Lumpesammlig / 013</span>
+      <a href={withBase("/samples/012-impossible-index")}>Study 012 ↗</a>
+    </nav>
+    <header>
+      <div>
+        <p class="eyebrow">013 / Routing as an interaction</p>
+        <h1>
+          The
+          <br />
+          switchboard<span aria-hidden="true">.</span>
+        </h1>
+      </div>
+      <p class="premise">
+        Connect the conversation.
+        <br />
+        <em>Leave the voices where they are.</em>
+      </p>
+    </header>
+    <section class="routing" aria-labelledby="routing-title">
+      <div class="routing-title">
+        <h2 id="routing-title">A temporary reading</h2>
+        <p>06 independent sources / 07 possible connections</p>
+      </div>
+      <p class="annotation">
+        All names, contributions and addresses are synthetic. Lines are this
+        specimen’s interpretations, not author endorsements.
+      </p>
+      <div class="lens-controls">
+        <div role="group" aria-label="Topic lens">
+          <span>Topic</span>
+          <button data-topic="all" aria-pressed="true">
+            All lines
+          </button>
+          <button data-topic="indexing" aria-pressed="false">
+            Indexing
+          </button>
+          <button data-topic="community" aria-pressed="false">
+            Community
+          </button>
+        </div>
+        <div role="group" aria-label="Relationship lens">
+          <span>Relation</span>
+          <button data-relation="all" aria-pressed="true">
+            All relations
+          </button>
+          <button data-relation="questions" aria-pressed="false">
+            Questions
+          </button>
+          <button data-relation="extends" aria-pressed="false">
+            Extensions
+          </button>
+          <button data-relation="disagrees" aria-pressed="false">
+            Disagreement
+          </button>
+        </div>
+      </div>
+      <div class="board-layout">
+        <div class="diagram">
+          <svg viewBox="0 0 640 400" role="img" aria-labelledby="board-caption">
+            <title id="board-caption">Pairwise routes between six independent sources. Use the labelled connection buttons below to inspect and unplug routes.</title>
+            <g id="cables"></g>
+            {contributions.map((c, i) => {
+              const x = [90, 320, 550, 90, 320, 550][i],
+                y = i < 3 ? 75 : 325;
+              return (
+                <g class="socket" data-socket={c.id}>
+                  <circle cx={x} cy={y} r="27" />
+                  <text x={x} y={y + 6} text-anchor="middle">
+                    {c.id}
+                  </text>
+                  <text
+                    class="socket-name"
+                    x={x}
+                    y={i < 3 ? y - 40 : y + 48}
+                    text-anchor="middle"
+                  >
+                    {c.author} / {c.home}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+          <div class="diagram-key">
+            <span>— Extension / question</span>
+            <span class="rose">┄ Disagreement</span>
+            <span>No central endpoint</span>
+          </div>
+        </div>
+        <aside class="inspector" aria-labelledby="inspector-title">
+          <p class="eyebrow">Cable inspection</p>
+          <h3 id="inspector-title" tabindex="-1">
+            Select a connection
+          </h3>
+          <p id="connection-reason">
+            Every line joins two source records. Inspect a route below to see
+            why they were connected.
+          </p>
+          <div id="connection-endpoints"></div>
+          <button id="toggle-cable" disabled>
+            Unplug selected cable
+          </button>
+        </aside>
+      </div>
+      <div class="circuit-heading">
+        <p id="routing-status" role="status">
+          7 connections / 6 source records unchanged
+        </p>
+        <div>
+          <button id="unplug-all">Unplug all</button>
+          <button id="restore-cables">Restore all cables</button>
+        </div>
+      </div>
+      <div id="connection-list" class="connection-list">
+        {connections.map((c) => (
+          <button data-connection={c.id} aria-pressed="false">
+            <span>
+              {c.from} ↔ {c.to}
+            </span>
+            <strong>{c.kind}</strong>
+            <small>Inspect cable ↗</small>
+          </button>
+        ))}
+      </div>
+      <p id="routing-empty" hidden>
+        No cables in this view. Try another lens or restore the cables. Every
+        source record remains below.
+      </p>
+      <noscript>
+        <p>
+          JavaScript is needed to route cables. The complete source ledger below
+          remains readable.
+        </p>
+      </noscript>
+    </section>
+    <section class="source-ledger" aria-labelledby="ledger-title">
+      <div class="ledger-heading">
+        <h2 id="ledger-title">The sources stay.</h2>
+        <p>
+          Operator access: view only
+          <br />
+          Records cannot be edited or deleted here.
+        </p>
+      </div>
+      <div class="ledger">
+        {contributions.map((c) => (
+          <article id={`source-${c.id}`}>
+            <div class="source-label">
+              <span class="source-id">{c.id}</span>
+              <div>
+                <h3>{c.author}</h3>
+                <p>
+                  {c.home} / {c.kind}
+                </p>
+              </div>
+            </div>
+            <blockquote>{c.text}</blockquote>
+            <details>
+              <summary>Inspect independent source</summary>
+              <dl>
+                <dt>Source address (fixture, not live)</dt>
+                <dd>
+                  https://{c.home}/contributions/{c.id.toLowerCase()}
+                </dd>
+                <dt>Authorship</dt>
+                <dd>{c.author} · synthetic persona</dd>
+                <dt>Original record</dt>
+                <dd>
+                  <pre>{JSON.stringify(c,null,2)}</pre>
+                </dd>
+              </dl>
+            </details>
+          </article>
+        ))}
+      </div>
+    </section>
+    <footer>
+      <p class="eyebrow">The encounter / What the mechanism leaves out</p>
+      <div>
+        <h2>
+          The operator
+          <br />
+          owns this reading.
+        </h2>
+        <p>
+          A telephone switchboard temporarily joins independent endpoints. Here,
+          topics and relationship lenses propose connections between voices.
+          Unplugging every cable changes no text and removes no author.
+          <br />
+          <br />
+          The metaphor weakens where an operator becomes a gatekeeper. Keeping
+          the source ledger visible exposes that tension; it does not solve
+          moderation, consent or federation. A connection is an interpretation,
+          never consensus.
+          <br />
+          <br />
+          <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/013-switchboard/sample.md">
+            Readings & reflection ↗
+          </a>{" "}
+          ·{" "}
+  
+        </p>
+      </div>
+    </footer>
+  </main>
+  <script>
+    import "../../samples/013-switchboard/switchboard";
+  </script>
+</BaseLayout>

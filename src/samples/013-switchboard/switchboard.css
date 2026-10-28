@@ -1,0 +1,393 @@
+body:has(.switch-study) {
+  background: #f5f3ec;
+  color: #252a30;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.switch-study {
+  max-width: 1440px;
+  margin: auto;
+  padding: 24px clamp(20px, 5vw, 76px) 80px;
+}
+.switch-study * {
+  box-sizing: border-box;
+}
+.switch-study a {
+  color: inherit;
+}
+.switch-study nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #252a30;
+  font: 11px monospace;
+  text-transform: uppercase;
+}
+.switch-study header {
+  padding: 55px 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+}
+.switch-study .eyebrow {
+  font: 11px/1.6 monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.switch-study h1 {
+  font-size: clamp(52px, 8vw, 116px);
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 0.94;
+  margin: 30px 0 0;
+}
+.switch-study h1 span {
+  color: #a36bff;
+}
+.switch-study .premise {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 300px;
+}
+.switch-study .premise em {
+  font-style: normal;
+  color: #4a6288;
+}
+.switch-study .routing {
+  background: #252a30;
+  color: #f5f3ec;
+  padding: 28px;
+}
+.switch-study .routing-title,
+.switch-study .circuit-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.switch-study h2 {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  font-weight: 500;
+}
+.switch-study .routing-title p,
+.switch-study .annotation,
+.switch-study .circuit-heading p {
+  font: 11px/1.6 monospace;
+}
+.switch-study .annotation {
+  color: #d5d1c8;
+  max-width: 690px;
+}
+.switch-study button {
+  font: 12px/1.3 monospace;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #777b80;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.switch-study button:hover {
+  border-color: #a36bff;
+}
+.switch-study button[aria-pressed="true"] {
+  background: #a36bff;
+  color: #252a30;
+  border-color: #a36bff;
+}
+.switch-study button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.switch-study .lens-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid #777b80;
+}
+.switch-study .lens-controls > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+.switch-study .lens-controls span {
+  font: 11px monospace;
+  margin-right: 8px;
+}
+.switch-study .board-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 24px;
+  margin: 20px 0;
+}
+.switch-study svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.switch-study .socket circle {
+  fill: #252a30;
+  stroke: #f5f3ec;
+  stroke-width: 2;
+}
+.switch-study .socket text {
+  fill: #f5f3ec;
+  font: 18px monospace;
+}
+.switch-study .socket .socket-name {
+  font: 11px monospace;
+}
+.switch-study #cables path {
+  fill: none;
+  stroke: #a36bff;
+  stroke-width: 2;
+  opacity: 0.65;
+}
+.switch-study #cables path.disagrees {
+  stroke: #ee4f7e;
+  stroke-dasharray: 7 5;
+}
+.switch-study #cables path.selected {
+  stroke-width: 5;
+  opacity: 1;
+}
+.switch-study .diagram-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font: 10px/1.6 monospace;
+  color: #d5d1c8;
+}
+.switch-study .rose {
+  color: #ee4f7e;
+}
+.switch-study .inspector {
+  border-left: 1px solid #777b80;
+  padding-left: 22px;
+}
+.switch-study .inspector h3 {
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.switch-study .inspector p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.switch-study #connection-endpoints a {
+  display: block;
+  font: 11px/1.6 monospace;
+  margin: 15px 0;
+}
+.switch-study .inspector button {
+  width: 100%;
+  margin-top: 15px;
+}
+.switch-study .circuit-heading {
+  border-top: 1px solid #777b80;
+  padding: 20px 0;
+}
+.switch-study .circuit-heading > div {
+  display: flex;
+  gap: 6px;
+}
+.switch-study .connection-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.switch-study .connection-list button {
+  text-align: left;
+  border-top: 3px solid #a36bff;
+  padding: 14px;
+}
+.switch-study .connection-list span {
+  font: 22px monospace;
+  display: block;
+}
+.switch-study .connection-list strong {
+  display: block;
+  font: 12px monospace;
+  margin: 12px 0;
+}
+.switch-study .connection-list small {
+  font: 10px/1.5 monospace;
+}
+.switch-study .connection-list .disagrees {
+  border-top-color: #ee4f7e;
+}
+.switch-study .connection-list .unplugged {
+  border-top-style: dashed;
+  color: #c4bfb5;
+}
+.switch-study #routing-empty {
+  border-left: 3px solid #ee4f7e;
+  padding: 16px;
+  font: 14px/1.6 monospace;
+}
+.switch-study .source-ledger {
+  margin-top: 60px;
+}
+.switch-study .ledger-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  border-bottom: 3px solid #252a30;
+  padding-bottom: 22px;
+}
+.switch-study .ledger-heading h2 {
+  font-size: clamp(36px, 5vw, 65px);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+}
+.switch-study .ledger-heading p {
+  font: 11px/1.6 monospace;
+}
+.switch-study .ledger {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.switch-study .ledger article {
+  min-width: 0;
+  padding: 28px 0;
+  border-bottom: 1px solid #a4a7aa;
+  scroll-margin-top: 20px;
+}
+.switch-study .ledger article:target {
+  outline: 3px solid #a36bff;
+  outline-offset: 8px;
+}
+.switch-study .source-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.switch-study .source-id {
+  font: 26px monospace;
+  border: 1px solid #252a30;
+  padding: 10px;
+}
+.switch-study h3 {
+  margin: 0;
+  font-size: 20px;
+}
+.switch-study .source-label p {
+  font: 10px/1.5 monospace;
+}
+.switch-study blockquote {
+  margin: 24px 0;
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+.switch-study details {
+  font: 12px/1.6 monospace;
+}
+.switch-study summary {
+  cursor: pointer;
+  min-height: 44px;
+}
+.switch-study dd {
+  margin: 8px 0 18px;
+  overflow-wrap: anywhere;
+}
+.switch-study pre {
+  white-space: pre-wrap;
+  font: 11px/1.6 monospace;
+}
+.switch-study footer {
+  margin-top: 65px;
+  border-top: 1px solid #252a30;
+  padding-top: 22px;
+}
+.switch-study footer > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.switch-study footer h2 {
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
+}
+.switch-study footer p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.switch-study :focus-visible {
+  outline: 3px solid #a36bff;
+  outline-offset: 4px;
+}
+.switch-study .routing :focus-visible {
+  outline-color: #f5f3ec;
+}
+.switch-study [hidden] {
+  display: none !important;
+}
+@media (max-width: 950px) {
+  .switch-study header {
+    display: block;
+  }
+  .switch-study .board-layout {
+    grid-template-columns: 1fr;
+  }
+  .switch-study .inspector {
+    border-left: 0;
+    border-top: 1px solid #777b80;
+    padding: 20px 0 0;
+  }
+  .switch-study .connection-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .switch-study .ledger {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .switch-study nav {
+    flex-wrap: wrap;
+  }
+  .switch-study .routing {
+    padding: 18px;
+    margin: 0 -8px;
+  }
+  .switch-study header {
+    padding: 35px 0;
+  }
+  .switch-study .routing-title,
+  .switch-study .circuit-heading,
+  .switch-study .ledger-heading {
+    display: block;
+  }
+  .switch-study .connection-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .switch-study .ledger,
+  .switch-study footer > div {
+    grid-template-columns: 1fr;
+  }
+  .switch-study .socket .socket-name {
+    font-size: 15px;
+  }
+  .switch-study .diagram-key {
+    gap: 8px;
+  }
+  .switch-study .circuit-heading > div {
+    margin-top: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .switch-study * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(.switch-study) { scroll-behavior: auto; }
+}
