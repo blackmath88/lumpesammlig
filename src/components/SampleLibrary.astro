@@ -36,6 +36,10 @@ import { previewMarkup as threadIconsPreview } from '../samples/011-thread-icons
                 ? <PaintField bare parameters={DEFAULT_PAINT_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
                 : sample.id === 'blue-printed-paper'
                   ? <PaperField bare parameters={DEFAULT_PAPER_PARAMETERS} quality="small" interactive={false} className="mini-live" label="" client:visible />
+                  : sample.id === 'impossible-index'
+                    ? <div class="index-mini"><span>012 / THE HELD PLACE</span><div class="mini-filing"><i>before</i><strong>Stay<br />here.</strong><i>after</i></div><p>The neighbours change.</p></div>
+                  : sample.id === 'switchboard'
+                    ? <div class="switch-mini"><span>013 / THE LIMITED DESK</span><div class="mini-circuits"><b>01<span>PATCHED</span></b><b>02<span>AVAILABLE</span></b></div><p>A connection takes place.</p></div>
                   : sample.id === 'pixels-to-stitches'
                     ? <canvas class="stitch-mini" data-p2s-preview aria-hidden="true"></canvas>
                   : sample.id === 'thread-icons'
@@ -81,6 +85,13 @@ import { previewMarkup as threadIconsPreview } from '../samples/011-thread-icons
   .preview{height:clamp(390px,52vw,700px);position:relative;background:#171a17;overflow:hidden;transform:rotate(-1.15deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
   .sample:hover .preview{transform:rotate(.15deg) scale(.995)}
   .preview :global(.mini-knit-live),.preview :global(.mini-live){position:absolute;inset:0;display:block;width:100%;height:100%;background:#151815}
+  .index-mini,.switch-mini{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,3vw,45px);font:10px/1.5 monospace;letter-spacing:.08em}
+  .index-mini{background:#e9e8e0;color:#4a6288}.switch-mini{background:#252a30;color:#f5f3ec}
+  .mini-filing{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;align-items:center}
+  .mini-filing strong{background:#fffef8;border-top:5px solid #7350a4;padding:30px 15px 50px;font:italic clamp(26px,3.5vw,60px)/1 Georgia,serif;letter-spacing:-.05em;box-shadow:0 8px 0 -3px #e9e8e0,0 8px 0 -2px #4a6288}
+  .mini-filing i{border:1px solid #aab2be;min-height:120px;padding:12px 4px;font:9px monospace;writing-mode:vertical-rl;text-align:center}
+  .mini-circuits{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-circuits b{font:clamp(35px,5vw,80px)/1 monospace;border:1px solid #777b80;border-top:4px solid #a36bff;padding:25px 10px;letter-spacing:-.08em}.mini-circuits b:last-child{border-top-color:#777b80;color:#a7b2c3}.mini-circuits span{display:block;font:8px/2 monospace;letter-spacing:.08em;margin-top:30px}
+  .index-mini>p,.switch-mini>p{font:italic clamp(20px,2vw,32px)/1.2 Georgia,serif;letter-spacing:-.02em;max-width:250px;margin:0 0 45px}
   .thread-mini{position:absolute;inset:0;display:grid;place-items:center;background:#15171c}
   .thread-mini :global(.ti-preview){width:82%;height:auto;overflow:visible}
   .stitch-mini{position:absolute;inset:0;display:block;width:100%;height:100%;background:#1b1e1d}

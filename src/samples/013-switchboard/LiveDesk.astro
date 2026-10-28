@@ -1,0 +1,33 @@
+---
+import { connections, contributions } from './records';
+---
+<section id="live-desk" class="live-desk" aria-labelledby="desk-title">
+  <div class="desk-introduction">
+    <p class="eyebrow">01 / The limited desk</p>
+    <h2 id="desk-title">A connection<br />takes <em>place.</em></h2>
+    <div><p>Two spaces for reading voices together. Patch a relation, open the comparison, then clear a space for the next one.</p><p class="desk-boundary">These are your reading circuits. No one is being called; no author is endorsing a connection.</p></div>
+  </div>
+  <div class="desk-capacity"><span id="capacity-status">00 / 02 spaces occupied</span><div class="capacity-lamps" aria-hidden="true"><i></i><i></i></div><span>Propose → patch → read → release</span></div>
+  <div class="circuit-slots">
+    {[0, 1].map(slot => <article class="circuit-slot" data-slot={slot} data-phase="empty" aria-labelledby={`slot-title-${slot}`}>
+      <div class="slot-heading"><span class="slot-number">0{slot + 1}</span><span class="slot-phase">Available</span></div>
+      <div class="slot-empty"><div class="empty-jacks" aria-hidden="true"><i></i><span></span><i></i></div><h3 id={`slot-title-${slot}`}>Room for a connection.</h3><p>Select one of the offered relations below. This space stays yours until you release it.</p></div>
+      <div class="slot-content" hidden><p class="slot-relation"></p><h3 class="slot-title"></h3><p class="slot-reason"></p><div class="slot-voices" hidden></div><div class="slot-actions"><button data-open={slot}>Open comparison</button><button data-release={slot}>Release circuit 0{slot + 1}</button></div></div>
+    </article>)}
+  </div>
+  <p id="desk-status" class="desk-status" role="status" aria-live="polite">Seven offered relations. Nothing occupies the desk yet.</p>
+  <div class="offers-heading"><h3>Waiting to be read together.</h3><p>Relations proposed by this specimen, using six synthetic sources. A relation is a reading, never consensus.</p></div>
+  <div class="desk-offers">
+    {connections.map(c => {
+      const from = contributions.find(s => s.id === c.from)!;
+      const to = contributions.find(s => s.id === c.to)!;
+      return <article class:list={['desk-offer', { contested: c.kind === 'disagrees' }]} data-offer={c.id}>
+        <div class="offer-label"><span>{c.from} ↔ {c.to}</span><span>{c.kind === 'disagrees' ? 'Disagreement' : c.kind === 'questions' ? 'Question' : 'Extension'}</span></div>
+        <h4>{from.author} <span>&</span> {to.author}</h4><p>{c.why}</p><button data-patch={c.id} aria-label={`Patch ${c.id}: ${from.author} and ${to.author}`}>Patch this relation ↗</button>
+      </article>;
+    })}
+  </div>
+  <div class="clearing"><div><p class="eyebrow">When the operator leaves</p><p>Clear the desk.<br /><em>The voices stay.</em></p></div><div><button id="clear-desk">Release both circuits</button><a href="#ledger-title">Read the six originals ↓</a><p id="cleared-note">Two spaces is this experiment’s attention constraint, not a historical switchboard capacity.</p></div></div>
+  <noscript><p>JavaScript enables patching and releasing comparisons. The offered relations and complete source ledger remain readable.</p></noscript>
+</section>
+<script>import './live-desk';</script>

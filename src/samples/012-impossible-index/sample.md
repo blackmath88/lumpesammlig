@@ -44,3 +44,11 @@ Practice consulted: development-practice `PRACTICE.md`, `profiles/prototype.md`,
 **Falsification.** Remove all colours, card borders and catalogue language: a fixed collection still reorganizes by pre-existing terms, reveals its ranking rule, preserves unmatched originals and supports classification cross-references. Those behaviours carry the selected reading. A generic filtered list remains a nearby risk; the inspectable classification and retained nonmatches are the distinction.
 
 **Carry into Postack.** Separate original records, controlled vocabulary and a query-specific ordering. Show matched terms and qualifications; retain a route to nonmatches. Treat missing vocabulary as an index gap, not permission to fabricate an answer. Whether this feels compelling or improves discovery needs human use with a real corpus.
+
+## Second development · The held place, 2026-10-28
+
+The later brief asked for the encounter's distinctive character, beyond a useful demonstration of preclassification. Source verification and rejected alternatives are recorded in [the development research](../../../docs/research/012-013-held-place-live-circuits.md). The eight original fixture records and the first exact-term query are preserved.
+
+The new spread lets the reader hold a record while title, subject and shared-vocabulary filings change its neighbours. Without holding, the same position is retained instead. Previous neighbours are named after an order change. Shared-vocabulary filing fixes its reference when selected, so browsing does not secretly recalculate the whole order. Filing ties are alphabetical; accession IDs remain identifiers. A coloured finger is a state cue, not evidence of a physical simulation.
+
+The trial weakened the idea that a pin alone communicates an embodied place. Identity needs a meaningful counterfactual: releasing keeps position, not the record. Boundaries do not wrap around. No texture or animation is required for that difference to work. The vocabulary comparison is a digital invention, not a historical cataloguing rule. Classification authority, corpus size, vocabulary quality and human delight remain unresolved. Mechanical tests are not human acceptance of the je ne sais quoi.

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { withBase } from "../../data/site";
+import HeldPlace from "../../samples/012-impossible-index/HeldPlace.astro";
 import { records } from "../../samples/012-impossible-index/records";
 import "../../samples/012-impossible-index/index.css";
 ---
 
 <BaseLayout
   title="012 — The Impossible Index / Lumpesammlig"
-  description="Prior classification made visible through a movable working index."
+  description="Hold a place while the catalogue moves around it. A study in classification, adjacency and remembered position."
 >
   <main class="index-study">
     <nav>
@@ -24,22 +25,23 @@ import "../../samples/012-impossible-index/index.css";
       </h1>
       <div class="intro">
         <p>
-          A question takes seconds.
+          Keep a finger here.
           <br />
-          The classification came before it.
+          Let the neighbours change.
         </p>
         <p class="annotation">
           Eight synthetic records. Four drawers.
           <br />A fixed index, waiting for a question.
           <br />
-          No browsing. No generated answers.
+          Different filings. The same originals.
         </p>
       </div>
     </header>
+    <HeldPlace />
     <section class="workbench" aria-labelledby="bench-title">
       <div class="bench-label">
         <h2 id="bench-title">Ask the archive</h2>
-        <span>01 / Prior work → present question</span>
+        <span>02 / The exact-term baseline</span>
       </div>
       <form id="index-query">
         <label for="query">A short query · up to four distinct words</label>
@@ -150,17 +152,16 @@ import "../../samples/012-impossible-index/index.css";
           a question. The catalogue is a record of decisions made before a visitor arrives. Its categories, cross-references and omissions are part of the encounter.
         </p>
         <p>
-          This specimen makes the labour inspectable. The query moves the cards;
+          The held place keeps a record still while title, subject and vocabulary change its neighbours. Holding preserves identity; releasing preserves position. The query below is a separate baseline: it moves the cards;
           it does not write them. A drawer exposes a classification, and each
           card keeps its original qualification.
         </p>
         <p class="annotation">
           A lexical toy, not a better search engine. The source survives in
-          preclassification, recoverable records and explicit gaps. Physical
-          resistance and collective maintenance remain untranslated.
+          preclassification, recoverable records and explicit gaps. Physical resistance and collective maintenance remain untranslated. The filing orders are authored interpretations, not neutral geography.
         </p>
-        <a href="https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript">
-          Encounter reference ↗
+        <a href="https://guides.loc.gov/card-catalog/using-the-card-catalog">
+          The catalogue’s access points ↗
         </a>{" "}
         ·{" "}
         <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/012-impossible-index/sample.md">

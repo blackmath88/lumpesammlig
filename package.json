@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "check:assets": "node scripts/check-built-css.mjs",
-    "test:assets": "node --test scripts/check-built-css.test.mjs"
+    "test:assets": "node --test scripts/check-built-css.test.mjs",
+    "test:studies": "node --experimental-strip-types --test src/samples/012-impossible-index/held-place.test.mjs src/samples/013-switchboard/circuits.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.4",

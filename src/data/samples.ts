@@ -116,7 +116,7 @@ export const samples: Sample[] = [
     title: 'The Impossible Index',
     object: 'A card catalogue encountered through the problem of rediscovering already-solved software issues.',
     material: 'Preclassified records / paper index / provenance / ranking',
-    translation: 'A short query reorders a finite pre-indexed collection and exposes why each card matched.',
+    translation: 'Hold a place while different filings change its neighbours; release it to feel position diverge from identity.',
     route: '/samples/012-impossible-index',
     status: 'study',
     technology: ['Astro', 'Vanilla TS', 'SVG-free semantic cards']
@@ -127,7 +127,7 @@ export const samples: Sample[] = [
     title: 'The Switchboard',
     object: 'A telephone switchboard read as temporary connections between independent voices.',
     material: 'Endpoints / connections / routing / operator authority',
-    translation: 'Topic lenses reroute a visible conversation without rewriting its attributed source contributions.',
+    translation: 'Patch, read and release two temporary comparisons; occupied attention has a limit, independent voices remain.',
     route: '/samples/013-switchboard',
     status: 'study',
     technology: ['Astro', 'SVG', 'Vanilla TS']

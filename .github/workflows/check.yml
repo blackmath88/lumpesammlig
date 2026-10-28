@@ -18,4 +18,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run test:assets
+      - run: npm run test:studies
       - run: npm run build
+      - name: Check study DOM interactions
+        run: |
+          npm install --prefix "$RUNNER_TEMP/lumpesammlig-dom" --no-audit --no-fund jsdom@27.4.0
+          node scripts/check-study-dom.mjs "$RUNNER_TEMP/lumpesammlig-dom/node_modules/jsdom/lib/api.js"

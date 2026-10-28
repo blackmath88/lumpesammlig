@@ -391,3 +391,63 @@ body:has(.switch-study) {
 @media (prefers-reduced-motion: reduce) {
   html:has(.switch-study) { scroll-behavior: auto; }
 }
+
+/* Occupation is visible before the graph: two working spaces, not infinite lines. */
+.switch-study .live-desk{margin-bottom:72px;border-top:1px solid #4a6288;padding-top:30px}
+.switch-study .desk-introduction{display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;align-items:end;margin-bottom:35px}
+.switch-study .desk-introduction>.eyebrow{grid-column:1/-1;margin:0;color:#4a6288}
+.switch-study .desk-introduction h2{font-size:clamp(42px,5.5vw,76px);font-weight:500;letter-spacing:-.06em;line-height:.98}
+.switch-study .desk-introduction h2 em{font:italic 1em Georgia,serif;color:#7350a4}
+.switch-study .desk-introduction>div{max-width:420px;font:18px/1.6 Georgia,serif}
+.switch-study .desk-boundary{font:11px/1.6 monospace;color:#535c68}
+.switch-study .desk-capacity{background:#252a30;color:#f5f3ec;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;font:11px/1.5 monospace;border-bottom:1px solid #777b80}
+.switch-study .capacity-lamps{display:flex;gap:10px}
+.switch-study .capacity-lamps i{width:12px;height:12px;display:block;border:1px solid #c4bfb5;border-radius:50%}
+.switch-study .capacity-lamps i.occupied{background:#a36bff;border-color:#a36bff;box-shadow:0 0 0 4px #a36bff20}
+.switch-study .circuit-slots{display:grid;grid-template-columns:1fr 1fr;background:#252a30;gap:1px;border:1px solid #252a30}
+.switch-study .circuit-slot{background:#30353b;color:#f5f3ec;min-width:0;padding:28px;min-height:380px;position:relative;border-top:4px solid #777b80}
+.switch-study .circuit-slot[data-phase="patched"],.switch-study .circuit-slot[data-phase="open"]{border-top-color:#a36bff}
+.switch-study .circuit-slot.contested:not([data-phase="empty"]){border-top-color:#ee4f7e}
+.switch-study .slot-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;font:10px monospace;text-transform:uppercase;letter-spacing:.1em}
+.switch-study .slot-number{font:40px/1 monospace;color:#a7b2c3;letter-spacing:-.08em}
+.switch-study .slot-phase{border:1px solid #777b80;padding:8px}
+.switch-study .empty-jacks{display:flex;align-items:center;gap:16px;margin:38px 0 30px;max-width:220px}
+.switch-study .empty-jacks i{width:34px;height:34px;border:1px solid #a7b2c3;border-radius:50%;box-shadow:inset 0 0 0 8px #252a30,inset 0 0 0 9px #777b80}
+.switch-study .empty-jacks span{flex:1;border-bottom:1px dashed #777b80}
+.switch-study .slot-empty h3{font:400 28px/1.2 Georgia,serif;letter-spacing:-.03em}
+.switch-study .slot-empty p{font:14px/1.7 Georgia,serif;color:#c4bfb5;max-width:300px}
+.switch-study .slot-relation{font:10px monospace;text-transform:uppercase;color:#c4bfb5;margin-top:25px}
+.switch-study .slot-title{font:54px/1 monospace;letter-spacing:-.06em;margin:16px 0}
+.switch-study .slot-reason{font:15px/1.6 Georgia,serif;color:#e1ddd4;max-width:420px}
+.switch-study .slot-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}
+.switch-study .slot-actions button{border-color:#a7b2c3}
+.switch-study [data-open]{background:#a36bff;color:#252a30;border-color:#a36bff!important}
+.switch-study .slot-voices{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid #777b80;margin-top:25px;padding-top:15px}
+.switch-study .voice-byline{font:10px monospace;color:#c4bfb5}
+.switch-study .slot-voices blockquote{font:18px/1.5 Georgia,serif;margin:18px 0 24px}
+.switch-study .slot-voices a{font:10px/1.7 monospace;overflow-wrap:anywhere;color:#c4bfb5}
+.switch-study .desk-status{min-height:50px;border-left:3px solid #7350a4;padding:14px 18px;font:12px/1.6 monospace;background:#eeebf2;margin:18px 0 38px}
+.switch-study [data-full="true"] .desk-status{border-color:#a33354;background:#f4e8e9}
+.switch-study .offers-heading{display:flex;justify-content:space-between;gap:40px;align-items:baseline;margin:35px 0 20px}
+.switch-study .offers-heading h3{font:32px/1.1 Georgia,serif;letter-spacing:-.04em}
+.switch-study .offers-heading p{font:11px/1.6 monospace;max-width:400px}
+.switch-study .desk-offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.switch-study .desk-offer{border:1px solid #a4a7aa;border-top:3px solid #4a6288;background:#faf9f4;padding:20px;display:flex;flex-direction:column;min-width:0}
+.switch-study .desk-offer.contested{border-top-color:#a33354}
+.switch-study .offer-label{display:flex;justify-content:space-between;gap:12px;font:10px/1.4 monospace;color:#4a6288}
+.switch-study .desk-offer.contested .offer-label{color:#9b2245}
+.switch-study .desk-offer h4{font:400 28px/1.2 Georgia,serif;margin:28px 0 14px;letter-spacing:-.03em}
+.switch-study .desk-offer h4 span{font-style:italic;color:#4a6288}
+.switch-study .desk-offer p{font:14px/1.6 Georgia,serif;margin:0 0 25px}
+.switch-study .desk-offer button{margin-top:auto;border-color:#4a6288;text-align:left}
+.switch-study .desk-offer[data-patched="true"]{background:#eae5f1}
+.switch-study .clearing{margin-top:40px;padding-top:28px;border-top:1px solid #4a6288;display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.switch-study .clearing>div:first-child>p:last-child{font:38px/1.1 Georgia,serif;letter-spacing:-.04em;margin:18px 0}
+.switch-study .clearing em{font-weight:400;color:#4a6288}
+.switch-study .clearing>div:last-child{display:flex;align-items:start;flex-direction:column;justify-content:center;gap:18px}
+.switch-study .clearing a{font:12px/1.6 monospace}
+.switch-study #cleared-note{font:11px/1.6 monospace;max-width:430px;margin:0}
+.switch-study .live-desk :focus-visible{outline:3px solid #7350a4;outline-offset:4px}
+.switch-study .circuit-slots :focus-visible{outline-color:#f5f3ec}
+@media(max-width:950px){.switch-study .desk-offers{grid-template-columns:repeat(2,minmax(0,1fr))}.switch-study .slot-voices{grid-template-columns:1fr}.switch-study .desk-introduction{gap:20px}}
+@media(max-width:600px){.switch-study .desk-introduction,.switch-study .circuit-slots,.switch-study .clearing{grid-template-columns:1fr}.switch-study .circuit-slot{padding:22px;min-height:320px}.switch-study .desk-offers{grid-template-columns:1fr}.switch-study .desk-capacity{flex-wrap:wrap;padding:16px}.switch-study .desk-capacity>span:last-child{width:100%}.switch-study .offers-heading{display:block}.switch-study .desk-introduction h2{font-size:54px}}
