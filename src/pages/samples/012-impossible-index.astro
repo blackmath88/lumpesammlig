@@ -1,31 +1,176 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import {withBase} from '../../data/site';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+import { records } from "../../samples/012-impossible-index/records";
+import "../../samples/012-impossible-index/index.css";
 ---
-<BaseLayout title="012 — The Impossible Index / Lumpesammlig" description="A performative study of indexing as prior classification, not a search agent.">
-<main>
-<nav><a href={withBase('/#library')}>← COLLECTION</a><span>012 / THE IMPOSSIBLE INDEX</span></nav>
-<header><p class="kicker">Found system → performative translation</p><h1>The Impossible Index.</h1><p class="lede">A card catalogue doesn't read every book when you ask a question. Someone already did the classification. What happens when software knowledge works that way?</p></header>
-<section><p class="kicker">01 / Encounter</p><h2>The lost shortcut.</h2><p class="notes">Four words used to lead to an answer that other people had already found, discussed and corrected. Today an agent may reconstruct the same solution privately. The source is a conversation about shared knowledge, not a claim that all agents behave this way.</p><p class="small"><a href="https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript">Syntax #1050 · source transcript</a></p></section>
-<section aria-labelledby="experiment"><p class="kicker">02 / Executable reading</p><h2 id="experiment">Classification before search.</h2><label for="query">Four words (or fewer)</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 24px"><input id="query" value="refresh expired oauth token" style="flex:1;min-width:210px;border:1px solid #4a6288;background:#fffefa;padding:14px" /><button id="find">Reorder index</button></div><p class="small" id="status" aria-live="polite">Illustrative records · deterministic lexical matching · no network search</p><div id="cards" class="cards" aria-live="polite"></div></section>
-<section><p class="kicker">03 / What survived the translation?</p><p class="notes">Not the wood. Not the brass. The meaningful mechanism is prior work made inspectable: an existing set of records, ordered against a short question, with the reasons visible. A missing result is a gap in the index, not proof the answer doesn't exist.</p><p class="small">Synthetic fixtures, not live GitHub results. <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/012-impossible-index/sample.md">Encounter and readings (available after merge)</a> · <a href="https://github.com/blackmath88/postack-underflow">Postack Underflow</a></p></section>
-</main>
-<script>
-const records=[
-{title:'Refresh an expired OAuth access token',terms:'oauth refresh expired token rotate access credentials',why:'Token lifecycle and refresh workflow',kind:'SOLUTION PATTERN',id:'IDX-001'},
-{title:'Recover a broken static-site base path',terms:'github pages static assets base path subdirectory routes',why:'Static hosting and path prefix',kind:'IMPLEMENTATION NOTE',id:'IDX-002'},
-{title:'Keep public discussions attributable',terms:'atproto blog replies identity provenance decentralized comments',why:'Portable identity and reply provenance',kind:'OPEN QUESTION',id:'IDX-003'},
-{title:'Avoid repeated repository exploration',terms:'index github code issues problems solved retrieval',why:'Precomputed problem-oriented index',kind:'RESEARCH HYPOTHESIS',id:'IDX-004'}
-];
-const input=document.querySelector<HTMLInputElement>('#query')!,cards=document.querySelector<HTMLElement>('#cards')!,status=document.querySelector<HTMLElement>('#status')!;
-function render(){const words=[...new Set((input.value.toLowerCase().match(/[a-z0-9]+/g)||[]))];const ranked=records.map(r=>({...r,score:words.reduce((s,w)=>s+(r.title+' '+r.terms).toLowerCase().split(/[^a-z0-9]+/).includes(w)*1,0)})).filter(r=>r.score>0).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));cards.replaceChildren();for(const r of ranked){const article=document.createElement('article');article.className='record';const top=document.createElement('p');top.className='tag';top.textContent=r.id+' / '+r.kind+' / '+r.score+' matched terms';const title=document.createElement('h3');title.textContent=r.title;const desc=document.createElement('p');desc.textContent='Classification: '+r.why+'. Evidence: not attached (synthetic fixture).';article.append(top,title,desc);cards.append(article)}status.textContent=ranked.length+' matching fixture records · sorted by matched terms · no LLM or live index';if(!ranked.length){const p=document.createElement('p');p.textContent='No indexed match. This is not proof no solution exists.';cards.append(p)}}
-document.querySelector('#find')?.addEventListener('click',render);input.addEventListener('keydown',e=>{if(e.key==='Enter')render()});render();
-</script>
-<style>.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid #4a6288}.record{border-bottom:1px solid #aeb4bc;padding:24px 20px 30px 0}.record h3{font-size:clamp(20px,2.5vw,30px);line-height:1.1;letter-spacing:-.04em}.record p:last-child{font-size:14px;line-height:1.5;color:#58616d}</style>
-<style>
-:global(body){background:#f5f3ec;color:#252a30;font-family:Inter,system-ui,sans-serif}
-main{max-width:1100px;margin:auto;padding:24px clamp(18px,5vw,70px) 100px}
-nav{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid #aeb4bc;padding:12px 0;font-size:12px;letter-spacing:.08em}
-a{color:inherit}header{padding:clamp(40px,9vw,110px) 0 50px}h1{font-size:clamp(46px,8vw,108px);line-height:.97;letter-spacing:-.065em;max-width:900px;margin:20px 0}h2{font-size:clamp(25px,4vw,48px);letter-spacing:-.045em}.kicker{color:#4a6288;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.lede{max-width:670px;font-size:clamp(17px,2vw,23px);line-height:1.5}section{border-top:1px solid #aeb4bc;padding:36px 0}button,input{font:inherit}button{cursor:pointer;border:1px solid #4a6288;background:transparent;color:#252a30;padding:12px 16px}button[aria-pressed="true"],button:focus-visible{background:#4a6288;color:white}button:focus-visible,input:focus-visible{outline:3px solid #a36bff;outline-offset:3px}.small{font-size:12px;color:#58616d}.plate{border:1px solid #aeb4bc;padding:20px;background:#fffefa}.notes{max-width:720px;line-height:1.65}.tag{font:12px ui-monospace,monospace;color:#4a6288}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-</style>
+
+<BaseLayout
+  title="012 — The Impossible Index / Lumpesammlig"
+  description="Prior classification made visible through a movable working index."
+>
+  <main class="index-study">
+    <nav>
+      <a href={withBase("/#library")}>← Collection</a>
+      <span>Lumpesammlig / 012</span>
+      <a href={withBase("/samples/013-switchboard")}>Next study ↗</a>
+    </nav>
+    <header>
+      <p class="eyebrow">Postack Underflow / Working specimen 01</p>
+      <h1>
+        The impossible
+        <br />
+        <em>index.</em>
+      </h1>
+      <div class="intro">
+        <p>
+          A question takes seconds.
+          <br />
+          The classification came before it.
+        </p>
+        <p class="annotation">
+          Eight synthetic records. Four drawers.
+          <br />A fixed index, waiting for a question.
+          <br />
+          No browsing. No generated answers.
+        </p>
+      </div>
+    </header>
+    <section class="workbench" aria-labelledby="bench-title">
+      <div class="bench-label">
+        <h2 id="bench-title">Ask the archive</h2>
+        <span>01 / Prior work → present question</span>
+      </div>
+      <form id="index-query">
+        <label for="query">A short query · up to four distinct words</label>
+        <div class="query-line">
+          <input
+            id="query"
+            autocomplete="off"
+            placeholder="refresh expired oauth token"
+            aria-describedby="query-help"
+          />
+          <button type="submit">Order the index ↗</button>
+        </div>
+        <p id="query-help">
+          Exact controlled-term matching. One point per term; ties use accession
+          number. No relevance claims.
+        </p>
+        <p id="query-error" role="alert"></p>
+      </form>
+      <div class="examples">
+        <span>Try a question</span>
+        <button data-query="refresh expired oauth token">
+          refresh expired oauth token
+        </button>
+        <button data-query="static assets path">static assets path</button>
+        <button data-query="portable discussion">portable discussion</button>
+        <button id="reset-index">Return to accession order</button>
+      </div>
+      <div class="archive-head">
+        <p id="index-status" role="status">
+          08 records / accession order / no question asked
+        </p>
+        <span class="annotation">Open any card to inspect prior work ↓</span>
+      </div>
+      <div class="drawers" role="group" aria-label="Classification drawers">
+        <button data-drawer="All" aria-pressed="true">
+          All drawers <span>08</span>
+        </button>
+        {["Identity", "Hosting", "Community", "Indexing"].map((drawer, i) => (
+          <button data-drawer={drawer} aria-pressed="false">
+            0{i + 1} / {drawer} <span>02</span>
+          </button>
+        ))}
+      </div>
+      <div id="index-cards" class="index-cards">
+        {records.map((record) => (
+          <article class="index-card" data-record={record.id}>
+            <div class="card-top">
+              <span>
+                {record.id} / {record.drawer}
+              </span>
+              <span class="rank">Unranked</span>
+            </div>
+            <h3>{record.title}</h3>
+            <p class="match-note">Classification existed before your query.</p>
+            <details>
+              <summary>Inspect original record + classification</summary>
+              <p>{record.note}</p>
+              <dl>
+                <dt>Controlled terms</dt>
+                <dd class="term-crossrefs">
+                  {record.terms.map((term) => (
+                    <button
+                      data-term={term}
+                      title={`Reorder by classification term: ${term}`}
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </dd>
+                <dt>Record type</dt>
+                <dd>{record.kind}</dd>
+                <dt>Qualification</dt>
+                <dd>{record.caveat}</dd>
+                <dt>Evidence</dt>
+                <dd>Synthetic fixture; no external evidence attached.</dd>
+              </dl>
+            </details>
+          </article>
+        ))}
+      </div>
+      <p id="index-empty" hidden>
+        No indexed match in this drawer. A gap in this fixture is not proof that
+        no solution exists.
+      </p>
+      <details id="unmatched-drawer" hidden>
+        <summary id="unmatched-label">Unmatched records</summary>
+        <div id="unmatched-cards" class="index-cards"></div>
+      </details>
+      <noscript>
+        <p>
+          The complete classified archive is available above. Enable JavaScript
+          to reorder it against a question.
+        </p>
+      </noscript>
+    </section>
+    <footer>
+      <div>
+        <p class="eyebrow">The encounter</p>
+        <h2>
+          Someone already
+          <br />
+          made the distinction.
+        </h2>
+      </div>
+      <div>
+        <p>
+          A library catalogue makes accumulated classification available before
+          a question. CJ’s observation in Syntax #1050—agents rediscovering
+          existing solutions—gave that old mechanism a new urgency.
+        </p>
+        <p>
+          This specimen makes the labour inspectable. The query moves the cards;
+          it does not write them. A drawer exposes a classification, and each
+          card keeps its original qualification.
+        </p>
+        <p class="annotation">
+          A lexical toy, not a better search engine. The source survives in
+          preclassification, recoverable records and explicit gaps. Physical
+          resistance and collective maintenance remain untranslated.
+        </p>
+        <a href="https://syntax.fm/show/1050/everyone-is-hacking-their-tv/transcript">
+          Encounter reference ↗
+        </a>{" "}
+        ·{" "}
+        <a href="https://github.com/blackmath88/lumpesammlig/blob/feat/012-013-postack-encounters/src/samples/012-impossible-index/sample.md">
+          Readings & reflection ↗
+        </a>
+      </div>
+    </footer>
+  </main>
+  <script>
+    import "../../samples/012-impossible-index/index";
+  </script>
 </BaseLayout>

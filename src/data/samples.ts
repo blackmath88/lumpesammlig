@@ -109,7 +109,7 @@ export const samples: Sample[] = [
     route: '/samples/011-thread-icons',
     status: 'study',
     technology: ['Astro', 'SVG', 'Vanilla TS']
-  }
+  },
   {
     id: 'impossible-index',
     number: '012',
