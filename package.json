@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run check:assets",
     "deploy": "npm run build && wrangler deploy",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "check:assets": "node scripts/check-built-css.mjs",
+    "test:assets": "node --test scripts/check-built-css.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.4",
