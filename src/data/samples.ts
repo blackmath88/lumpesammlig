@@ -110,4 +110,26 @@ export const samples: Sample[] = [
     status: 'study',
     technology: ['Astro', 'SVG', 'Vanilla TS']
   }
+  {
+    id: 'impossible-index',
+    number: '012',
+    title: 'The Impossible Index',
+    object: 'A card catalogue encountered through the problem of rediscovering already-solved software issues.',
+    material: 'Preclassified records / paper index / provenance / ranking',
+    translation: 'A short query reorders a finite pre-indexed collection and exposes why each card matched.',
+    route: '/samples/012-impossible-index',
+    status: 'study',
+    technology: ['Astro', 'Vanilla TS', 'SVG-free semantic cards']
+  },
+  {
+    id: 'switchboard',
+    number: '013',
+    title: 'The Switchboard',
+    object: 'A telephone switchboard read as temporary connections between independent voices.',
+    material: 'Endpoints / connections / routing / operator authority',
+    translation: 'Topic lenses reroute a visible conversation without rewriting its attributed source contributions.',
+    route: '/samples/013-switchboard',
+    status: 'study',
+    technology: ['Astro', 'SVG', 'Vanilla TS']
+  },
 ];
