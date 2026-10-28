@@ -1,9 +1,9 @@
 # 013 — The Switchboard
 
 ## Encounter
-A conversation about a technical problem can be scattered across independent blogs and identities. A community need not be one website. Postack Underflow proposes portable ATProto discussions, while [br-ai-nstorm](https://github.com/blackmath88/br-ai-nstorm) already separates contributions, relations, provenance and accepted collective memory.
+The encounter is the manual telephone switchboard: separate endpoints, physical sockets, temporary circuits and an operator who connects lines. The voices belong to their endpoints, not to the switchboard. A circuit can disappear without erasing the conversations or the parties involved.
 
-A telephone switchboard is the *provocation*, not a requirement to imitate old hardware. Its distinctive behavior is connecting independent endpoints temporarily without claiming ownership of what travels between them.
+The study asks what this separation between **source** and **routing** can become in an interactive medium. It is not an ATProto demo or a prototype of a particular social product.
 
 ## Situated reading
 The operator chooses which lines to connect. The lines retain their own endpoints. A connection can be broken; the original speech still happened. Crucially, the operator is a mediator, not the owner or author of each voice.
@@ -19,11 +19,8 @@ A set of attributed, synthetic contributions remains fixed. The visitor changes 
 ## What this tests
 Can readers distinguish the underlying records from the temporary connections proposed by a viewing interface? Does a switchboard explain decentralization or mistakenly imply one central operator? Compare later with an overlay metaphor if the latter dominates.
 
-## Provenance
-- [Postack concept](https://github.com/blackmath88/postack-underflow/blob/main/docs/CONCEPT.md)
-- [br-ai-nstorm](https://github.com/blackmath88/br-ai-nstorm) — provenance, relations, human review, conflicts
-- [AT Protocol](https://atproto.com/) — portable records and identity
-- [Colors](https://github.com/blackmath88/colors) — hard-edged Kanji Signal-derived print language
+## Provenance and later applications
+The telephone switchboard is the operative reference; the experiment follows Lumpesammlig's encounter → interpretation → transformation method. [br-ai-nstorm](https://github.com/blackmath88/br-ai-nstorm), [AT Protocol](https://atproto.com/) and [Postack Underflow](https://github.com/blackmath88/postack-underflow) are possible **downstream applications and conceptual relatives**, not the study's subject or dependency. [Colors](https://github.com/blackmath88/colors) informed the print treatment. The source mechanism, not the destination project, should determine the experiment.
 
 ## Initial review questions (from the first prototype)
 Test topic switching, authorship, explicit disagreements, keyboard navigation and reader comprehension. A fixture is not federation.
