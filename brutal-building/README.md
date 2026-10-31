@@ -12,6 +12,8 @@ the page is a single concrete elevation you scroll from roof to ground.
 
 No images. Concrete is layered gradients plus an inline SVG noise tile; depth is shadow.
 
+**Page 02, The Golden Brains** (`#/brains`): an interpretation of the Presidium of the Russian Academy of Sciences in Moscow, from two photographs supplied in conversation and not reproduced. A grey two-shaft slab, bronze glass wings, and a crown of gilded lattice cubes that alone stay lit at night. Same day/night switch.
+
 ```bash
 cd brutal-building
 npm install

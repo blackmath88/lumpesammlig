@@ -1,5 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { FLOORS } from './content.js';
+import GoldenBrains from './GoldenBrains.jsx';
+import './brains.css';
+
+function useRoute() {
+  const [route, setRoute] = useState(window.location.hash);
+  useEffect(() => {
+    const on = () => { setRoute(window.location.hash); window.scrollTo(0, 0); };
+    window.addEventListener('hashchange', on);
+    return () => window.removeEventListener('hashchange', on);
+  }, []);
+  return route;
+}
 
 function useActiveFloor() {
   const [active, setActive] = useState(FLOORS[0].id);
@@ -67,6 +79,12 @@ function Floor({ f, night }) {
 
 export default function App() {
   const [night, setNight] = useState(false);
+  const route = useRoute();
+  if (route.startsWith('#/brains')) return <GoldenBrains night={night} setNight={setNight} />;
+  return <Block night={night} setNight={setNight} />;
+}
+
+function Block({ night, setNight }) {
   const { active, progress } = useActiveFloor();
   const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   return (
@@ -101,6 +119,7 @@ export default function App() {
       <div className="plaza" aria-hidden="true"><i className="step" /><i className="step" /><i className="step" /></div>
       <footer className="kerb">
         <p>Block 14 is a visual study. The concrete is gradients and noise, the depth is shadow, the lift is a scroll listener. <a href="https://github.com/blackmath88/lumpesammlig/tree/main/brutal-building">Source ↗</a></p>
+        <a className="next-page" href="#/brains">Page 02 → The Golden Brains</a>
       </footer>
     </div>
   );
