@@ -5,6 +5,7 @@
     "README.md",
     "docs/*.md",
     "docs/method/*.md",
+    "docs/method/lessons/*.md",
     "docs/research/*.md",
     "src/samples/*/sample.md",
     "src/samples/*/working-state.md",

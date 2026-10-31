@@ -20,7 +20,7 @@ Last updated 2026-10-31 after the working-history page was added. Read this firs
 - Whether to check the Ivaschenko and Heathcote sources before Phase C publishes any of this record (recommended; see `research/sources.md` → Next checks).
 - Whether the social reading should get a second attempt or stay recorded as untranslated.
 - Whether the rhetorical pier needs to be perceptible without the load-path toggle (`sample.md` says it is not).
-- Whether to reword "after Vassiliev's observation that the image of support and the engineering need not agree" in the page prose and `sample.md`, since the source check found that step to be the report's inference (`feedback/2026-10-31-source-check.md`).
+- Whether to reword "after Vassiliev's observation that the image of support and the engineering need not agree" in the page prose and `sample.md`, since the source check found that step to be the report's inference (`feedback/2026-10-31-source-check.md`). Track: study-specific change, pending the author; the related method proposal is `docs/method/lessons/001-check-the-load-bearing-link.md`.
 
 **Blockers.** None technical. Everything above waits on the author.
 

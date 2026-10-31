@@ -54,8 +54,24 @@ for (const n of inCatalogue) if (!inIndex.includes(n)) problems.push(`study-inde
 for (const n of inIndex) if (!inCatalogue.includes(n)) problems.push(`study-index.md: lists ${n}, not in samples.ts`);
 if (new Set(inIndex).size !== inIndex.length) problems.push('study-index.md: duplicate study heading');
 
+// 4. Lesson notes carry their status lines, with an allowed status.
+const lessonsDir = join(repo, 'docs/method/lessons');
+if (existsSync(lessonsDir)) {
+  const STATUS = new Set(['proposed', 'accepted', 'rejected', 'withdrawn', 'applied']);
+  for (const file of walk(lessonsDir)) {
+    if (file.endsWith('README.md')) continue;
+    const rel = relative(repo, file);
+    const head = readFileSync(file, 'utf8').split('\n').slice(0, 20).join('\n');
+    for (const key of ['Status', 'Scope', 'Supporting examples', 'Counterexamples', 'Approval']) {
+      if (!new RegExp(`^${key}:\\s*\\S`, 'm').test(head)) problems.push(`${rel}: missing "${key}:" line near the top`);
+    }
+    const status = (head.match(/^Status:\s*(\S+)/m) || [])[1];
+    if (status && !STATUS.has(status)) problems.push(`${rel}: status "${status}" is not one of ${[...STATUS].join(', ')}`);
+  }
+}
+
 if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);
 }
-console.log(`docs check passed: ${files.length} Markdown files, ${inCatalogue.length} studies indexed.`);
+console.log(`docs check passed: ${files.length} Markdown files, ${inCatalogue.length} studies indexed, lesson notes well-formed.`);

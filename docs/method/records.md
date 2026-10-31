@@ -9,7 +9,7 @@ What to write down, where, and how much. Markdown in the repository is the canon
 | Method | Durable collaboration principles and review criteria | `AGENTS.md`, `docs/method/`, `docs/CONCEPT.md`, `docs/ARCHITECTURE.md` | Only through human review of a proposed lesson; an agent may propose, never silently rewrite |
 | Study | Evidence, research, readings, choices, constraints of one study | `src/samples/<study>/` | Added to as the study develops; evidence is never overwritten |
 | Working state | A compact note for resuming | `src/samples/<study>/working-state.md`; `docs/AGENT-WORKBENCH-WORKING-STATE.md` for the plan | Rewritten freely; it describes now |
-| Candidate lessons | Proposed changes to the method | A feedback note marked as a method proposal, or an issue | Status moves from proposed to accepted, rejected or withdrawn |
+| Candidate lessons | Proposed changes to the method | `docs/method/lessons/`, one file per lesson; see [feedback-loop.md](feedback-loop.md) | Status moves from proposed to accepted, rejected, withdrawn or applied; only a human moves it |
 
 Record inspectable rationale: evidence, alternatives, reasons, assumptions, uncertainty and the conditions under which a decision should be revisited. Do not present reconstructed reasoning as a transcript of what was thought at the time.
 
@@ -48,7 +48,7 @@ These are contents, not headings. Use the form the material wants.
 
 **Decision.** Choice; status (proposed, accepted, superseded); scope (this study, or wider); alternatives considered; reasons; trade-offs; grounding in evidence or readings; conditions for revisiting. If written after the fact, say so and name the basis (a commit, a note, a file), since the conversation is usually not in the repository.
 
-**Feedback.** The version reviewed (commit); observation, kept separate from interpretation; proposed change; outcome once known. A synthetic or self-review is labelled as such and never passed off as a user test.
+**Feedback.** The version reviewed (commit); observation, kept separate from interpretation; proposed change, with its track (defect fix, study-specific change, or candidate method lesson); decision; outcome once known. A synthetic or self-review is labelled as such and never passed off as a user test.
 
 **Working state.** Current focus; agreed direction; the files that matter; open decisions; blockers; the next useful action. Short enough to read before anything else.
 

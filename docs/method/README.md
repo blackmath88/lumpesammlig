@@ -8,6 +8,7 @@ Operational guidance for developing a study. It makes [CONCEPT.md](../CONCEPT.md
 | [review-guide.md](review-guide.md) | Judging a proposition or an implemented experiment, your own or someone else's. |
 | [records.md](records.md) | Deciding what to write down, where, and how much, for a small or a rich encounter. |
 | [study-index.md](study-index.md) | Looking for what the collection has already tried, and what each study must not turn into a default. |
+| [feedback-loop.md](feedback-loop.md) | Turning an observation into a change, on the right track, with review; proposing a method lesson in [lessons/](lessons/README.md). |
 
 The always-loaded instructions are in the root [AGENTS.md](../../AGENTS.md). Nothing in this folder is a template to be filled in; each file describes questions and qualities, and a study may answer them in whatever form suits it.
 
