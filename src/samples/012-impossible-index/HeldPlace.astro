@@ -1,0 +1,49 @@
+---
+import { initialPlace, neighbours, recordFor, placementReason } from './held-place';
+const anchor = recordFor(initialPlace.id);
+const view = neighbours(initialPlace);
+---
+<section id="held-place" class="held-place" aria-labelledby="held-title" data-held="false">
+  <div class="held-introduction">
+    <p class="eyebrow">01 / A finger between the cards</p>
+    <h2 id="held-title">Stay here.<br /><em>Move everything else.</em></h2>
+    <p>A catalogue gives you neighbours before it gives you answers. Hold one record, then change what “beside it” means.</p>
+  </div>
+  <div class="filing-controls" role="group" aria-label="Filing principle">
+    <span>File by</span>
+    <button data-filing="title" aria-pressed="true">Title / A–Z</button>
+    <button data-filing="subject" aria-pressed="false">Subject / A–Z</button>
+    <button data-filing="vocabulary" aria-pressed="false">Shared vocabulary</button>
+  </div>
+  <div class="held-spread">
+    <button id="neighbour-before" class="neighbour before" data-pick={view.before?.id} disabled={!view.before}>
+      <span class="neighbour-direction">← Previous neighbour</span>
+      <span class="neighbour-id">{view.before?.id}</span>
+      <strong>{view.before?.title}</strong>
+      <span class="neighbour-reason">{view.before && placementReason(view.before.id, initialPlace)}</span>
+    </button>
+    <article class="held-card" aria-labelledby="held-heading">
+      <div class="held-card-top"><span id="held-number">{anchor.id}</span><span id="place-position">{String(view.position + 1).padStart(2, '0')} / 08</span></div>
+      <p id="held-classification" class="held-classification">{anchor.drawer} / {anchor.kind}</p>
+      <h3 id="held-heading">{anchor.title}</h3>
+      <p id="held-note">{anchor.note}</p>
+      <details><summary>Read the original qualification & terms</summary><p id="held-qualification">{anchor.caveat}</p><p id="held-terms">{anchor.terms.join(' / ')}</p></details>
+      <button id="hold-place" aria-pressed="false">Hold this place</button>
+      <div class="finger" aria-hidden="true"><span></span></div>
+    </article>
+    <button id="neighbour-after" class="neighbour after" data-pick={view.after?.id} disabled={!view.after}>
+      <span class="neighbour-direction">Next neighbour →</span>
+      <span class="neighbour-id">{view.after?.id}</span>
+      <strong>{view.after?.title}</strong>
+      <span class="neighbour-reason">{view.after && placementReason(view.after.id, initialPlace)}</span>
+    </button>
+  </div>
+  <div class="held-readout"><p id="finger-state">No place held. The same position may reveal another record.</p><p id="place-memory">Pick a record. Hold its place. Change the filing. Notice who arrives beside it.</p></div>
+  <div id="filing-rail" class="filing-rail" role="group" aria-label="Browse the filed records, arrow keys supported">
+    {view.order.map((record, i) => <button data-pick={record.id} aria-pressed={record.id === anchor.id ? 'true' : 'false'}><span class="rail-position">{String(i + 1).padStart(2, '0')}</span><span>{record.id.slice(-3)}</span><span class="rail-title">{record.title}</span></button>)}
+  </div>
+  <p class="held-boundary">One original, different neighbourhoods. Shared vocabulary is a digital comparison, not a historical filing rule. All eight records are authored fixtures.</p>
+  <p id="held-status" class="sr-only" role="status" aria-live="polite"></p>
+  <noscript><p>The initial spread is shown above. The complete original archive follows; JavaScript enables changing its neighbourhood.</p></noscript>
+</section>
+<script>import './held-place-ui';</script>

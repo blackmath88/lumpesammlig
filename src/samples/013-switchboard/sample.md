@@ -44,3 +44,11 @@ Practice: development-practice baseline, prototype profile and build guidance. C
 **Falsification.** Without cables, colour or socket imagery, the visitor can still select pairwise relations, inspect their reasons, remove them and recover unchanged attributed records. The separation between view authority and source authority survives. This does not prove political decentralization; a view can still frame and suppress attention.
 
 **Carry into Postack.** Model contributions and view relations separately. Give each relation a reason and provenance; keep disagreement explicit, retain source access across lenses, and allow multiple disposable readings over the same records. Do not treat a drawn connection as author endorsement or consensus. Human comprehension remains unvalidated.
+
+## Second development · The limited desk, 2026-10-28
+
+The later brief asked what a diagram of unlimited relations left untranslated. Source verification and rejected alternatives are recorded in [the development research](../../../docs/research/012-013-held-place-live-circuits.md). Original source and relation fixtures remain unchanged; the unrestricted map remains available for comparison.
+
+Two circuit positions hold actual pairwise readings. A proposed relation can be patched (occupying a position), opened (showing the unchanged sources together) and released (freeing capacity). A third patch leaves existing work intact and asks the reader to release a circuit. Original contributions remain readable regardless of capacity. No author is being called or asked to consent; every relation is explicitly the specimen's interpretation.
+
+The trial weakened the idea that cable motion establishes mediation. Occupation has to change the next available action, and opening must reveal more than a status label. The source-to-interaction move is limited working attention, not telephone cosplay. Two is an experimental layout constraint, not historical board capacity or a claim about human cognitive limits. No timers, artificial waiting, ringing, remote source fetching or fabricated author endorsements are used. The question for human review: does making room for a relation give it weight, or merely add friction?
