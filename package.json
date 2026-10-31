@@ -12,8 +12,12 @@
     "check:assets": "node scripts/check-built-css.mjs",
     "check:docs": "node scripts/check-docs.mjs",
     "check:history": "node --experimental-strip-types scripts/check-history-output.mjs",
+    "retrieval:index": "node tools/retrieval/cli.mjs index",
+    "retrieval:search": "node tools/retrieval/cli.mjs search",
+    "retrieval:eval": "node tools/retrieval/cli.mjs eval",
     "test:assets": "node --test scripts/check-built-css.test.mjs",
-    "test:studies": "node --experimental-strip-types --test src/samples/012-impossible-index/held-place.test.mjs src/samples/013-switchboard/circuits.test.mjs src/samples/014-made-heavy/made-heavy.test.mjs src/samples/014-made-heavy/history.test.mjs"
+    "test:studies": "node --experimental-strip-types --test src/samples/012-impossible-index/held-place.test.mjs src/samples/013-switchboard/circuits.test.mjs src/samples/014-made-heavy/made-heavy.test.mjs src/samples/014-made-heavy/history.test.mjs",
+    "test:retrieval": "node --test tools/retrieval/lib.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.4",

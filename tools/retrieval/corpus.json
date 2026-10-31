@@ -1,0 +1,21 @@
+{
+  "note": "The approved retrieval corpus. Paths are repository-relative globs. Nothing outside these patterns is indexed; nothing outside the repository can be. Edit deliberately: the index is a disposable derivative of these files.",
+  "include": [
+    "AGENTS.md",
+    "README.md",
+    "docs/*.md",
+    "docs/method/*.md",
+    "docs/research/*.md",
+    "src/samples/*/sample.md",
+    "src/samples/*/working-state.md",
+    "src/samples/*/encounter/README.md",
+    "src/samples/*/research/*.md",
+    "src/samples/*/readings/*.md",
+    "src/samples/*/decisions/*.md",
+    "src/samples/*/feedback/*.md"
+  ],
+  "exclude": [
+    "src/samples/*/encounter/research-*.md"
+  ],
+  "excludeNote": "The raw research exports in 014 are assistant output with unchecked citations; the study's own notes cite what it relies on. Add them here or to include if a search needs the reports' own words."
+}

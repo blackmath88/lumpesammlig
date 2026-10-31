@@ -1,0 +1,42 @@
+[
+  {
+    "id": "exact-source",
+    "name": "exact source lookup",
+    "query": "Vassiliev upward-widening pylons sun-screen ribs",
+    "expect": ["src/samples/014-made-heavy/feedback/2026-10-31-source-check.md", "src/samples/014-made-heavy/research/sources.md"],
+    "top": 5,
+    "judge": "the cited section must be the note that records what Ivaschenko actually quotes, not the study prose that paraphrases it"
+  },
+  {
+    "id": "resume",
+    "name": "resuming a study",
+    "query": "resume study 014 next useful action open decisions",
+    "expect": ["src/samples/014-made-heavy/working-state.md"],
+    "top": 5,
+    "judge": "a session resuming the study must land on the working-state note before anything else"
+  },
+  {
+    "id": "rejected",
+    "name": "finding a rejected approach",
+    "query": "page that refuses to adapt to the viewer dropped",
+    "expect": ["src/samples/014-made-heavy/decisions/003-drop-the-fifth-direction.md", "src/samples/014-made-heavy/readings/02-collective-promise-individual-smallness.md"],
+    "top": 5,
+    "judge": "the result must say why it was dropped, so the decision note or the reading, not the study note's passing mention"
+  },
+  {
+    "id": "limitation",
+    "name": "finding a relevant limitation",
+    "query": "façade one-dimensional screens by height and distance",
+    "expect": ["src/samples/014-made-heavy/sample.md"],
+    "top": 5,
+    "judge": "the study note's reflection on experiment 02, where the limit is stated"
+  },
+  {
+    "id": "contrast",
+    "name": "locating a contrasting study",
+    "query": "material and perceptual study named as such no behavioural transformation",
+    "expect": ["src/samples/010-pixels-to-stitches/sample.md", "docs/method/study-index.md"],
+    "top": 5,
+    "judge": "a study that explicitly took the material route is the contrast to 014's behavioural one; the study index is an acceptable pointer"
+  }
+]

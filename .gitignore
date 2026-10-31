@@ -7,3 +7,4 @@ dist/
 *.png
 !public/**/*.png
 .DS_Store
+tools/retrieval/index.json

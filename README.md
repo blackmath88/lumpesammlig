@@ -90,6 +90,8 @@ docs/
   ARCHITECTURE.md                # evidence / model / experiment architecture
   method/                        # study practice, review guide, records, study index
   AGENT-WORKBENCH-BUILD-PLAN.md  # phased plan; WORKING-STATE.md beside it says what is done
+tools/
+  retrieval/                     # local full-text search over the approved Markdown record; not part of the site
 src/
   components/
     SampleLibrary.astro          # static promenade + low-cost previews

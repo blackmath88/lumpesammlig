@@ -20,6 +20,7 @@ jobs:
       - run: npm run check:docs
       - run: npm run test:assets
       - run: npm run test:studies
+      - run: npm run test:retrieval
       - run: npm run build
       - name: Check study DOM interactions
         run: |

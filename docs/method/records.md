@@ -1,6 +1,6 @@
 # Records
 
-What to write down, where, and how much. Markdown in the repository is the canonical record; search indexes, summaries and context packs, if they ever exist, are disposable derivatives of it.
+What to write down, where, and how much. Markdown in the repository is the canonical record; search indexes, summaries and context packs are disposable derivatives of it. The one index that exists, [tools/retrieval](../../tools/retrieval/README.md), is rebuilt from an explicit corpus list and is not committed.
 
 ## Four kinds of memory
 
