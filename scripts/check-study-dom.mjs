@@ -46,5 +46,22 @@ hit('[data-patch="AF"]');eq(b.querySelector('[data-slot="0"] .slot-title').textC
 hit('#clear-desk');eq(b.querySelector('#capacity-status').textContent,'00 / 02 spaces occupied');eq([...b.querySelectorAll('.ledger blockquote')].map(el=>el.textContent),voices);
 hit('#unplug-all');eq(b.querySelectorAll('#cables path').length,0);eq([...b.querySelectorAll('.ledger blockquote')].map(el=>el.textContent),voices);
 for(const doc of [d,b]){const ids=[...doc.querySelectorAll('[id]')].map(el=>el.id);eq(ids.length,new Set(ids).size)}
-console.log(`${checks} DOM integration assertions passed (jsdom; no layout/browser claims).`);
 index.window.close();board.window.close();
+// 014 — Made Heavy: four independent experiments on one page.
+const heavy=await page('014-made-heavy',['made-heavy']);
+const h=heavy.window.document;const press=s=>h.querySelector(s).click();
+eq(h.querySelectorAll('#storeys .region').length,5);eq(h.querySelector('#ground').hidden,true);
+press('[data-remove="P3"]');eq(h.querySelectorAll('#ground .region').length,1);eq(h.querySelector('#ground .region').dataset.state,'grounded');
+press('#load-path');eq(h.querySelector('#piers').dataset.loadPath,'true');
+press('#reset-piers');eq(h.querySelector('#ground').hidden,true);
+const ribsKeep=h.querySelector('[data-bay="ribs"] [data-keep]');eq(ribsKeep.disabled,true);
+press('[data-face="ribs"]');eq(ribsKeep.disabled,false);eq(h.activeElement,ribsKeep);
+ribsKeep.click();eq(h.querySelector('[data-bay="ribs"]').dataset.kept,'true');
+press('[data-depth="0"]');eq([...h.querySelectorAll('[data-keep]')].every(b=>!b.disabled),true);
+eq(h.querySelector('#site-report li').dataset.verdict,'fabric');
+press('[data-preset="gear"]');eq(h.querySelector('#site-report li').dataset.verdict,'exception');
+press('[data-cell="0-0"]');eq(h.querySelector('[data-cell="0-0"]').getAttribute('aria-pressed'),'true');eq(h.querySelectorAll('#site-report li').length,2);
+eq(h.querySelectorAll('#wall .pour').length,3);eq(h.querySelector('#strike').disabled,true);
+press('[data-overcast="2"]');const wetBox=h.querySelector('#wet');wetBox.value='Overcast.';wetBox.dispatchEvent(new heavy.window.Event('input',{bubbles:true}));eq(h.querySelector('#strike').disabled,false);
+press('#strike');eq(h.querySelectorAll('#wall .pour').length,3);eq(h.querySelectorAll('#wall .sliver').length,1);eq([...h.querySelectorAll('.pour-label')].map(l=>l.textContent)[1],'pour 04 over 02');
+console.log(`${checks} study DOM checks passed (012, 013, 014).`);

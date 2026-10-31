@@ -132,4 +132,15 @@ export const samples: Sample[] = [
     status: 'study',
     technology: ['Astro', 'SVG', 'Vanilla TS']
   },
+  {
+    id: 'made-heavy',
+    number: '014',
+    title: 'Made Heavy',
+    object: 'Russian Soviet-era brutalism, encountered through research rather than a visit: a tectonic language of bearing, suspension, repetition and trace.',
+    material: 'Piers and cantilevers / deep façades and ribs / one repeated unit / cast surfaces that keep their formwork',
+    translation: 'Four experiments: content that rests on piers, a façade that screens what you can act on, arrangement judged as fabric or exception, and text poured in sequence.',
+    route: '/samples/014-made-heavy',
+    status: 'study',
+    technology: ['Astro', 'Vanilla TS', 'CSS']
+  },
 ];
