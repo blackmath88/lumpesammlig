@@ -84,9 +84,12 @@ Russian Soviet-era brutalism, encountered through two research reports rather th
 Astro is the stable, mostly static exhibition shell:
 
 ~~~text
+AGENTS.md                        # shared agent/contributor instructions (CLAUDE.md imports it)
 docs/
   CONCEPT.md                     # conceptual spine
   ARCHITECTURE.md                # evidence / model / experiment architecture
+  method/                        # study practice, review guide, records, study index
+  AGENT-WORKBENCH-BUILD-PLAN.md  # phased plan; WORKING-STATE.md beside it says what is done
 src/
   components/
     SampleLibrary.astro          # static promenade + low-cost previews
@@ -132,7 +135,7 @@ src/samples/<sample>/
   reflection.md
 ~~~
 
-Do not migrate existing samples merely to satisfy this shape. Let future encounters prove which structures deserve repetition.
+Do not migrate existing samples merely to satisfy this shape. Let future encounters prove which structures deserve repetition. Sample 014 carries the first full research record (encounter inventory, sources, readings, decisions, feedback, working state); [docs/method/records.md](docs/method/records.md) says how much of it a small or a rich encounter needs.
 
 ## Add a sample
 
@@ -148,7 +151,7 @@ Start only after there is a real encounter worth reading.
 8. Verify keyboard access, reduced motion where relevant, small screens, runtime errors and production build output.
 9. Reflect on what the executable version changed in the original reading.
 
-These are orientations, not mandatory form fields. Different encounters should produce different artefacts.
+These are orientations, not mandatory form fields. Different encounters should produce different artefacts. The operational version, including the review questions and what each study must not turn into a default, is in [docs/method/](docs/method/README.md).
 
 Do not add empty placeholder samples, prebuild hypothetical component mutations, force all experiments through React, or extract shared abstractions until repeated work proves the same technical boundary.
 
@@ -167,6 +170,7 @@ Before handing off a change:
 
 ~~~powershell
 npm run check
+npm run check:docs
 npm run build
 npm run preview
 ~~~

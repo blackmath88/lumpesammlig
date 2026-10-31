@@ -49,3 +49,7 @@ Strip the paper colour, the labels and the word brutalism. 01 still has regions 
 ## Verification record · 2026-10-31
 
 Run on the built output, not on claims: `astro check` with zero diagnostics across 83 files; five model tests covering bearing, cantilever, grounding, rhetorical piers, reveal and actionability, mass verdicts and pour lineage; `npm run build` producing 14 pages with 14 verified stylesheets; 52 jsdom assertions across 012, 013 and 014 in `scripts/check-study-dom.mjs`; and a headless Chromium pass of the page at 1280 px and 390 px with no console, page or request errors, no horizontal overflow at phone width, arrow-key movement across the site grid, focus handed to the keep button after turning to face a bay, and transitions reduced to zero under `prefers-reduced-motion`. Human perceptual review, and review by anyone who has stood in front of these buildings, has not happened.
+
+## Research record · added 2026-10-31
+
+This note remains the study's own account. A fuller record, written after implementation and labelled as retrospective where it reconstructs reasoning, sits beside it: an inventory of the encounter and what is missing in `encounter/README.md`, the cited sources and their check status in `research/sources.md`, the chosen and dropped readings in `readings/`, four decisions in `decisions/`, check re-runs in `feedback/`, and how to resume in `working-state.md`. No user feedback exists yet; the verification record above is the implementing session's report and is re-run, not restated, in `feedback/`.
