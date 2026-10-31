@@ -112,6 +112,7 @@ src/
       012-impossible-index.astro
       013-switchboard.astro
       014-made-heavy.astro
+      014-made-heavy/history.astro # working history: approved record documents, no script
   samples/
     ...
 ~~~
@@ -135,7 +136,7 @@ src/samples/<sample>/
   reflection.md
 ~~~
 
-Do not migrate existing samples merely to satisfy this shape. Let future encounters prove which structures deserve repetition. Sample 014 carries the first full research record (encounter inventory, sources, readings, decisions, feedback, working state); [docs/method/records.md](docs/method/records.md) says how much of it a small or a rich encounter needs.
+Do not migrate existing samples merely to satisfy this shape. Let future encounters prove which structures deserve repetition. Sample 014 carries the first full research record (encounter inventory, sources, readings, decisions, feedback, working state); [docs/method/records.md](docs/method/records.md) says how much of it a small or a rich encounter needs. Its approved documents are published as a quiet *Working history* page beside the study, from an explicit list in `src/samples/014-made-heavy/history.ts`; the build fails if an approved file is missing, contains raw HTML or links to a path that does not exist, and `check:history` proves the excluded files are absent from the output.
 
 ## Add a sample
 

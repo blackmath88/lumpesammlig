@@ -42,9 +42,10 @@ Available checks at the time of writing (inspect `package.json` and `.github/wor
 ```bash
 npm run check          # astro check
 npm run test:assets    # tests for the built-CSS guard
-npm run test:studies   # pure state-model tests for 012, 013, 014
-npm run build          # astro build + check:assets
+npm run test:studies   # pure state-model tests for 012, 013, 014 and the 014 history boundary
+npm run build          # astro build + check:assets + check:history
 npm run check:docs     # relative links in Markdown, study index ↔ catalogue
+npm run check:history  # built working-history page against its publication boundary (needs dist/)
 ```
 
 CI additionally runs `scripts/check-study-dom.mjs` against `dist/` with a jsdom installed outside the repository.

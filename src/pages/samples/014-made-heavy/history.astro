@@ -1,0 +1,113 @@
+---
+import type { MarkdownInstance } from "astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { withBase } from "../../../data/site";
+import { HISTORY_DOCUMENTS, KIND_LABEL, STUDY_DIR, REPO_BLOB, assertNoRawHtml, rewriteDocument } from "../../../samples/014-made-heavy/history";
+import "../../../samples/014-made-heavy/history.css";
+
+// Only files matched here can be loaded, and only those in HISTORY_DOCUMENTS are rendered.
+const modules = import.meta.glob<MarkdownInstance<Record<string, unknown>>>([
+  "../../../samples/014-made-heavy/encounter/README.md",
+  "../../../samples/014-made-heavy/research/*.md",
+  "../../../samples/014-made-heavy/readings/*.md",
+  "../../../samples/014-made-heavy/decisions/*.md",
+  "../../../samples/014-made-heavy/feedback/*.md",
+]);
+
+// Repository paths a document may link to. Only the keys are read; nothing here is imported.
+const known = Object.keys(import.meta.glob(["/src/samples/014-made-heavy/**/*", "/docs/**/*.md", "/README.md", "/AGENTS.md"]));
+const resolver = {
+  stat(repoPath: string): "file" | "dir" | undefined {
+    if (known.includes(`/${repoPath}`)) return "file";
+    if (known.some((k) => k.startsWith(`/${repoPath}/`))) return "dir";
+    return undefined;
+  },
+};
+
+const documents = [];
+for (const doc of HISTORY_DOCUMENTS) {
+  const load = modules[`../../../samples/014-made-heavy/${doc.file}`];
+  if (!load) throw new Error(`Working history: approved document is missing: ${doc.file}`);
+  const mod = await load();
+  assertNoRawHtml(mod.rawContent(), doc.file);
+  const h1 = mod.getHeadings().find((h) => h.depth === 1);
+  if (!h1) throw new Error(`Working history: ${doc.file} has no top-level heading`);
+  documents.push({
+    ...doc,
+    title: h1.text,
+    titleId: `${doc.id}--${h1.slug}`,
+    html: rewriteDocument(await mod.compiledContent(), doc, resolver),
+  });
+}
+const studyUrl = withBase("/samples/014-made-heavy");
+---
+
+<BaseLayout
+  title="014 — Made Heavy · Working history / Lumpesammlig"
+  description="The record behind study 014: encounter inventory, research sources and their check status, competing readings, decisions, and feedback. Written beside the study and published from an explicit list."
+>
+  <main class="heavy-history">
+    <nav class="top" aria-label="Study navigation">
+      <a href={studyUrl}>← Study 014</a>
+      <span>Lumpesammlig / 014 / Working history</span>
+      <a href={withBase("/#library")}>Collection ↗</a>
+    </nav>
+    <header>
+      <div>
+        <p class="eyebrow">014 / Working history</p>
+        <h1>What the study<br /><em>rests on.</em></h1>
+      </div>
+      <p class="premise">
+        The record behind <a href={studyUrl}>Made Heavy</a>: evidence, sources, readings, decisions and checks. The experiments stay on the study page. This page is how they got there, and what is still missing.
+      </p>
+    </header>
+
+    <section class="provenance" aria-labelledby="provenance-title">
+      <p class="eyebrow" id="provenance-title">How to read this</p>
+      <div>
+        <p>
+          {documents.length} documents, published from an explicit list in the study's own code. They were written on 2026-10-31 beside the study, mostly after it was built; where a note reconstructs reasoning it says so and names its basis. Each keeps observation, interpretation and invention apart. Each document keeps its own form.
+        </p>
+        <p>
+          Not republished here, and linked where mentioned: the study's own note, its working state and the two raw research exports. No building was visited. No user feedback exists. Two of twenty-seven cited sources have been checked, by automated fetch.
+        </p>
+      </div>
+    </section>
+
+    <nav class="contents" aria-labelledby="contents-title">
+      <h2 id="contents-title">Contents</h2>
+      <ol>
+        {documents.map((d) => (
+          <li>
+            <a href={`#${d.id}`}><span class="kind">{KIND_LABEL[d.kind]}</span><span class="title">{d.title}</span></a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    {documents.map((d) => (
+      <article id={d.id} class="document" data-kind={d.kind} aria-labelledby={d.titleId}>
+        <div class="document-meta">
+          <p class="eyebrow">{KIND_LABEL[d.kind]}</p>
+          <p class="file"><a href={`${REPO_BLOB}${STUDY_DIR}/${d.file}`}>{d.file} ↗</a></p>
+          <p class="up"><a href="#contents-title">Contents ↑</a></p>
+        </div>
+        <div class="prose" set:html={d.html} />
+      </article>
+    ))}
+
+    <footer>
+      <p class="eyebrow">Boundary</p>
+      <div>
+        <p>
+          This page is static text and needs no script, model or service. What is not on it is not public through it: adding a document means adding it to the list, and the build fails if an approved document is missing, contains raw HTML, or links to a path that does not exist. Corrections to any note are added beside it, dated, not written over it.
+        </p>
+        <p>
+          <a href={studyUrl}>← Back to the study</a>
+          {" "}·{" "}
+          <a href={`${REPO_BLOB}${STUDY_DIR}/sample.md`}>The study's own note ↗</a>
+        </p>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>

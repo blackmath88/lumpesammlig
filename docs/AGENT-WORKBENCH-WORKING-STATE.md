@@ -2,11 +2,11 @@
 
 Resumption note for [AGENT-WORKBENCH-BUILD-PLAN.md](AGENT-WORKBENCH-BUILD-PLAN.md). Rewritten whenever a phase changes; the plan itself is not edited to record progress. Distinguish what is verified from what is planned.
 
-Last updated: 2026-10-31, on branch `claude/funny-maxwell-o40dyb`, after Prompt 1.
+Last updated: 2026-10-31, on branch `claude/funny-maxwell-o40dyb`, after Prompt 2.
 
 ## Current focus
 
-Phase A (instructions and continuity) and the documentation portion of Phase B (pilot record for 014) are implemented on this branch and await the author's review. Nothing has been merged or deployed.
+Phases A, B (documentation) and C (working history for the 014 pilot only) are implemented on this branch and await the author's review. Nothing has been merged or deployed.
 
 ## State by phase
 
@@ -14,7 +14,7 @@ Phase A (instructions and continuity) and the documentation portion of Phase B (
 | :-- | :-- | :-- |
 | A — instructions and continuity | Implemented, checks run, not yet accepted | `AGENTS.md`, `CLAUDE.md`, `docs/method/`, `scripts/check-docs.mjs`, `npm run check:docs` |
 | B — pilot research record | Documentation implemented for 014; readings, decisions and inventory are labelled retrospective | `src/samples/014-made-heavy/{encounter,research,readings,decisions,feedback}/`, `working-state.md` |
-| C — public working history | Not started. Requires Prompt 2 | — |
+| C — public working history | Implemented for 014 only; browser-checked at 1280 and 390 px, keyboard, reduced motion; not yet accepted | `src/pages/samples/014-made-heavy/history.astro`, `src/samples/014-made-heavy/history.{ts,css,test.mjs}`, `scripts/check-history-output.mjs` |
 | D — local retrieval | Not started. Requires Prompt 3 | — |
 | E — feedback and learning | Not started; the feedback note format exists in `docs/method/records.md` | — |
 | F — portable kit | Not started | — |
@@ -22,13 +22,15 @@ Phase A (instructions and continuity) and the documentation portion of Phase B (
 
 ## Agreed direction
 
-Markdown is canonical. The exhibition builds without any of this. No retrieval, backend, model calls or deployment have been added. No existing study's interaction design was changed.
+Markdown is canonical. The exhibition builds without any of this. No retrieval, backend, model calls or deployment have been added. No existing study's interaction design was changed; the 014 page gained two links to its history. The history page is a per-study list and renderer, not a shared engine.
 
 ## Open decisions
 
 - Whether `check:docs` should also run in `deploy.yml` (currently only in the pull-request workflow, beside the other checks).
 - Whether the two `008` directories and routes should be reconciled; noted in the study index, not changed.
-- Whether the pilot's readings and decisions, written after implementation, are an acceptable basis for Phase C, or whether the author wants to add first-hand notes first.
+- The pilot's readings and decisions, written after implementation, are now public through the history page under the label of retrospective reconstruction. If the author disagrees with any of them, corrections go in as dated additions, which the page will then show.
+- `feedback/2026-10-31-source-check.md` proposes rewording the Vassiliev attribution in the study prose and `sample.md`; not done, the author decides.
+- The two raw research exports stay unpublished because they contain raw HTML and 27 mostly unchecked citations; they remain linked on GitHub.
 
 ## Blockers
 
@@ -36,4 +38,4 @@ None technical. Human acceptance of Phase A and B wording is required before Pha
 
 ## Next useful action
 
-Author reviews this branch. If accepted, Prompt 2 (Phase C) for the pilot only.
+Author reviews this branch, including the public history page. If accepted, Prompt 3 (Phase D, local retrieval) is the next authorised step.

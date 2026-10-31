@@ -41,3 +41,21 @@ Roughly a third of the citations are image boards, stock photography, SEO explai
 1. Read Ivaschenko (Articult 48) and confirm the Vassiliev attribution on pylons, sun-screen ribs and unreadable internal structure.
 2. Read Heathcote (Wallpaper*) and confirm the Druzhba and Robotics Centre statements as used in the page prose.
 3. Decide whether the general brutalism explainers need replacing with one primary text on cast-in-place surfaces.
+
+## Check results · 2026-10-31
+
+Supersedes the statement above that nothing had been consulted. Two sources were checked through an automated page fetch with quoted passages, not read in the original by a person; details and quotations are in `../feedback/2026-10-31-source-check.md`.
+
+| Claim | Status after checking |
+| :-- | :-- |
+| Vassiliev's device vocabulary (upward-widening pylons, mullions and sun-screen ribs) via Ivaschenko | **Supported** as quoted in Ivaschenko |
+| Buildings with no structure readable from outside, via Ivaschenko | **Supported** as a general remark of Vassiliev's |
+| The image of support and the actual engineering need not agree | **Report's inference**, not in Ivaschenko's text as fetched; the study's grounding for the rhetorical pier is a reading of Vassiliev, not his words |
+| Moscow Palace of Youth, Belopolsky, 1982–1988 | **Supported** as a listed name only |
+| Robotics and Cybernetics Centre, Artyushin and Savin, 1986, "cathedral of science" | **Supported**; Saint Petersburg is not named by Heathcote |
+| Druzhba Sanatorium, Vasilevsky, UFO-like | **Supported**; "gear-like" is not in Heathcote |
+| Photogenic image displacing meaning | **Supported** |
+| Collective promise against individual smallness | **Report 01's synthesis**; not in Heathcote as fetched |
+| Soviet architects aware of Le Corbusier, British and Japanese work | **Partly**: Heathcote says "elsewhere in Europe" only |
+
+Everything else in the table at the top of this note remains unchecked.
