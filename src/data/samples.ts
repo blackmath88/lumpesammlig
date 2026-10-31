@@ -132,4 +132,15 @@ export const samples: Sample[] = [
     status: 'study',
     technology: ['Astro', 'SVG', 'Vanilla TS']
   },
+  {
+    id: 'mass-opening',
+    number: '014',
+    title: 'Mass / Opening',
+    object: 'A conversation about architectural mass: deep openings, repeated units, projecting volumes and large surfaces on few visible supports.',
+    material: 'Shared edges / unequal widths / recess / repetition / projection / section / support',
+    translation: 'A façade of six bays where opening one makes its row make room; six bounded demonstrations of the same rule.',
+    route: '/samples/014-mass-opening',
+    status: 'study',
+    technology: ['Astro', 'CSS Grid', 'Vanilla TS']
+  },
 ];

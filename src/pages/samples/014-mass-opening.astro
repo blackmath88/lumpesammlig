@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+import Facade from "../../samples/014-mass-opening/Facade.astro";
+import "../../samples/014-mass-opening/mass-opening.css";
+---
+
+<BaseLayout
+  title="014 — Mass / Opening / Lumpesammlig"
+  description="A façade of six interactive bays. Opening one makes the surrounding composition make room. A UI study translating mass, recess, repetition, projection, section and support into interface behaviour."
+>
+  <a class="skip-link" href="#facade">Skip to study</a>
+  <main class="mass-study">
+    <nav aria-label="Collection">
+      <a href={withBase("/#library")}>← Collection</a>
+      <span>Lumpesammlig / 014 / UI study</span>
+      <a href={withBase("/samples/013-switchboard")}>Study 013 ↗</a>
+    </nav>
+
+    <header class="masthead">
+      <div class="mast-title">
+        <p class="eyebrow">014 / Accommodation as an interaction</p>
+        <h1>Mass /<br />Opening</h1>
+      </div>
+      <div class="mast-side">
+        <p class="tagline">An interface that makes room.</p>
+        <p class="annotation">
+          Six bays, two rows, shared edges.
+          <br />Open one; its row narrows around it.
+          <br />Nothing is layered on top.
+        </p>
+      </div>
+    </header>
+
+    <Facade />
+
+    <section class="reading" aria-labelledby="reading-title">
+      <div class="reading-head">
+        <h2 id="reading-title">The study</h2>
+        <p>02 / Reading, move, limits</p>
+      </div>
+      <div class="reading-columns">
+        <div>
+          <h3>Encounter</h3>
+          <p>
+            The source is not a building. It is a conversation about architectural mass and how it is articulated: deep openings in thick surfaces, repeated units that make an interruption legible, projecting volumes that keep their point of attachment, and large surfaces resting on visibly few supports. The material came as a brief in two parts: a research vocabulary, then a request to be more visual and less conceptual.
+          </p>
+        </div>
+        <div>
+          <h3>The move</h3>
+          <p>
+            What was kept is one relation: mass is made of contrast, and an opening changes its surroundings rather than sitting on top of them. In the browser that becomes accommodation. Opening a bay takes width from its own row; the neighbours stay present as labelled piers; closing gives the width back. Each bay then demonstrates one further operation at a smaller scale, with the same rule: the frame stays, the arrangement changes.
+          </p>
+        </div>
+        <div>
+          <h3>What this does not establish</h3>
+          <p>
+            There is no concrete here and no claim about any architect’s intention. The resemblance is formal: proportion, depth, shared edges and movement that reorganises rather than overlays. Whether a visitor can describe the relationship after using it is untested. Comprehension, not build success, is the acceptance condition, and it is still open.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lineage" aria-labelledby="lineage-title">
+      <div class="reading-head">
+        <h2 id="lineage-title">Research lineage</h2>
+        <p>03 / What the build relied on</p>
+      </div>
+      <dl class="lineage-list">
+        <div>
+          <dt>Interaction model</dt>
+          <dd>
+            Native buttons with <code>aria-expanded</code> and associated panels, following the
+            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">WAI-ARIA disclosure pattern</a>. The façade is a series of expandable studies, not a grid widget, so it carries no grid role.
+          </dd>
+        </div>
+        <div>
+          <dt>Accommodation</dt>
+          <dd>
+            Each row is a CSS grid whose <code>grid-template-columns</code> is set from the state module. Modern engines interpolate track lists, so the reallocation animates without measuring; where they do not, the layout changes instantly and is still correct.
+          </dd>
+        </div>
+        <div>
+          <dt>Motion</dt>
+          <dd>
+            Transitions were added only after opening, switching, closing and resizing worked without them. Under <code>prefers-reduced-motion</code> every spatial transition is removed; every state and control remains. The View Transition API from the brief was not needed and is not used.
+          </dd>
+        </div>
+        <div>
+          <dt>Images</dt>
+          <dd>
+            None. The brief’s photographs have no documented reuse permission, so the study stands on its own diagrams and surfaces.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <footer>
+      <p class="eyebrow">Handoff / What the executable version revealed</p>
+      <div>
+        <h2>The row makes room.<br />The visitor keeps their place.</h2>
+        <p>
+          The memorable moment is small: a bay opens and two neighbours narrow to piers without losing their names. Building it showed that the piers, not the open bay, carry the idea. If they vanish or become anonymous strips the study turns into an ordinary accordion. The six local demonstrations are kept honest by the same test: what moved, what remained.
+          <br /><br />
+          <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/014-mass-opening/sample.md">Readings &amp; reflection ↗</a>
+        </p>
+      </div>
+    </footer>
+  </main>
+  <script>
+    import "../../samples/014-mass-opening/facade-ui";
+  </script>
+</BaseLayout>

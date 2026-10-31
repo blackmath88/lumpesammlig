@@ -1,0 +1,217 @@
+---
+import { rows, columns } from "./facade";
+import { studies, units, sectionObject, supportedSummary } from "./content";
+const byId = Object.fromEntries(studies.map((s) => [s.id, s]));
+---
+<section class="facade-section" aria-labelledby="facade-title">
+  <h2 id="facade-title" class="visually-hidden">Six formal operations</h2>
+  <div class="facade" id="facade">
+    {rows.map((row, r) => (
+      <div class="row" data-row={r} style={`--cols:${columns(row, null)}`}>
+        {row.map((id) => {
+          const s = byId[id];
+          return (
+            <article class="bay" data-bay={id} data-state="closed">
+              <h3 class="bay-head">
+                <button
+                  class="bay-trigger"
+                  id={`trigger-${id}`}
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`panel-${id}`}
+                  data-trigger={id}
+                >
+                  <span class="bay-index">{s.index}</span>
+                  <span class="bay-title">{s.title}</span>
+                  <span class="bay-proposition">{s.proposition}</span>
+                  <span class="bay-cue">Open {s.title.replace(/­/g, "")} →</span>
+                </button>
+              </h3>
+
+              <div class={`bay-preview p-${id}`} aria-hidden="true">
+                {id === "mass" && (<><i class="pv-slab"></i><i class="pv-leg"></i><i class="pv-leg"></i><i class="pv-base"></i></>)}
+                {id === "recess" && (<i class="pv-edge"><i class="pv-reveal"><i class="pv-inner"></i></i></i>)}
+                {id === "repetition" && (<><i></i><i></i><i></i><i></i><i></i><i></i></>)}
+                {id === "projection" && (<><i class="pv-anchor"></i><i class="pv-arm"></i><i class="pv-leg"></i></>)}
+                {id === "section" && (<><i></i><i></i><i></i></>)}
+                {id === "support" && (<><i class="pv-slab"></i><i class="pv-leg"></i><i class="pv-leg"></i><i class="pv-leg"></i></>)}
+              </div>
+
+              <div
+                class="bay-panel"
+                id={`panel-${id}`}
+                role="region"
+                aria-labelledby={`trigger-${id}`}
+                hidden
+              >
+                <div class="panel-head">
+                  <p class="panel-instruction">{s.instruction}</p>
+                  <button type="button" class="bay-close" data-close={id}>
+                    Close
+                  </button>
+                </div>
+
+                {id === "mass" && (
+                  <div class="demo demo-mass" data-surrounding="compact">
+                    <div class="mass-field">
+                      <div class="mass-slab"><span>Encounter 014</span><strong>Mass</strong></div>
+                      <div class="mass-interval"><i></i><i></i></div>
+                      <div class="mass-strip"><span>01</span><span>02</span><span>03</span><span>04</span></div>
+                    </div>
+                    <div class="control-row">
+                      <span class="control-label">Surrounding space</span>
+                      <div class="seg" role="group" aria-label="Surrounding space">
+                        <button type="button" data-surrounding="compact" aria-pressed="true">Compact</button>
+                        <button type="button" data-surrounding="generous" aria-pressed="false">Generous</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {id === "recess" && (
+                  <div class="demo demo-recess" data-aperture="1">
+                    <div class="recess-stage">
+                      <span class="recess-face-title">02 / Recess</span>
+                      <div class="recess-edge">
+                        <div class="recess-reveal">
+                          <div class="recess-inner">
+                            <div class="recess-card">
+                              <span>Behind the edge</span>
+                              <strong>A card that never moves</strong>
+                              <p>These lines sit here at full size the whole time. The narrowest opening shows their head; the widest shows all of them. Nothing is scaled. The wall withdraws, the card waits.</p>
+                              <em>Read in full at aperture 3 / 3</em>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="control-row">
+                      <span class="control-label">Aperture <output id="aperture-level" for="aperture-narrow aperture-enlarge">1 / 3</output></span>
+                      <div class="seg" role="group" aria-label="Aperture">
+                        <button type="button" id="aperture-narrow" data-aperture-step="-1" disabled>Narrow opening</button>
+                        <button type="button" id="aperture-enlarge" data-aperture-step="1">Enlarge opening</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {id === "repetition" && (
+                  <div class="demo demo-repetition">
+                    <div class="units" role="group" aria-label="Seven equal units">
+                      {units.map((u, i) => (
+                        <button type="button" class="unit" data-unit={i} aria-pressed="false">
+                          <span class="unit-index">0{i + 1}</span>
+                          <span class="unit-fragment">{u.fragment}</span>
+                          <span class="unit-text">{u.text}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div class="control-row">
+                      <span class="control-label" id="rhythm-status">Seven equal widths</span>
+                      <button type="button" id="restore-rhythm" disabled>Restore rhythm</button>
+                    </div>
+                  </div>
+                )}
+
+                {id === "projection" && (
+                  <div class="demo demo-projection" data-extended="false" data-variant="attached">
+                    <div class="projection-stage">
+                      <div class="anchor">
+                        <span>Anchor</span>
+                        <strong>Source panel</strong>
+                        <p>A reading in progress. It stays put while the comparison extends from its right edge.</p>
+                        <i class="anchor-leg" aria-hidden="true"></i>
+                      </div>
+                      <div class="projecting" id="projection-surface" inert>
+                        <div class="projecting-inner">
+                          <span>Comparison</span>
+                          <div class="compare" aria-hidden="true">
+                            <i class="cmp-anchor"></i>
+                            <i class="cmp-panel"></i>
+                          </div>
+                          <p class="cmp-floating">Floating: the panel could be anywhere. Its position says nothing about the source.</p>
+                          <p class="cmp-attached">Attached: the panel shares an edge. Its position is a statement about the source.</p>
+                          <div class="seg" role="group" aria-label="Comparison version">
+                            <button type="button" data-variant="floating" aria-pressed="false">Floating</button>
+                            <button type="button" data-variant="attached" aria-pressed="true">Attached</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="control-row">
+                      <span class="control-label" id="projection-status">Comparison retracted</span>
+                      <button type="button" id="extend-projection" aria-expanded="false" aria-controls="projection-surface">Extend comparison</button>
+                    </div>
+                  </div>
+                )}
+
+                {id === "section" && (
+                  <div class="demo demo-section" data-view="face">
+                    <div class="section-object">
+                      <p class="section-title">{sectionObject.title}</p>
+                      <div class="section-views">
+                        <div class="face">
+                          <div class="face-image" aria-hidden="true"><i></i></div>
+                          <p class="face-statement">{sectionObject.statement}</p>
+                        </div>
+                        <div class="bands" inert>
+                          {sectionObject.bands.map((b, i) => (
+                            <div class="band" style={`--i:${i}`}>
+                              <span>{b.label}</span>
+                              <p>{b.text}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="control-row">
+                      <span class="control-label">View</span>
+                      <div class="seg" role="group" aria-label="View">
+                        <button type="button" data-view="face" aria-pressed="true">Face</button>
+                        <button type="button" data-view="section" aria-pressed="false">Section</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {id === "support" && (
+                  <div class="demo demo-support" data-support="">
+                    <div class="support-slab">
+                      <p>
+                        {supportedSummary.passages.map((p) => (
+                          <span class="passage" data-passage={p.key}>{p.text} </span>
+                        ))}
+                      </p>
+                    </div>
+                    <div class="supports" role="group" aria-label="Supports">
+                      {supportedSummary.passages.map((p) => (
+                        <button type="button" class="support-pier" data-support={p.key} aria-pressed="false">
+                          <i aria-hidden="true"></i>
+                          <span>{p.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <p class="support-note" id="support-note" role="status">Select a connection.</p>
+                  </div>
+                )}
+
+                <div class="panel-text">
+                  {s.explanation.map((p) => <p>{p}</p>)}
+                </div>
+                <dl class="panel-facts">
+                  <div><dt>What moved</dt><dd>{s.moved}</dd></div>
+                  <div><dt>What remained</dt><dd>{s.remained}</dd></div>
+                  <div><dt>Try this</dt><dd>{s.tryThis}</dd></div>
+                </dl>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+  <div class="facade-foot">
+    <p id="facade-status" role="status">Open a bay / 06 formal operations</p>
+    <noscript><p>JavaScript is needed to open the bays. The reading below stays available.</p></noscript>
+  </div>
+</section>
