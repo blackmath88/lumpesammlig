@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+import { bays } from "../../samples/014-made-heavy/shadow";
+import { GRID_H, GRID_W } from "../../samples/014-made-heavy/panels";
+import "../../samples/014-made-heavy/made-heavy.css";
+const rows = [...Array(GRID_H).keys()];
+const cols = [...Array(GRID_W).keys()];
+---
+
+<BaseLayout
+  title="014 — Made Heavy / Lumpesammlig"
+  description="Four experiments from Russian brutalism: content that bears on piers, a façade that screens what you can do, one unit arranged into fabric or exception, and text poured in sequence."
+>
+  <main class="heavy-study">
+    <nav>
+      <a href={withBase("/#library")}>← Collection</a>
+      <span>Lumpesammlig / 014</span>
+      <a href={withBase("/samples/013-switchboard")}>Study 013 ↗</a>
+    </nav>
+    <header>
+      <div>
+        <p class="eyebrow">014 / Tectonics as an interaction</p>
+        <h1>Made<br />heavy<span aria-hidden="true">.</span></h1>
+      </div>
+      <p class="premise">
+        Interfaces have shadow without load.
+        <br />
+        <em>Here, load comes first.</em>
+      </p>
+    </header>
+    <section class="evidence-note" aria-label="Evidence status">
+      <p class="eyebrow">Researched, not visited</p>
+      <p>
+        No building was photographed, measured or entered for this study. The encounter is two secondary research reports, preserved in
+        <a href="https://github.com/blackmath88/lumpesammlig/tree/main/src/samples/014-made-heavy/encounter">the encounter folder ↗</a>. They describe a tectonic language: bearing, suspension, repetition, trace. Four of its distinctions became four separate experiments. Nothing on this page is concrete-coloured on purpose.
+      </p>
+    </section>
+
+    <!-- 01 -->
+    <section id="piers" class="experiment piers" aria-labelledby="piers-title" data-load-path="false">
+      <div class="experiment-head">
+        <p class="eyebrow">01 / Support as the subject</p>
+        <h2 id="piers-title">Everything rests<br /><em>on something.</em></h2>
+        <p>Five regions of this study's own prose bear on a few piers. Move a pier and its regions follow. Push one past its support and it becomes a cantilever. Take the last pier from under a region and it drops to the ground. Each pier also has an apparent mass you choose freely, and an actual load that only depends on what it carries.</p>
+      </div>
+      <div class="structure" style={`--columns:${12}`}>
+        <div id="storeys" class="storeys"></div>
+        <div id="pier-row" class="pier-row" aria-label="Piers"></div>
+        <div class="ground-line" aria-hidden="true"></div>
+        <div id="ground" class="ground" aria-label="On the ground" hidden></div>
+      </div>
+      <p id="pier-status" class="status" role="status" aria-live="polite"></p>
+      <div class="pier-panel">
+        <div id="pier-controls" class="pier-controls"></div>
+        <div class="pier-actions">
+          <button id="add-pier">Add a pier</button>
+          <button id="load-path" aria-pressed="false">Show actual load path</button>
+          <button id="reset-piers">Reset</button>
+        </div>
+      </div>
+      <p class="aside">Cantilever means projecting three or more columns past the outermost pier. Load is each region's width shared equally by its piers. A pier that looks heavy or monumental but carries nothing is reported as rhetorical, after Vassiliev's observation that the image of support and the engineering need not agree.</p>
+      <noscript><p>JavaScript builds the structure. The reasoning and the research remain readable below.</p></noscript>
+    </section>
+
+    <!-- 02 -->
+    <section id="facade" class="experiment facade" aria-labelledby="facade-title" style="--eye:0;--depth:0.8">
+      <div class="experiment-head">
+        <p class="eyebrow">02 / Shadow as material</p>
+        <h2 id="facade-title">You can only act<br /><em>on what you face.</em></h2>
+        <p>Seven bays, each carrying one device from the research, sit behind ribs. Where you stand decides how much of each bay you see. A bay can be kept only while you face it squarely. Click a rib to turn toward it. Set the depth to flat and you get the interface we already have: everything reachable from anywhere.</p>
+      </div>
+      <div class="facade-controls">
+        <label class="eye-control">
+          <span>Where you stand</span>
+          <input id="eye" type="range" min="-100" max="100" value="0" step="1" aria-valuetext="facing the centre" />
+          <span class="eye-ends" aria-hidden="true"><i>far left</i><i>centre</i><i>far right</i></span>
+        </label>
+        <div role="group" aria-label="Façade depth" class="depth-group">
+          <span>Depth</span>
+          <button data-depth="0" aria-pressed="false">Flat</button>
+          <button data-depth="0.4" aria-pressed="false">Shallow</button>
+          <button data-depth="0.8" aria-pressed="true">Deep</button>
+        </div>
+      </div>
+      <div class="bays">
+        {bays.map((bay) => (
+          <article class="bay" data-bay={bay.id} data-faced="false" data-kept="false" style={`--position:${bay.position};--reveal:1`}>
+            <button class="rib" data-face={bay.id} aria-pressed="false" aria-label={`Turn to face ${bay.label}`}>
+              <span>{bay.label}</span>
+            </button>
+            <div class="reveal">
+              <div class="bay-content">
+                <h3>{bay.label}</h3>
+                <p>{bay.text}</p>
+                <button data-keep={bay.id} aria-pressed="false">Keep this bay</button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p id="facade-status" class="status" role="status" aria-live="polite"></p>
+      <p class="aside">The façade is one-dimensional here; a real deep façade also screens by height and distance. The ribs carry the labels, so from an oblique position you can still read the structure and navigate by it, you just cannot act through it.</p>
+    </section>
+
+    <!-- 03 -->
+    <section id="panels" class="experiment panels" aria-labelledby="panels-title">
+      <div class="experiment-head">
+        <p class="eyebrow">03 / Provision and exception</p>
+        <h2 id="panels-title">One unit.<br /><em>Only arrangement.</em></h2>
+        <p>The unit cannot be designed. You can only place it. A rule then says whether each connected mass is background fabric, a singular exception, or unbuildable. The same system that produced the panel block produced the palace; the difference was never the panel.</p>
+      </div>
+      <div class="panel-layout">
+        <div class="site-wrap">
+          <div id="site" class="site" role="group" aria-label="Site, 12 columns by 7 rows. Toggle units with the buttons; arrow keys move between cells.">
+            {rows.map((y) => cols.map((x) => (
+              <button data-cell={`${y}-${x}`} aria-pressed="false" aria-label={`Row ${y + 1}, column ${x + 1}`}></button>
+            )))}
+          </div>
+          <div class="site-ground" aria-hidden="true">ground</div>
+        </div>
+        <aside class="site-aside">
+          <div role="group" aria-label="Presets" class="preset-group">
+            <button data-preset="block">Housing block</button>
+            <button data-preset="raised">Raised volume</button>
+            <button data-preset="gear">Ring on legs</button>
+            <button data-preset="clear">Clear site</button>
+          </div>
+          <ul id="site-report" class="site-report" aria-label="Masses on the site"></ul>
+          <p id="site-status" class="status" role="status" aria-live="polite"></p>
+          <p class="aside">The rule: a mass is an exception when it has at least six units and either two or more overhanging units, two or more open ground columns beneath it, or a non-rectangular profile at least three high. Anything that does not reach the ground is unbuildable. This is the study's rule, not a theory of monumentality.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="pours" class="experiment pours" aria-labelledby="pours-title">
+      <div class="experiment-head">
+        <p class="eyebrow">04 / The wall as record of manufacture</p>
+        <h2 id="pours-title">Struck text<br /><em>cannot be edited.</em></h2>
+        <p>Text is poured in sequence. Once the formwork is struck, a pour is sealed. It can only be overcast by a later pour, and whatever it covers keeps its first words as a sliver at the seam. The order of construction stays legible in the surface. There is no history panel because the history is the wall.</p>
+      </div>
+      <div id="wall" class="wall" aria-label="The wall"></div>
+      <form class="formwork" aria-label="Formwork" onsubmit="return false">
+        <label for="wet">In the formwork</label>
+        <textarea id="wet" rows="3" placeholder="Pour text here, then strike."></textarea>
+        <p id="patch-note" class="patch-note"></p>
+        <div class="formwork-actions">
+          <button id="strike" type="button" disabled>Strike the formwork</button>
+          <button id="cancel-patch" type="button" hidden>Cancel overcast</button>
+          <button id="reset-wall" type="button">Reset wall</button>
+        </div>
+      </form>
+      <p id="wall-status" class="status" role="status" aria-live="polite"></p>
+      <p class="aside">Formwork grain alternates with each pour and the tie pitch tightens on patches, so you can read the sequence without a date. This is the one experiment where texture is part of the proposition; it would still work with the grain removed, as long as the seams and slivers stayed.</p>
+    </section>
+
+    <footer>
+      <p class="eyebrow">The encounter / What the mechanisms leave out</p>
+      <div>
+        <h2>Nothing here<br />is a building.</h2>
+        <p>
+          The research's strongest claim is that the effect comes from making a building appear to bear, suspend, resist, repeat or concentrate force. Each experiment takes one of those verbs and asks what a visitor can do with it. None of them resists moment, carries weather or houses anyone. The social double edge of the source, a collective promise that makes the individual small, is untranslated: the direction that would carry it, a page that refuses to adapt to its viewer, was dropped because any monument could produce it.
+          <br /><br />
+          <a href="https://github.com/blackmath88/lumpesammlig/blob/main/src/samples/014-made-heavy/sample.md">Readings & reflection ↗</a>
+          {" "}·{" "}
+          <a href="https://github.com/blackmath88/lumpesammlig/tree/main/src/samples/014-made-heavy/encounter">Encounter evidence ↗</a>
+        </p>
+      </div>
+    </footer>
+  </main>
+  <script>
+    import "../../samples/014-made-heavy/made-heavy";
+  </script>
+</BaseLayout>

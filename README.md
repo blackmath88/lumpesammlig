@@ -75,6 +75,10 @@ The question raised by the hanger: pixels and stitches share a chart, so why doe
 
 Embroidery as a contemporary digital medium rather than a traditional motif. Six familiar interface icons (chat, lightning, headphones, folder, cloud upload, cursor) are built from a sample-local SVG stitch vocabulary in which threads follow each shape: satin fills clipped to regions, fanned stitches around curves, cord outlines along contours, layered regions with contact shadows, and knots. Everything is generated at build time into one sprite; the page shows all six at 24, 32 and 48 px on light and dark surfaces, an enlarged construction view, and a native-button toolbar with selected, notification and simulated-upload states.
 
+### 014 — Made Heavy
+
+Russian Soviet-era brutalism, encountered through two research reports rather than a visit, read as a tectonic language: bearing, suspension, repetition, trace. Four separate experiments test four distinctions. Regions of the study's own prose rest on movable piers and bear, cantilever or drop; a deep façade screens which bays you can act on from where you stand, with depth zero exposing the flat interface as the nearest peer; one undesignable unit is arranged on a site and judged by rule as fabric, exception or unbuildable; and text is poured in sequence, where a struck pour can only be overcast and keeps a sliver of what it covers at the seam. Paper and ink throughout; nothing is concrete-coloured.
+
 ## Architecture
 
 Astro is the stable, mostly static exhibition shell:
@@ -102,6 +106,9 @@ src/
       009-stitched-care.astro
       010-pixels-to-stitches.astro
       011-thread-icons.astro
+      012-impossible-index.astro
+      013-switchboard.astro
+      014-made-heavy.astro
   samples/
     ...
 ~~~
