@@ -1,0 +1,89 @@
+---
+import { samples } from '../data/samples';
+import { withBase } from '../data/site';
+
+// The collecting table: one WebGL scene where every sample rests as a specimen.
+// It is an entrance, not a replacement — the full promenade below stays the
+// readable catalogue and the fallback without WebGL or with reduced motion.
+const items = samples.map((s) => ({
+  id: s.id,
+  number: s.number,
+  title: s.title,
+  object: s.object,
+  href: withBase(s.route),
+  poster: withBase(`/samples/posters/${s.id}.webp`)
+}));
+---
+<section class="table-walk" id="table" data-items={JSON.stringify(items)} aria-label="The collecting table">
+  <div class="sticky">
+    <canvas aria-hidden="true"></canvas>
+
+    <header class="table-head">
+      <p class="eyebrow">THE COLLECTING TABLE / {String(samples.length).padStart(3, '0')} SPECIMENS</p>
+      <h2>Everything collected,<br />laid out on one table.</h2>
+    </header>
+
+    <div class="caption" data-caption role="status" aria-live="polite"></div>
+
+    <nav class="strip" aria-label="Specimens on the table">
+      {items.map((it) => (
+        <a href={it.href} data-goto title={it.title} aria-label={`${it.number} — ${it.title}`}><span>{it.number}</span><b>{it.title}</b></a>
+      ))}
+      <a class="to-list" href="#library">Read the catalogue ↓</a>
+    </nav>
+
+    <p class="hint" aria-hidden="true">Scroll to walk along the table · hover to lift · click to enter</p>
+  </div>
+</section>
+
+<style>
+  .table-walk{position:relative;height:340vh;background:#e9e4da;color:#161816;display:none}
+  .table-walk[data-ready]{display:block}
+  .sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .table-head{position:absolute;left:clamp(20px,5vw,72px);top:clamp(28px,6vh,64px);pointer-events:none;max-width:640px}
+  .eyebrow{font-size:10px;letter-spacing:.22em;font-weight:750;margin:0 0 14px;opacity:.55}
+  h2{font-size:clamp(34px,4.6vw,66px);line-height:.94;letter-spacing:-.055em;margin:0;font-weight:650}
+  .caption{position:absolute;right:clamp(20px,5vw,72px);top:clamp(28px,6vh,64px);width:min(360px,40vw);background:rgba(247,244,238,.92);backdrop-filter:blur(8px);
+    border-top:3px solid #161816;padding:18px 20px 16px;box-shadow:0 18px 40px rgba(40,34,24,.14);opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s;cursor:pointer}
+  .caption[data-show]{opacity:1;transform:none}
+  .caption :global(span){font-size:10px;letter-spacing:.2em;opacity:.55}
+  .caption :global(strong){display:block;font-size:28px;line-height:1;letter-spacing:-.04em;margin:6px 0 10px}
+  .caption :global(p){margin:0 0 12px;font-size:14px;line-height:1.45;color:#4b504a}
+  .caption :global(em){font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .strip{position:absolute;left:clamp(20px,5vw,72px);right:clamp(20px,5vw,72px);bottom:clamp(18px,4vh,36px);display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+  .strip a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:11px;letter-spacing:.12em;padding:8px 10px;border:1px solid rgba(22,24,22,.18);background:rgba(247,244,238,.7);transition:background .2s,border-color .2s}
+  .strip a b{font-weight:600;letter-spacing:0;font-size:12px;display:none}
+  .strip a:hover,.strip a:focus-visible,.strip a[data-active]{background:#161816;color:#f3f0e8;border-color:#161816}
+  .strip a[data-active] b,.strip a:focus-visible b{display:inline}
+  .strip .to-list{margin-left:auto;border-color:transparent;background:none;text-transform:uppercase}
+  .strip a:focus-visible{outline:2px solid #161816;outline-offset:2px}
+  .hint{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(70px,11vh,104px);margin:0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.5;white-space:nowrap}
+  @media(max-width:700px){
+    .table-walk{height:260vh}
+    .caption{left:20px;right:20px;width:auto;top:auto;bottom:154px}
+    .hint{display:none}
+    .strip{gap:3px}.strip a{padding:6px 7px}
+  }
+  @media(prefers-reduced-motion:reduce){.caption{transition:none}}
+</style>
+
+<script>
+  // Load three.js only when WebGL is available and the table is close to the viewport.
+  const root = document.querySelector<HTMLElement>('.table-walk');
+  const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+  if (root && gl) {
+    root.dataset.ready = '';
+    const io = new IntersectionObserver(async ([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      try {
+        const { initTable } = await import('./sample-table/scene');
+        initTable(root, JSON.parse(root.dataset.items ?? '[]'));
+      } catch {
+        delete root.dataset.ready;
+      }
+    }, { rootMargin: '600px' });
+    io.observe(root);
+  }
+</script>

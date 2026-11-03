@@ -17,3 +17,7 @@ The same renderer now supports a circuit-based progress indicator, a radial step
 ## Technical boundary
 
 Sample-local React islands own raw WebGL 1 canvases. Rendering is on demand and visibility-aware, pixel ratio is capped by quality tier, and resize work is coalesced without reallocating identical dimensions. A CSS radial field remains if WebGL is unavailable. No source photograph is used as the rendered texture.
+
+## 10 / Laid coil (added 2026-11-03)
+
+A three.js material study of the accumulation reading. One continuous tube spirals out from a raised centre along a slightly drifting path; 1,500 instanced wraps bind it, and some runs on some circuits are indigo. The slider sets how much of the path is laid, so progress is visible length of material rather than a filled bar. Pointer moves only the light, as elsewhere in this sample. It renders on demand, stops offscreen, and jumps straight to the target under reduced motion. Without WebGL2 the section shows a note pointing to 05 Accumulation. It deepens 05 and does not replace it; it is a material study, not a new interaction proposition.

@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import KnitSurface from '../samples/001-waschlumpe/KnitSurface';
+import SampleTable from '../components/SampleTable.astro';
 import SampleLibrary from '../components/SampleLibrary.astro';
 ---
 <BaseLayout>
   <main>
     <KnitSurface client:load />
+    <SampleTable />
     <SampleLibrary />
   </main>
 </BaseLayout>

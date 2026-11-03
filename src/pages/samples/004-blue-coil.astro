@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase } from '../../data/site';
 import CoilField from '../../samples/004-blue-coil/CoilField';
 import CoilExperience from '../../samples/004-blue-coil/CoilExperience';
+import CoilLaying from '../../samples/004-blue-coil/CoilLaying.astro';
 ---
 <BaseLayout title="004 Blue Coil — Lumpesammlig" description="A coiled basket lid reconstructed as concentric natural-fibre relief with indigo bindings.">
   <main class="coil-page">
@@ -57,6 +58,8 @@ import CoilExperience from '../../samples/004-blue-coil/CoilExperience';
     </section>
 
     <CoilExperience client:visible />
+
+    <CoilLaying />
 
     <footer><span>004 / BLUE COIL</span><span>radius → relief → matte light</span></footer>
   </main>

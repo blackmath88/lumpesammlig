@@ -1,0 +1,56 @@
+---
+// 004 / 10 — Laid coil. A three.js material study of the accumulation reading:
+// progress is coil that has been laid, not a bar that has been filled.
+---
+<section class="laid" aria-labelledby="laid-title">
+  <header>
+    <p class="coil-index">10 / LAID COIL</p>
+    <h2 id="laid-title">Progress is<br />what has been laid.</h2>
+    <p>One continuous bundle leaves the raised centre and keeps returning around itself. The amount laid is the state. Wraps bind each round to the last; some runs are indigo. Your pointer moves only the light.</p>
+    <p class="note">Material study in three.js. It deepens 05 Accumulation; it does not replace it.</p>
+  </header>
+  <div class="stage">
+    <canvas aria-hidden="true"></canvas>
+    <p class="fallback">This study needs WebGL. 05 Accumulation above shows the same reading.</p>
+  </div>
+  <label class="control" for="coil-laid-progress">
+    <span>Lay coil <b><output data-laid for="coil-laid-progress">40</output> % laid</b></span>
+    <input id="coil-laid-progress" aria-label="Lay coil" type="range" min="0" max="100" value="40" disabled />
+  </label>
+</section>
+
+<style>
+  .laid{max-width:1420px;margin:auto;padding:110px clamp(22px,6vw,88px) 140px;border-top:1px solid #b8a487;display:grid;grid-template-columns:.62fr 1.38fr;gap:clamp(28px,5vw,80px);align-items:start;color:#292018}
+  .coil-index{font-size:10px;letter-spacing:.21em;font-weight:760;margin:0;opacity:.58}
+  h2{font-size:clamp(40px,5vw,72px);line-height:.94;letter-spacing:-.06em;margin:20px 0 28px}
+  header p:not(.coil-index){font-family:Georgia,serif;font-size:18px;line-height:1.55;color:#695744;margin:0 0 16px}
+  header p.note{font-family:inherit;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+  .stage{position:relative;aspect-ratio:4/3;background:#d6bd95;overflow:hidden}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .fallback{position:absolute;inset:auto 20px 20px;margin:0;font-family:Georgia,serif;color:#624f39}
+  .laid[data-ready] .fallback{display:none}
+  .control{grid-column:2;display:grid;gap:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .control span{display:flex;justify-content:space-between}
+  .control b{font-weight:600;letter-spacing:.04em}
+  .control input{width:100%;accent-color:#243b58}
+  @media(max-width:900px){.laid{grid-template-columns:1fr}.control{grid-column:auto}}
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.laid');
+  const ok = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+  if (root && ok) {
+    const io = new IntersectionObserver(async ([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      try {
+        const { initCoilLaying } = await import('./coil-laying');
+        initCoilLaying(root);
+        root.querySelector('input')!.disabled = false;
+      } catch {
+        delete root.dataset.ready;
+      }
+    }, { rootMargin: '400px' });
+    io.observe(root);
+  }
+</script>
